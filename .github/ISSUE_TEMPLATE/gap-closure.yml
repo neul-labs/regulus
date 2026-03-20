@@ -1,0 +1,94 @@
+name: Gap Closure Task
+description: Track implementation of gaps identified in UK FS adoption assessment
+title: "[GAP] "
+labels: ["gap-closure"]
+body:
+  - type: dropdown
+    id: gap-id
+    attributes:
+      label: Gap Reference
+      description: Which gap from GAP_CLOSURE_PLAN.md does this address?
+      options:
+        - "Gap 1: Database Persistence"
+        - "Gap 2: LLM Integration"
+        - "Gap 3: Security (OAuth2/RBAC/mTLS)"
+        - "Gap 4: Kafka Audit Sink"
+        - "Gap 5: Governance/Safety Starters"
+        - "Gap 6: Integration Tests"
+        - "Gap 7: Global Exception Handler"
+        - "Gap 8: Circuit Breakers"
+        - "Gap 9: Secrets Management"
+        - "Gap 10: GDPR Compliance"
+        - "Other"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: Priority from gap closure plan
+      options:
+        - "P0 - Adoption Blocker"
+        - "P1 - Production Blocker"
+        - "P2 - Compliance Requirement"
+        - "P3 - Enhancement"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Task Description
+      description: What needs to be implemented?
+      placeholder: Describe the specific implementation task
+    validations:
+      required: true
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Files to Create/Modify
+      description: List the files that need to be created or modified
+      placeholder: |
+        - platform/core/regulus-ai-persistence/build.gradle.kts
+        - platform/core/regulus-ai-persistence/src/main/java/...
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: How do we know this is done?
+      placeholder: |
+        - [ ] Audit events persist across restarts
+        - [ ] Unit tests with >80% coverage
+        - [ ] Integration test with Testcontainers
+
+  - type: textarea
+    id: tests
+    attributes:
+      label: Tests Required
+      description: What tests need to be written?
+      placeholder: |
+        - AuditEventRepositoryTest.java
+        - DatabaseAuditEventSinkIntegrationTest.java
+
+  - type: input
+    id: effort
+    attributes:
+      label: Estimated Effort
+      description: How long will this take?
+      placeholder: "e.g., 2 days, 1 week"
+
+  - type: checkboxes
+    id: definition-of-done
+    attributes:
+      label: Definition of Done
+      description: Confirm all criteria before closing
+      options:
+        - label: Code implementation merged to main
+        - label: Unit tests passing with >80% coverage
+        - label: Integration tests passing
+        - label: Configuration documented
+        - label: Code reviewed by 2+ engineers
+        - label: Demo working in quickstart

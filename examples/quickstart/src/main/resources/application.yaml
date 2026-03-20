@@ -1,0 +1,83 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: regulus-quickstart
+
+# Regulus AI Platform Configuration
+regulus:
+  ai:
+    # MCP Client & Server
+    mcp:
+      enabled: true
+      mock: true  # Use mock client for quick start (no external server needed)
+      server-url: http://localhost:8080/mcp
+      auto-connect: true
+      server:
+        enabled: true
+        name: regulus-quickstart-mcp
+        version: 1.0.0
+        path: /mcp
+        tools:
+          iso20022-enabled: true
+          risk-scoring-enabled: true
+
+    # A2A Agent (disabled for quick start)
+    a2a:
+      enabled: false
+
+    # Security (relaxed for development)
+    security:
+      enabled: true
+      api-key:
+        enabled: false  # Disable for quick start
+      rate-limit:
+        enabled: true
+        requests-per-second: 100
+        burst-capacity: 200
+
+# Kill Switch
+regulus.killswitch:
+  enabled: true
+
+# Policy Guards
+regulus.policy:
+  enabled: true
+  guards:
+    lei:
+      enabled: true
+    purpose-code:
+      enabled: true
+      allowed-codes:
+        - ACCOUNT_MANAGEMENT
+        - SERVICE_DELIVERY
+        - FRAUD_PREVENTION
+        - REGULATORY_COMPLIANCE
+    consent:
+      enabled: true
+
+# Privacy Filters
+regulus.privacy:
+  enabled: true
+  filters:
+    pii-pattern:
+      enabled: true
+    json-path:
+      enabled: true
+
+# Actuator endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# Logging
+logging:
+  level:
+    com.regulus: DEBUG
+    root: INFO

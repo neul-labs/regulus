@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Gap Closure Plan
+    url: https://github.com/your-org/regulus/blob/main/docs/planning/GAP_CLOSURE_PLAN.md
+    about: Full gap closure plan with implementation details
+  - name: Product Roadmap
+    url: https://github.com/your-org/regulus/blob/main/docs/planning/product-roadmap.md
+    about: High-level product roadmap and timelines

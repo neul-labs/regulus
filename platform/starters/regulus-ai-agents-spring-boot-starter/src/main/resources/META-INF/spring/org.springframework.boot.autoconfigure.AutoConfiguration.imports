@@ -1,0 +1,4 @@
+com.regulus.platform.agents.autoconfigure.AiAgentsAutoConfiguration
+com.regulus.platform.agents.mcp.server.McpServerAutoConfiguration
+com.regulus.platform.agents.a2a.A2aAutoConfiguration
+com.regulus.platform.agents.security.SecurityAutoConfiguration

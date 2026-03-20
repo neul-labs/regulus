@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: regulus-adk-a2a-example
+
+regulus:
+  compliance:
+    profiles:
+      - eu-ai-act
+      - uk-gdpr
+      - fca-sysc
+  adk:
+    name: a2a-example
+    session-service:
+      kind: in-memory
+    audit:
+      sink: stdout
+    kill-switch:
+      enabled: true
+      dual-control: true
+    residency:
+      allowed-regions:
+        - europe-west2
+    model-risk:
+      tenant-tier: STANDARD
+
+server:
+  port: 8080

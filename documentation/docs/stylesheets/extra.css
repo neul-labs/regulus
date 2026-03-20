@@ -1,0 +1,114 @@
+/* Regulus Documentation Custom Styles */
+
+/* Primary color customization */
+:root {
+  --md-primary-fg-color: #3f51b5;
+  --md-primary-fg-color--light: #5c6bc0;
+  --md-primary-fg-color--dark: #303f9f;
+  --md-accent-fg-color: #536dfe;
+}
+
+/* Code block styling */
+.md-typeset code {
+  background-color: rgba(63, 81, 181, 0.1);
+  border-radius: 4px;
+  padding: 0.1em 0.3em;
+}
+
+/* Table styling */
+.md-typeset table:not([class]) {
+  font-size: 0.85rem;
+  border-collapse: collapse;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: rgba(63, 81, 181, 0.1);
+  font-weight: 600;
+}
+
+/* Admonition customization */
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  border-color: #ff9800;
+}
+
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+  border-color: #f44336;
+}
+
+/* API endpoint styling */
+.md-typeset .endpoint {
+  background-color: rgba(63, 81, 181, 0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.md-typeset .endpoint .method {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.md-typeset .endpoint .method.get {
+  background-color: #4caf50;
+  color: white;
+}
+
+.md-typeset .endpoint .method.post {
+  background-color: #2196f3;
+  color: white;
+}
+
+.md-typeset .endpoint .method.put {
+  background-color: #ff9800;
+  color: white;
+}
+
+.md-typeset .endpoint .method.delete {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Grid cards for home page */
+.md-typeset .grid.cards > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+.md-typeset .grid.cards > ul > li {
+  list-style: none;
+  background-color: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation improvements */
+.md-nav__link {
+  font-size: 0.8rem;
+}
+
+/* Footer customization */
+.md-footer {
+  background-color: var(--md-primary-fg-color--dark);
+}
+
+/* Print styles */
+@media print {
+  .md-sidebar,
+  .md-header,
+  .md-footer {
+    display: none;
+  }
+}

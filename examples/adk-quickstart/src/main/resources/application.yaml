@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: regulus-adk-quickstart
+
+regulus:
+  compliance:
+    profiles:
+      - eu-ai-act
+      - uk-gdpr
+      - fca-sysc
+  adk:
+    name: quickstart-agent
+    session-service:
+      kind: vertex-ai
+      project-id: ${GOOGLE_CLOUD_PROJECT:my-project}
+      location: europe-west2
+    audit:
+      sink: stdout
+    kill-switch:
+      enabled: true
+      dual-control: true
+    residency:
+      allowed-regions:
+        - europe-west2
+    model-risk:
+      tenant-tier: STANDARD
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

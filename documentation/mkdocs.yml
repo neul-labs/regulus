@@ -1,0 +1,153 @@
+site_name: Regulus
+site_description: The EU & UK compliance plane for Google ADK — drop-in plugins, service extensions, and regulation profiles for AI agents on Google's Agent Development Kit.
+site_author: Skelf Research
+site_url: https://docs.skelfresearch.com/regulus
+
+repo_name: regulus
+repo_url: https://github.com/Skelf-Research/regulus
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.path
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Skelf-Research/regulus
+  generator: false
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - Overview: getting-started/index.md
+      - Prerequisites: getting-started/prerequisites.md
+      - ADK quickstart: getting-started/adk-quickstart.md
+      - Your first compliant agent: getting-started/first-compliant-agent.md
+      - Multi-agent with A2A: getting-started/multi-agent-a2a.md
+      - Deploy to Vertex AI Agent Engine: getting-started/vertex-deploy.md
+  - Concepts:
+      - Overview: concepts/index.md
+      - What is regtech?: concepts/regtech-intro.md
+      - EU vs UK landscape: concepts/eu-uk-landscape.md
+      - Controller, processor, deployer: concepts/controller-processor-deployer.md
+      - Risk tiers: concepts/risk-tiers.md
+      - Audit trails: concepts/audit-trails.md
+      - Data residency: concepts/data-residency.md
+      - Dual control / 4-eyes: concepts/dual-control.md
+      - Glossary: concepts/glossary.md
+  - Plugins:
+      - Overview: plugins/index.md
+      - RegulusPolicyPlugin: plugins/policy.md
+      - RegulusPrivacyPlugin: plugins/privacy.md
+      - RegulusAuditPlugin: plugins/audit.md
+      - RegulusKillSwitchPlugin: plugins/kill-switch.md
+      - RegulusModelRiskPlugin: plugins/model-risk.md
+      - RegulusDataResidencyPlugin: plugins/data-residency.md
+  - Services:
+      - Overview: services/index.md
+      - RegulusVertexAiSessionService: services/vertex-ai-session.md
+      - RegulusFirestoreSessionService: services/firestore-session.md
+      - RegulusFirestoreMemoryService: services/firestore-memory.md
+      - RegulusGcsArtifactService: services/gcs-artifact.md
+      - RegulusRetentionEventCompactor: services/retention-event-compactor.md
+      - RegulusComplianceBaseComputer: services/compliance-base-computer.md
+      - A2A envelope: services/a2a.md
+  - Compliance:
+      - Overview: compliance/index.md
+      - EU:
+          - EU AI Act: compliance/eu/eu-ai-act.md
+          - GDPR: compliance/eu/gdpr.md
+          - DORA: compliance/eu/dora.md
+          - NIS2: compliance/eu/nis2.md
+          - EHDS: compliance/eu/ehds.md
+      - UK:
+          - UK GDPR + DPA 2018: compliance/uk/uk-gdpr.md
+          - FCA SYSC + Consumer Duty: compliance/uk/fca-sysc.md
+          - PRA SS1/23: compliance/uk/pra-ss1-23.md
+          - PRA SS2/21: compliance/uk/pra-ss2-21.md
+          - NHS DSPT: compliance/uk/nhs-dspt.md
+      - Coverage matrix: compliance/coverage-matrix.md
+      - Time saved: compliance/time-saved.md
+      - Audit walkthrough: compliance/audit-walkthrough.md
+  - Operations:
+      - Release and deploy: operations/release-and-deploy.md
+      - Audit retention runbook: operations/audit-retention-runbook.md
+      - Kill-switch playbook: operations/kill-switch-playbook.md
+      - DORA incident response: operations/dora-incident-response.md
+      - Vertex AI Agent Engine hardening: operations/vertex-agent-engine-hardening.md
+      - Custom profiles: operations/custom-profiles.md
+  - Reference:
+      - BOM coordinates: reference/bom.md
+      - YAML configuration: reference/configuration.md
+      - Gradle plugin tasks: reference/gradle-plugin.md
+      - Migration from LangChain4j: reference/migration-langchain4j.md

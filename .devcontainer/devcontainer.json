@@ -1,0 +1,44 @@
+{
+  "name": "Regulus Platform",
+  "image": "mcr.microsoft.com/devcontainers/java:17-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17",
+      "installGradle": "true",
+      "gradleVersion": "8.5"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle",
+        "redhat.vscode-yaml",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "yzhang.markdown-all-in-one"
+      ],
+      "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.compile.nullAnalysis.mode": "automatic",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 4,
+        "files.trimTrailingWhitespace": true,
+        "files.insertFinalNewline": true
+      }
+    }
+  },
+  "forwardPorts": [8080, 9090, 9091],
+  "postCreateCommand": "./gradlew build -x test --no-daemon",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=${localWorkspaceFolder}/.gradle-cache,target=/home/vscode/.gradle,type=bind,consistency=cached"
+  ],
+  "containerEnv": {
+    "JAVA_HOME": "/usr/lib/jvm/msopenjdk-current",
+    "GRADLE_USER_HOME": "/home/vscode/.gradle"
+  }
+}

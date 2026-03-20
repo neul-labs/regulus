@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: regulus-adk-vertex-deploy
+
+regulus:
+  compliance:
+    profiles:
+      - eu-ai-act
+      - uk-gdpr
+      - fca-sysc
+      - pra-ss1-23
+  adk:
+    name: production-agent
+    session-service:
+      kind: vertex-ai
+      project-id: ${GOOGLE_CLOUD_PROJECT}
+      location: europe-west2
+      cmek-key-name: ${REGULUS_CMEK_KEY:}
+    audit:
+      sink: kafka
+      kafka-topic: audit.regulus.v1
+    kill-switch:
+      enabled: true
+      dual-control: true
+    residency:
+      allowed-regions:
+        - europe-west2
+      require-cmek: true
+    model-risk:
+      tenant-tier: REGULATED
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus

@@ -1,0 +1,66 @@
+# Gradle / build
+build/
+.gradle/
+.kotlin/
+out/
+bin/
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python (mkdocs build env)
+__pycache__/
+*.pyc
+*.pyo
+.cache/
+documentation/site/
+documentation/.venv/
+
+# Environment
+.env
+.env.*
+*.envrc
+
+# Logs
+*.log
+logs/
+
+# JVM diagnostics
+*.hprof
+.attach_pid*
+hs_err_pid*
+replay_pid*
+
+# ADK / GCP secrets
+application_default_credentials.json
+*.serviceaccount.json
+.adk/
+.gcp/
+adc.json
+
+# Signing & publishing
+*.gpg
+*.asc
+secrets/
+signingkey.txt
+gradle.properties.local
+local.properties
+
+# Jib / container build cache
+.jib-cache/
+
+# Vertex / agent runtime artefacts
+agent_engine_logs/
+*.session-export.json
