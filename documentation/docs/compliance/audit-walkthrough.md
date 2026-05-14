@@ -164,3 +164,50 @@ The audit was tractable because every question had a single artefact to
 point at: a config, a YAML key, a Kafka event, a plugin's source. Regulus
 doesn't pre-empt the auditor's question — it makes the answer the same
 shape every time. That's the engineering value.
+
+---
+
+## What 2L and 3L asked in parallel
+
+The external assessor wasn't the only audience for the same week's
+evidence. The bank's own **second line of defence** (risk + compliance)
+and **third line** (internal audit) were running their own reviews.
+Different audience, same Regulus substrate.
+
+### 2L's questions (Head of Model Risk)
+
+1. **"Show me the SoA refresh status."** Pulled
+   `StatementOfApplicability` rendered from the production tenant's
+   `GovernanceProgramState`. Every Annex A control row had a justified
+   status; the 4 `PARTIAL` rows had remediation tickets linked.
+2. **"What's in ServiceNow that I can attest from?"** The
+   `RegulusGovernanceEvidencePlugin` had populated the IRM
+   control-evidence table for the last 90 days with one row per audit
+   event × matching framework binding. The 2L analyst attested 18
+   controls in a sitting.
+3. **"Have any control bindings drifted?"** `regulusComplianceMatrix`
+   run in CI vs the checked-in matrix — no drift since the last 2L
+   review.
+4. **"Which `grc-adapter-failure` events fired this quarter?"** Three.
+   All MetricStream pipeline blips, none missed-evidence — the
+   downstream replay caught them via the Kafka audit topic.
+
+### 3L's questions (Internal Audit Manager)
+
+1. **"Can you reproduce a control walk-through six months from now?"**
+   Yes — audit events retained 5 years raw / 7 summary; signed
+   immutability under `pra-ss1-23`; SoA snapshot archived.
+2. **"Demonstrate that 1L and 2L can't tamper with the trail."**
+   Showed the Kafka topic ACLs (1L: produce only; 2L: read only; 3L:
+   read + replay; no one with delete). HMAC signing on
+   `WebhookAdapter` for the bespoke audit-archive receiver.
+3. **"Sample 5 random invocations and verify the controls fired."**
+   Pulled by `subject_id`; each had policy + privacy + audit events
+   with the expected `framework_control_id` set.
+
+### What this changes
+
+Same week, same evidence, three different audiences. Each got what they
+needed from the same Regulus emission. The cost-per-audience drops
+sharply once the pipeline is wired — which is the whole point of
+running governance + GRC as one substrate.

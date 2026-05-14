@@ -128,6 +128,18 @@ regulus:
   workstream.
 - **Internal model committee paperwork.** Operational.
 
+## Framework mapping
+
+PRA SS1/23 is the UK fin-services analogue of NIST AI RMF for model
+risk; the mapping is therefore very close:
+
+- **NIST AI RMF** — SS1/23 §2 (inventory) ↔ `MAP-4.1`. §3 (tiering) ↔
+  `MAP-4.1`. §4 (validation) ↔ `MEASURE-1.1`. §5 (monitoring) ↔
+  `MANAGE-4.1`. §6 (kill switch) ↔ `GOVERN-4.1`.
+- **ISO/IEC 42001** — SS1/23 §2-4 ↔ `A.5.2` + `A.6.2.3`. §5 ↔
+  `A.6.2.5` (operation and monitoring). §6 ↔ `A.6.2.8` (change
+  management).
+
 ## Citations
 
 - PRA Supervisory Statement 1/23 — https://www.bankofengland.co.uk/prudential-regulation/publication/2023/may/model-risk-management-principles-for-banks-ss

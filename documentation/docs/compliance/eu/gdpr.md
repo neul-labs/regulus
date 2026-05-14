@@ -160,6 +160,20 @@ regulus:
 - **The right to be forgotten under the e-Commerce Directive / Digital
   Services Act.** Separate framework; not in scope.
 
+## Framework mapping
+
+The GDPR articles Regulus most actively enforces map to:
+
+- **NIST AI RMF** — Art. 5(1)(b) (purpose) ↔ `MAP-1.1`. Art. 25
+  (privacy by design) ↔ `GOVERN-1.1`. Arts. 44-49 (transfers) ↔
+  `MEASURE-2.7`.
+- **NIST 600-1 GenAI Profile** — Art. 25 ↔ `GAI-4` (data privacy).
+- **ISO/IEC 42001** — Art. 25 ↔ `A.7` (Data for AI). Art. 30
+  (records of processing) ↔ `A.6.2.7` (event logs). Arts. 44-49 ↔
+  `A.6.2.4` (deployment criteria).
+
+See [Coverage matrix](../coverage-matrix.md) for full bindings.
+
 ## Citations
 
 - Regulation (EU) 2016/679 — https://eur-lex.europa.eu/eli/reg/2016/679/oj

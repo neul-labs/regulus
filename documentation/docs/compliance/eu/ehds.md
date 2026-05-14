@@ -116,6 +116,13 @@ regulus:
 - **Medical-device classification.** MHRA / MDR / IVDR; separate
   regulatory layer.
 
+## Framework mapping
+
+- **NIST AI RMF** — secondary-use permit linkage ↔ `GOVERN-1.5`
+  (monitoring). Art. 56 (data quality) ↔ `MEASURE-2.8`.
+- **ISO/IEC 42001** — Chapter II/IV ↔ `A.9.4` (intended-use boundaries).
+  Art. 56 ↔ `A.7.3` (data quality).
+
 ## Citations
 
 - Regulation (EU) 2025/327 — https://eur-lex.europa.eu/eli/reg/2025/327/oj

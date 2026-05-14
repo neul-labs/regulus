@@ -192,6 +192,25 @@ App app = App.builder("annex-iii-agent", rootAgent)
 - **Whether your specific agent is high-risk under Annex III.** That's your
   call (with legal advice). We enforce the consequences once decided.
 
+## Framework mapping
+
+The EU AI Act sits naturally alongside two voluntary frameworks Regulus
+also supports:
+
+- **NIST AI RMF** — AI Act Art. 9 (risk mgmt) ↔ NIST `MAP-4.1`. Art. 12
+  (logging) ↔ `GOVERN-1.5` + `MEASURE-1.1`. Art. 14 (human oversight) ↔
+  `GOVERN-4.1`. Art. 16 (post-market monitoring) ↔ `MANAGE-4.1`. Art. 26
+  (deployer obligations) ↔ `GOVERN-2.1`.
+- **NIST AI 600-1 GenAI Profile** — relevant for generative-AI deployers
+  in particular. GAI-2 (confabulation) and GAI-7 (human-AI configuration)
+  most directly overlap.
+- **ISO/IEC 42001** — AI Act Art. 12 (logging) ↔ ISO `A.6.2.7`. Art. 14
+  (oversight) ↔ `A.6.2.8`. Art. 26 (deployer obligations) ↔ `A.9.2`.
+
+See [Governance → frameworks](../../governance/frameworks/index.md) for
+the full bindings, and the [Coverage matrix](../coverage-matrix.md) for
+the cross-reference view.
+
 ## Citations
 
 - Regulation (EU) 2024/1689 — full text: https://eur-lex.europa.eu/eli/reg/2024/1689/oj

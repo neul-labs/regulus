@@ -11,18 +11,31 @@ term that isn't pure CS vocabulary.
 
 ## Pages
 
+**Foundations** (read these first):
+
 1. **[What is regtech?](regtech-intro.md)** — the engineer's version of the
    field's definition and why it matters for AI agents.
-2. **[EU vs UK landscape](eu-uk-landscape.md)** — one-page map of regulators
+2. **[What is AI governance?](ai-governance-intro.md)** — the broader
+   discipline that compliance sits inside. The audience the Governance
+   section is written for.
+3. **[What is GRC?](grc-intro.md)** — three letters, three disciplines, and
+   where Regulus fits relative to the GRC tooling landscape (ServiceNow IRM,
+   OneTrust, MetricStream).
+4. **[Frameworks vs regulations](frameworks-vs-regulations.md)** — why
+   Regulus separates them in code and in docs.
+
+**Regulator-facing vocabulary**:
+
+5. **[EU vs UK landscape](eu-uk-landscape.md)** — one-page map of regulators
    and laws. Pin this open while you read anything else.
-3. **[Controller, processor, deployer](controller-processor-deployer.md)** —
+6. **[Controller, processor, deployer](controller-processor-deployer.md)** —
    the three roles a developer keeps tripping over.
-4. **[Risk tiers](risk-tiers.md)** — EU AI Act's pyramid, PRA SS1/23's model
+7. **[Risk tiers](risk-tiers.md)** — EU AI Act's pyramid, PRA SS1/23's model
    risk tiers, and how Regulus maps both.
-5. **[Audit trails](audit-trails.md)** — what auditors actually look at, in
+8. **[Audit trails](audit-trails.md)** — what auditors actually look at, in
    engineering terms.
-6. **[Data residency](data-residency.md)** — why the LLM endpoint's location
+9. **[Data residency](data-residency.md)** — why the LLM endpoint's location
    is a legal question.
-7. **[Dual control / 4-eyes](dual-control.md)** — the banking primitive that
-   the EU AI Act and PRA both demand for AI.
-8. **[Glossary](glossary.md)** — every acronym, one line each.
+10. **[Dual control / 4-eyes](dual-control.md)** — the banking primitive that
+    the EU AI Act and PRA both demand for AI.
+11. **[Glossary](glossary.md)** — every acronym, one line each.

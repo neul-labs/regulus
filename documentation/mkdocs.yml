@@ -98,6 +98,9 @@ nav:
   - Concepts:
       - Overview: concepts/index.md
       - What is regtech?: concepts/regtech-intro.md
+      - What is AI governance?: concepts/ai-governance-intro.md
+      - What is GRC?: concepts/grc-intro.md
+      - Frameworks vs regulations: concepts/frameworks-vs-regulations.md
       - EU vs UK landscape: concepts/eu-uk-landscape.md
       - Controller, processor, deployer: concepts/controller-processor-deployer.md
       - Risk tiers: concepts/risk-tiers.md
@@ -139,6 +142,27 @@ nav:
       - Coverage matrix: compliance/coverage-matrix.md
       - Time saved: compliance/time-saved.md
       - Audit walkthrough: compliance/audit-walkthrough.md
+  - Governance:
+      - Overview: governance/index.md
+      - Frameworks:
+          - Overview: governance/frameworks/index.md
+          - NIST AI RMF: governance/frameworks/nist-ai-rmf.md
+          - ISO/IEC 42001: governance/frameworks/iso-42001.md
+          - ISO/IEC 23894: governance/frameworks/iso-23894.md
+          - ISO/IEC 23053: governance/frameworks/iso-23053.md
+      - Three Lines of Defence:
+          - Overview: governance/three-lines/index.md
+          - 1L — Engineering: governance/three-lines/first-line.md
+          - 2L — Risk & compliance: governance/three-lines/second-line.md
+          - 3L — Internal audit: governance/three-lines/third-line.md
+      - GRC integration:
+          - Overview: governance/grc/index.md
+          - ServiceNow IRM: governance/grc/servicenow-irm.md
+          - OneTrust AI Governance: governance/grc/onetrust.md
+          - MetricStream: governance/grc/metricstream.md
+          - Generic webhook: governance/grc/webhook.md
+      - Evidence schema: governance/evidence-schema.md
+      - Program operating model: governance/program-operating-model.md
   - Operations:
       - Release and deploy: operations/release-and-deploy.md
       - Audit retention runbook: operations/audit-retention-runbook.md

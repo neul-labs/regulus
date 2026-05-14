@@ -24,6 +24,9 @@ An ADR is a short document that captures an important architectural decision alo
 | [ADR-007](./ADR-007-distribution-channels.md) | Distribution Channels | Accepted | 2026-04-02 |
 | [ADR-008](./ADR-008-residency-by-construction.md) | Residency by Construction | Accepted | 2026-04-09 |
 | [ADR-009](./ADR-009-regtech-as-product-docs.md) | Regtech-as-Product-Docs Editorial Standard | Accepted | 2026-04-14 |
+| [ADR-010](./ADR-010-ai-governance-framework-integration-model.md) | AI Governance Framework Integration Model | Accepted | 2026-05-12 |
+| [ADR-011](./ADR-011-grc-integration-via-pluggable-adapters.md) | GRC Integration via Pluggable Adapters | Accepted | 2026-05-13 |
+| [ADR-012](./ADR-012-three-lines-of-defence-operating-model.md) | Three Lines of Defence Operating Model | Accepted | 2026-05-13 |
 
 ## ADR Template
 

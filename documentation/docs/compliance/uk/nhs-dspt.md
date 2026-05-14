@@ -138,6 +138,13 @@ PolicyContext context = new PolicyContext(
 - **Clinical Risk Management (DCB0129, DCB0160).** Separate clinical
   safety regime; document outside Regulus.
 
+## Framework mapping
+
+- **NIST AI RMF** — DSPT 1.x (personal data) ↔ `MEASURE-2.7`. DSPT 4.x
+  (staff identity) ↔ `GOVERN-2.1`. DSPT 6.x (incidents) ↔ `MANAGE-2.2`.
+- **ISO/IEC 42001** — DSPT 1.x ↔ `A.7` (Data for AI). DSPT 4.x ↔
+  `A.3.2`. DSPT 6.x ↔ `A.8.4`.
+
 ## Citations
 
 - NHS DSPT — https://www.dsptoolkit.nhs.uk

@@ -127,6 +127,12 @@ plus:
 - **IDTA / UK Addendum execution.** Paperwork.
 - **PECR (cookies, e-marketing).** Separate UK statute; not in scope.
 
+## Framework mapping
+
+Same shape as EU GDPR (see the [GDPR page](../eu/gdpr.md#framework-mapping))
+because UK GDPR is structurally identical. Practical bindings to
+**NIST AI RMF** and **ISO/IEC 42001** carry over without change.
+
 ## Citations
 
 - UK GDPR — https://www.legislation.gov.uk/eur/2016/679/contents

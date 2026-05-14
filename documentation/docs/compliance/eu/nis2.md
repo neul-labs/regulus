@@ -114,6 +114,13 @@ regulus:
   state.
 - **Sector-specific overlays** (e.g. EBA Guidelines for banking).
 
+## Framework mapping
+
+- **NIST AI RMF** — Art. 21 (risk management) ↔ `GOVERN-1.1`. Art. 23
+  (incident reporting) ↔ `MANAGE-2.2`. Art. 21(2)(d) (supply chain) ↔
+  `GOVERN-6.1`.
+- **ISO/IEC 42001** — Art. 21 ↔ `A.2.2` (AI policy). Art. 23 ↔ `A.8.4`.
+
 ## Citations
 
 - Directive (EU) 2022/2555 — https://eur-lex.europa.eu/eli/dir/2022/2555/oj

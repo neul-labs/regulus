@@ -138,6 +138,14 @@ regulus:
 - **The DORA Oversight Framework** for critical ICT third parties. Applies
   to your providers, not to you.
 
+## Framework mapping
+
+- **NIST AI RMF** — Arts. 5-10 (ICT risk) ↔ `GOVERN-1.1` + `MAP-1.1`.
+  Arts. 17-23 (incidents) ↔ `MANAGE-2.2`. Arts. 28-30 (third-party) ↔
+  `GOVERN-6.1`.
+- **ISO/IEC 42001** — Arts. 5-10 ↔ `A.2.2` (AI policy). Arts. 17-23 ↔
+  `A.8.4` (incident communication). Arts. 28-30 ↔ `A.10.3`.
+
 ## Citations
 
 - Regulation (EU) 2022/2554 — https://eur-lex.europa.eu/eli/reg/2022/2554/oj

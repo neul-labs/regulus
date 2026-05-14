@@ -41,6 +41,36 @@ it uses. Regenerate with `./gradlew regulusComplianceMatrix`.
 | `secondary-use-permit` | — | — | — | — | — | — | — | — | Chapter IV | Audit attribution (`permit_ref`) | (integration) |
 | `data-quality-labels` | — | — | — | — | — | — | — | — | Art. 56 | `AfterModelCallback` (AuditPlugin) | (integration) |
 
+## Framework bindings
+
+The same Regulus mechanisms above also bind to **governance framework**
+control ids. Activate via `regulus.governance.frameworks: [...]`.
+
+| Mechanism | NIST AI RMF | NIST 600-1 GenAI | NIST Agent Interop (planned) | ISO/IEC 42001 | ISO/IEC 23894 | ISO/IEC 23053 |
+|---|---|---|---|---|---|---|
+| `purpose-binding` | MAP-1.1 | — | — | A.9.2 | — | — |
+| `automated-decisions-safeguards` | — | GAI-7 | — | — | — | — |
+| `privacy-by-design` | — | GAI-4 | — | A.7 | — | — |
+| `pii-redaction` | — | GAI-4 | — | A.7.3 | — | — |
+| `storage-limitation` | GOVERN-1.5 | — | — | A.6.2.7 | — | — |
+| `audit-trail` | GOVERN-1.5, MEASURE-1.1 | GAI-8 | AGENT-MONITORING-1 | A.6.2.7 | CL-6.7 | CL-6.5 |
+| `cross-border-residency` | MEASURE-2.7 | GAI-9 | — | A.6.2.4 | — | — |
+| `dual-control-kill-switch` | GOVERN-4.1 | GAI-2 | AGENT-SECURITY-2 | A.6.2.8 | CL-6.6 | — |
+| `model-risk-tier` | MAP-4.1 | GAI-7 | AGENT-SECURITY-1 | A.5.2 | CL-6.3, CL-6.4 | CL-7 |
+| `transparency-disclosure` | MEASURE-2.8 | GAI-7 | — | A.8.5 | — | — |
+| `post-market-monitoring` | MANAGE-4.1 | — | — | A.6.2.5 | — | — |
+| `incident-classification` | MANAGE-2.2 | — | — | A.8.4 | — | — |
+| `third-party-risk` | GOVERN-6.1 | GAI-12 | — | A.10.3 | — | — |
+| `senior-management-arrangements` | GOVERN-2.1 | — | — | A.3.2 | — | — |
+| `model-inventory` | — | — | — | A.4.4 | — | CL-6.2 |
+| `policy-engine` | GOVERN-1.1 | GAI-3 | AGENT-IDENTITY-2 | A.2.2 | — | — |
+| `a2a-envelope` | — | — | AGENT-IDENTITY-1, AGENT-MONITORING-2 | — | — | — |
+
+Bindings are generated from each `GovernanceFramework.bindings()`. The
+NIST AI RMF Agent Interop Profile column uses provisional IDs from the
+April 2026 concept note; final IDs land when NIST publishes (target Q4
+2026).
+
 ## Notes
 
 - Empty cells mean the mechanism is not bound to a specific clause of that
@@ -51,3 +81,7 @@ it uses. Regenerate with `./gradlew regulusComplianceMatrix`.
   profiles.
 - The composite profile (built from
   `regulus.compliance.profiles: [...]`) unions all bindings.
+- The composite framework (built from
+  `regulus.governance.frameworks: [...]`) does the equivalent for
+  frameworks; both join into the same audit event via
+  `regulation_clause` and `framework_control_id` fields.

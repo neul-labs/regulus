@@ -111,6 +111,13 @@ regulus:
 - **The exit plan itself.** Document outside Regulus; we link to it.
 - **Cross-border outsourcing law beyond residency** (e.g. tax, FX, employment).
 
+## Framework mapping
+
+- **NIST AI RMF** — SS2/21 §3 (register) ↔ `GOVERN-6.1`. §6 (residency) ↔
+  `MEASURE-2.7`. §10 (exit) ↔ `MANAGE-2.2`.
+- **ISO/IEC 42001** — SS2/21 §3 ↔ `A.10.3`. §6 ↔ `A.6.2.4`. §7 (audit
+  rights) ↔ `A.10.2`.
+
 ## Citations
 
 - PRA Supervisory Statement 2/21 — https://www.bankofengland.co.uk/prudential-regulation/publication/2021/march/outsourcing-and-third-party-risk-management-ss

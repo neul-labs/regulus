@@ -42,6 +42,14 @@ first — every page here assumes you know the
 
 ## Cross-cutting
 
-- [Coverage matrix](coverage-matrix.md) — regulation × control × ADK hook × test fixture
+- [Coverage matrix](coverage-matrix.md) — regulation × control × ADK hook × test fixture (now includes NIST AI RMF + ISO 42001 framework columns)
 - [Time saved](time-saved.md) — honest cost of building each control yourself
 - [Audit walkthrough](audit-walkthrough.md) — what we showed the auditor
+
+## Related: AI governance frameworks
+
+Regulations are mandatory. Frameworks like NIST AI RMF and ISO/IEC 42001
+are voluntary best-practice anchors most mature operators adopt
+*alongside* their regulation profiles. See the
+[Governance section](../governance/index.md) and
+[Concepts → Frameworks vs regulations](../concepts/frameworks-vs-regulations.md).

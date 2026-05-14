@@ -7,13 +7,21 @@
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.regulus.compliance)](https://plugins.gradle.org/plugin/com.regulus.compliance)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**The EU & UK compliance plane for Google ADK.**
+**The EU & UK compliance plane for Google ADK — the runtime layer of your
+AI governance program.**
 
 Drop-in plugins and service extensions for policy guards, PII redaction,
 dual-control HITL, regulation-aware retention, residency-pinned sessions /
 memory / artifacts, and immutable audit. Built on ADK 1.x's official
 `BasePlugin` and service interfaces — so the Regulus surface is the same shape
 as the rest of your ADK code.
+
+Maps to **EU & UK regulations** (EU AI Act, GDPR, UK GDPR, DORA, NIS2, FCA
+SYSC, PRA SS1/23 + SS2/21, NHS DSPT, EHDS) **and** the voluntary frameworks
+mature buyers expect (**NIST AI RMF + 600-1 GenAI Profile + Agent Interop
+Profile, ISO/IEC 42001 AIMS, ISO/IEC 23894, ISO/IEC 23053**). Evidence flows
+into your GRC tool (ServiceNow IRM, OneTrust AI Governance, MetricStream,
+generic webhook) via opt-in adapters.
 
 > Shipped 20 March 2026, ten days ahead of ADK Java 1.0 GA, and tracking ADK
 > releases since.
@@ -117,6 +125,29 @@ Full mapping (regulation × control × ADK hook × test fixture) lives at
 [`coverage-matrix.md`](documentation/docs/compliance/coverage-matrix.md), and
 is regenerated from `ComplianceProfile.controls()` by
 `./gradlew regulusComplianceMatrix`.
+
+## AI governance & GRC — for governance leaders
+
+If you're a **CISO / CAIO / CRO / Head of Model Risk / Internal Audit**
+reading this: Regulus is the **runtime control-execution layer** under
+your AI governance program. We don't replace your GRC tool — we feed it.
+
+- **Frameworks supported.** NIST AI RMF (1.0 + AI 600-1 GenAI Profile +
+  the planned Q4 2026 Agent Interop Profile), ISO/IEC 42001 (AIMS, with
+  a built-in Statement of Applicability generator), ISO/IEC 23894 (AI
+  risk management), ISO/IEC 23053 (AI/ML system framework).
+- **Three Lines of Defence.** 1L gets inline runtime guardrails. 2L gets
+  a continuous evidence stream into the GRC tool. 3L gets a tamper-
+  evident, reproducible audit trail with signed immutability under
+  regulated profiles.
+- **GRC integration.** Opt-in adapters for ServiceNow IRM, OneTrust AI
+  Governance, MetricStream, and a generic HMAC-signed webhook for
+  LogicGate / Riskonnect / RSA Archer / IBM OpenPages / bespoke
+  pipelines. Each ships with sensible defaults plus `fieldMappings`
+  override for tenant-customised schemas.
+
+Start at **[Governance overview →](documentation/docs/governance/index.md)**
+or **[Concepts → What is AI governance?](documentation/docs/concepts/ai-governance-intro.md)**.
 
 ## How it plugs into ADK
 

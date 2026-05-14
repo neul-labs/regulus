@@ -171,6 +171,15 @@ PolicyContext context = new PolicyContext(
   audit + kill switch, but the resilience programme as a whole is a separate
   workstream.
 
+## Framework mapping
+
+- **NIST AI RMF** — SYSC 4 (senior management) ↔ `GOVERN-2.1`. SYSC 13
+  (outsourcing) ↔ `GOVERN-6.1`. Consumer Duty FG22/5 ↔ `MEASURE-2.8`.
+- **NIST 600-1 GenAI Profile** — Consumer Duty vulnerable-customer flows
+  align with `GAI-7` (human-AI configuration).
+- **ISO/IEC 42001** — SYSC 4 ↔ `A.3.2`. SYSC 9 (records) ↔ `A.6.2.7`.
+  SYSC 13 ↔ `A.10.3`. Consumer Duty intended use ↔ `A.9.2`.
+
 ## Citations
 
 - FCA Handbook SYSC — https://www.handbook.fca.org.uk/handbook/SYSC/

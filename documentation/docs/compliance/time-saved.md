@@ -24,6 +24,11 @@ These numbers are conservative. We've seen teams spend 2–3x as long in
 practice, mostly because the regulator's interpretation moves while you're
 building.
 
+The last three rows are **program-weeks**, not engineer-weeks — work
+distributed across model risk, compliance, security, and a build-side
+engineer. Program-weeks are denominated in elapsed time at typical
+allocation, not raw FTE-time.
+
 ## The table
 
 | Control | Build it yourself | Regulus | Ongoing |
@@ -40,6 +45,9 @@ building.
 | **DORA incident pipeline** — RTS-shaped incident classification, 4h / 72h / 1-month notification timer, register linkage | ~5 engineer-weeks | `dora` profile + audit pipeline | Track RTS updates |
 | **PRA SS1/23 model risk integration** — tier classification per model, validation evidence persistence, tier-aware policy, deactivation drill plumbing | ~6 engineer-weeks (mostly shared with kill switch + model risk + audit) | `pra-ss1-23` profile + `RegulusModelRiskPlugin` + `RegulusKillSwitchPlugin` | Track PRA Dear CEO letters |
 | **NHS DSPT specifics** — NHS Number pattern, clinician identity audit attribution, IG SIRI process integration | ~3 engineer-weeks | `nhs-dspt` profile + `RegulusPrivacyPlugin` (built-in NHS_NUMBER) | Track DSPT annual cycle |
+| **NIST AI RMF / 600-1 mapping** — turning controls into framework-shaped evidence, function-by-function | ~6 program-weeks (model-risk function) | `nist-ai-rmf` / `nist-ai-rmf-600-1` frameworks + binding-aware audit events | Track AI Office / NIST profile additions |
+| **ISO 42001 Statement of Applicability** — Annex A control inventory + implementation status + justifications, refreshed annually | ~3 program-weeks per cycle | `StatementOfApplicability` generator from `GovernanceProgramState` | Refresh per certification cycle |
+| **GRC tool integration (any one vendor)** — REST adapter, field mappings, signature / auth, retry, health-check, evidence-schema alignment | ~4–8 engineer-weeks per vendor | One of the four shipped `GrcEvidenceAdapter`s + `fieldMappings` override | Field-mapping maintenance as the vendor schema evolves |
 
 ## Where the numbers come from
 
