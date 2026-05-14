@@ -28,23 +28,23 @@ dependencies {
         api("dev.langchain4j:langchain4j-embeddings:0.35.0")
 
         // Regulus Platform Modules — ADK extension surface
-        api("com.neullabs:regulus-ai-adk-plugins:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-adk-services:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-adk-a2a:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-compliance:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-governance:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-grc-adapters:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-adk-spring-boot-starter:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-cli:0.1.0-SNAPSHOT")
+        api("com.neullabs:regulus-ai-adk-plugins:${project.version}")
+        api("com.neullabs:regulus-ai-adk-services:${project.version}")
+        api("com.neullabs:regulus-ai-adk-a2a:${project.version}")
+        api("com.neullabs:regulus-ai-compliance:${project.version}")
+        api("com.neullabs:regulus-ai-governance:${project.version}")
+        api("com.neullabs:regulus-ai-grc-adapters:${project.version}")
+        api("com.neullabs:regulus-ai-adk-spring-boot-starter:${project.version}")
+        api("com.neullabs:regulus-cli:${project.version}")
 
         // Regulus Platform Modules — existing
-        api("com.neullabs:regulus-ai-agents-spring-boot-starter:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-governance-starter:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-safety-starter:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-policy:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-privacy:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-kill-switch:0.1.0-SNAPSHOT")
-        api("com.neullabs:regulus-ai-observability:0.1.0-SNAPSHOT")
+        api("com.neullabs:regulus-ai-agents-spring-boot-starter:${project.version}")
+        api("com.neullabs:regulus-ai-governance-starter:${project.version}")
+        api("com.neullabs:regulus-ai-safety-starter:${project.version}")
+        api("com.neullabs:regulus-ai-policy:${project.version}")
+        api("com.neullabs:regulus-ai-privacy:${project.version}")
+        api("com.neullabs:regulus-ai-kill-switch:${project.version}")
+        api("com.neullabs:regulus-ai-observability:${project.version}")
 
         // Spring Boot Starters
         api("org.springframework.boot:spring-boot-starter-aop")
