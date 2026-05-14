@@ -45,7 +45,14 @@ jobs:
       - name: CLI fat-jar smoke
         run: |
           ./gradlew --no-daemon :platform:cli:regulus-cli:shadowJar
-          java -jar platform/cli/regulus-cli/build/libs/regulus-cli-*.jar --version
+          # The libs/ dir also contains -sources.jar and -javadoc.jar;
+          # match only the fat jar (no classifier).
+          JAR=$(ls platform/cli/regulus-cli/build/libs/regulus-cli-*.jar \
+                  | grep -v sources \
+                  | grep -v javadoc \
+                  | head -1)
+          test -n "$JAR" || { echo "No fat jar found"; exit 1; }
+          java -jar "$JAR" --version
 
   docs:
     runs-on: ubuntu-latest
