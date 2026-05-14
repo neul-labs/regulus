@@ -1,0 +1,34 @@
+# Regulus CODEOWNERS — review routing.
+#
+# Until org membership and team structure are formalised, the @neul-labs
+# org acts as the default reviewer set. As team-specific responsibilities
+# are assigned, replace @neul-labs with team handles.
+
+# Default — everything in the repo
+*                                                    @neul-labs
+
+# Code review by area (placeholders — wire to teams once formed)
+/platform/core/regulus-ai-adk-plugins/               @neul-labs
+/platform/core/regulus-ai-adk-services/              @neul-labs
+/platform/core/regulus-ai-adk-a2a/                   @neul-labs
+/platform/core/regulus-ai-compliance/                @neul-labs
+/platform/core/regulus-ai-governance/                @neul-labs
+/platform/core/regulus-ai-grc-adapters/              @neul-labs
+/platform/starters/                                  @neul-labs
+/platform/cli/                                       @neul-labs
+/platform/gradle-plugin/                             @neul-labs
+
+# Release + CI — security-sensitive
+/.github/workflows/                                  @neul-labs
+/build.gradle.kts                                    @neul-labs
+/gradle.properties                                   @neul-labs
+/settings.gradle.kts                                 @neul-labs
+/install.sh                                          @neul-labs
+
+# Documentation
+/documentation/                                      @neul-labs
+/docs/decisions/                                     @neul-labs
+/README.md                                           @neul-labs
+/CHANGELOG.md                                        @neul-labs
+/SECURITY.md                                         @neul-labs
+/RELEASING.md                                        @neul-labs

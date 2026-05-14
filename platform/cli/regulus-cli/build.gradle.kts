@@ -29,7 +29,7 @@ tasks.withType<Test> {
 
 tasks.shadowJar {
     archiveBaseName.set("regulus-cli")
-    archiveClassifier.set("")
+    archiveClassifier.set("")          // Replace the plain jar — see jar disable below.
     archiveVersion.set(project.version.toString())
     mergeServiceFiles()
     manifest {
@@ -38,6 +38,13 @@ tasks.shadowJar {
             "Implementation-Version" to project.version
         ))
     }
+}
+
+// Disable the plain jar so its output doesn't collide with shadowJar's
+// (which uses the empty classifier). The fat jar is the canonical
+// CLI distribution artefact.
+tasks.named<Jar>("jar") {
+    enabled = false
 }
 
 tasks.named("build") {
