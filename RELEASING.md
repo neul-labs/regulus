@@ -19,12 +19,21 @@ which produces six artefacts in three tiers:
 |---|---|---|---|
 | 1 | GitHub Release (Markdown body from CHANGELOG.md + `regulus-cli-X.Y.Z.jar` attached) | `github.com/neul-labs/regulus/releases` | None — uses `GITHUB_TOKEN` |
 | 2 | Reference container image | `ghcr.io/neul-labs/regulus-adk-demo:X.Y.Z` | None — uses `GITHUB_TOKEN` |
-| 3 | Maven Central artefacts (all `com.neullabs:*`) | `central.sonatype.com` | `SONATYPE_USERNAME`, `SONATYPE_PASSWORD`, `SIGNING_KEY`, `SIGNING_PASSWORD` |
+| 3 | Maven Central artefacts (all `com.neullabs:*`) | `central.sonatype.com` → Maven Central | `SONATYPE_USERNAME`, `SONATYPE_PASSWORD`, `SIGNING_KEY`, `SIGNING_PASSWORD` |
 | 3 | Gradle Plugin Portal (`com.neullabs.compliance`) | `plugins.gradle.org` | `GRADLE_PUBLISH_KEY`, `GRADLE_PUBLISH_SECRET` |
 
 **Tier 1 + Tier 2 work out of the box.** Tier 3 requires one-time admin
 setup (see below) and is gated in the workflow on the relevant secrets
 being present.
+
+> **Note on Maven Central.** Sonatype's legacy OSSRH staging-repo flow
+> (`s01.oss.sonatype.org`) was **sunset on 30 June 2025**. We publish
+> exclusively via the new Central Portal at `central.sonatype.com`,
+> using the community-maintained `com.vanniktech.maven.publish` Gradle
+> plugin (there's no official Sonatype Gradle plugin yet). The plugin
+> assembles a Maven-layout bundle, signs each artefact with the GPG
+> key in-memory, POSTs to the Portal's REST API, polls for validation,
+> and auto-releases on success — no web-UI clicks per release.
 
 ## One-time admin setup
 
@@ -33,27 +42,42 @@ before any tag-triggered Maven Central or Gradle Plugin Portal
 publication will succeed. **None of this is in scope for the repo
 itself — it's outside-the-code work.**
 
-### 1. Sonatype OSSRH namespace verification
+### 1. Sonatype Central Portal — namespace verification
 
-Maven Central requires you to prove ownership of the `com.neullabs`
-coordinate. Two options:
+We publish under the `com.neullabs` Maven groupId. The Portal requires
+you to prove ownership of the `neullabs.com` domain.
 
-- **DNS TXT** — fastest if you own a domain matching the namespace.
-  You'd need a `neullabs.com` DNS record; if you control that domain,
-  this is the simplest path.
-- **GitHub repo verification (Recommended)** — Sonatype Central supports
-  publishing from the `io.github.<username>` namespace by verifying the
-  GitHub username. To get `com.neullabs` instead, you'll need a
-  custom-namespace request to Central Sonatype. Reach out via their
-  intake at <https://central.sonatype.org/register/central-portal/>.
+1. Log in to <https://central.sonatype.com>.
+2. Username menu → **View Namespaces** → **Add Namespace** → enter
+   `com.neullabs`. State becomes "Unverified".
+3. Click **Verify Namespace**. The Portal generates a verification key
+   (UUID-shaped string).
+4. At your DNS registrar for `neullabs.com`, add a **TXT record**:
+   - **Host/Name:** `neullabs.com` (the apex — sometimes shown as `@`).
+   - **Value:** the verification key.
+   - **TTL:** default (300s or whatever the registrar suggests).
+5. Back on the Portal, confirm the verification. Propagation typically
+   takes minutes; can take a few hours.
 
-Once verified, you'll have:
+You only need the TXT record on the apex `neullabs.com`. Subdomains
+like `docs.neullabs.com` / `regulus.neullabs.com` are unrelated.
 
-- A Sonatype username (your portal login).
-- A user token (their "user token" feature in the portal UI) — use this
-  as `SONATYPE_PASSWORD`.
+### 2. Generate a Portal user token
 
-### 2. GPG signing key
+Username menu → **View Account** → **Generate User Token**.
+
+The Portal gives you a **token username** + **token password**. These
+are *not* your Portal account login — they're machine credentials used
+by the publishing plugin.
+
+Store them as GitHub secrets:
+- `SONATYPE_USERNAME` ← token username
+- `SONATYPE_PASSWORD` ← token password
+
+(We keep the secret names from the OSSRH era so the workflow doesn't
+need renames; the values themselves are different.)
+
+### 3. GPG signing key
 
 Maven Central requires every artefact to be GPG-signed.
 
@@ -66,10 +90,17 @@ gpg --keyserver hkp://keys.openpgp.org --send-keys <KEY_ID>
 gpg --keyserver hkp://keyserver.ubuntu.com --send-keys <KEY_ID>
 ```
 
-Store the armored private key as the `SIGNING_KEY` secret. Store the
-passphrase as `SIGNING_PASSWORD`.
+Store as GitHub secrets:
+- `SIGNING_KEY` ← full ASCII-armored block (includes the
+  `-----BEGIN/END PGP PRIVATE KEY BLOCK-----` lines)
+- `SIGNING_PASSWORD` ← passphrase
 
-### 3. GHCR package permissions (first push only)
+The workflow passes these in as
+`ORG_GRADLE_PROJECT_signingInMemoryKey` and
+`ORG_GRADLE_PROJECT_signingInMemoryKeyPassword`, so the plugin signs
+without needing GPG on the runner.
+
+### 4. GHCR package permissions (first push only)
 
 The first push to `ghcr.io/neul-labs/regulus-adk-demo` requires the
 package to exist with write access for the `regulus` repository's
@@ -93,22 +124,22 @@ The release workflow marks the `ghcr` job `continue-on-error: true`, so
 a GHCR failure doesn't fail the overall release run. The GitHub Release
 + CLI jar (Tier 1) is the canonical artefact.
 
-### 4. Gradle Plugin Portal API key
+### 5. Gradle Plugin Portal API key
 
 <https://plugins.gradle.org/> → create account → API Keys → generate.
 You'll get a key + secret. Store as `GRADLE_PUBLISH_KEY` and
 `GRADLE_PUBLISH_SECRET` GitHub secrets.
 
-### 5. Configure GitHub secrets
+### 6. Configure GitHub secrets
 
 In the repo settings → Secrets and variables → Actions, add:
 
-- `SONATYPE_USERNAME`
-- `SONATYPE_PASSWORD`
-- `SIGNING_KEY` (full ASCII-armored block, with `-----BEGIN/END PGP PRIVATE KEY BLOCK-----`)
-- `SIGNING_PASSWORD`
-- `GRADLE_PUBLISH_KEY`
-- `GRADLE_PUBLISH_SECRET`
+- `SONATYPE_USERNAME` — Portal token username (§2)
+- `SONATYPE_PASSWORD` — Portal token password (§2)
+- `SIGNING_KEY` — ASCII-armored GPG private key block (§3)
+- `SIGNING_PASSWORD` — GPG passphrase (§3)
+- `GRADLE_PUBLISH_KEY` — Plugin Portal key (§5)
+- `GRADLE_PUBLISH_SECRET` — Plugin Portal secret (§5)
 
 `GITHUB_TOKEN` is provided automatically.
 
@@ -152,9 +183,13 @@ Tag-push triggers `release.yml`.
 - Check `ghcr.io/neul-labs/regulus-adk-demo:X.Y.Z` is reachable
   (`docker pull` test).
 - If Tier 3 was enabled:
-  - Maven Central: check <https://central.sonatype.com/namespace/com.neullabs>
-    — propagation can take 30 min to 4 hours.
-  - Gradle Plugin Portal:
+  - **Maven Central**: check the Deployments tab on the Central Portal
+    at <https://central.sonatype.com/publishing/deployments>. With
+    `automaticRelease = true` (our default), validation runs and the
+    artefacts land in Maven Central. Propagation to
+    `repo1.maven.org/maven2/com/neullabs/...` takes 30 min – 4 h.
+    Namespace landing page: <https://central.sonatype.com/namespace/com.neullabs>.
+  - **Gradle Plugin Portal**:
     <https://plugins.gradle.org/plugin/com.neullabs.compliance> —
     usually live within minutes.
 
@@ -188,13 +223,24 @@ For a security-critical fix on a released version:
 
 ## What to do when something goes wrong
 
-- **Sonatype publish fails** — the staging repository is left open. Log
-  in to <https://s01.oss.sonatype.org/> (or the Central Portal),
-  inspect, drop the staging repo, re-run.
+- **Maven Central publish fails on validation** — open the deployment
+  at <https://central.sonatype.com/publishing/deployments>. The
+  Validation Issues panel lists the specific failures (missing POM
+  fields, unsigned artefacts, namespace mismatch, etc.). Fix locally
+  and re-run the failing `maven-central` job from the workflow run
+  page; the plugin idempotently re-uploads.
+- **Maven Central publish fails on Portal token** — regenerate via
+  username menu → View Account → Generate User Token, then update the
+  `SONATYPE_USERNAME` / `SONATYPE_PASSWORD` secrets.
+- **Maven Central publish fails on signing** — confirm the
+  `SIGNING_KEY` secret is the *full* ASCII-armored block including
+  the BEGIN/END lines. The most common failure is a key that wasn't
+  exported with `--armor`.
 - **Plugin Portal publish fails** — usually a key issue. Regenerate at
   <https://plugins.gradle.org/u/<account>/api-keys>.
 - **GHCR push fails** — token scope. Confirm the workflow has
-  `packages: write` permission.
+  `packages: write` permission. First-push package-permission setup is
+  documented in §4 above.
 - **GitHub Release didn't get the jar** — check the `Release` step of
   the workflow; the `gh release upload` may have raced ahead of the
   jar's build. Re-run the workflow against the existing tag.
@@ -215,12 +261,18 @@ Before every tag:
 - [ ] **Verify ADK 1.2.0 is available on Maven Central:**
       `curl -sf https://repo1.maven.org/maven2/com/google/adk/google-adk/1.2.0/`
       (returns 200; the page may be a directory listing or 404 redirect).
-      The nightly workflow tracks the latest version; if `adk-drift` issues
-      are open, decide whether to release against the pinned version or
-      bump.
+      The nightly workflow tracks the latest version; if `adk-drift`
+      issues are open, decide whether to release against the pinned
+      version or bump.
+- [ ] **Verify the `com.neullabs` namespace is still verified** at
+      <https://central.sonatype.com/namespaces>. DNS TXT records can
+      get deleted; if the namespace shows as Unverified, re-verify
+      before tagging.
 - [ ] The funnel pages still mention the correct version in copy-paste
       blocks where they don't auto-link via `{{regulusVersion}}`.
 - [ ] No `Skelf-Research` / `skelfresearch.com` references reintroduced
       (this is a recurring footgun — `git grep -i skelf` to verify).
 - [ ] No `com.regulus.platform` references reintroduced
       (`git grep com.regulus.platform` returns zero).
+- [ ] No `s01.oss.sonatype.org` references reintroduced (OSSRH is gone;
+      `git grep oss.sonatype.org` returns zero).

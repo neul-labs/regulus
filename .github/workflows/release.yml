@@ -121,9 +121,10 @@ jobs:
             -PregulusVersion=${{ needs.github-release.outputs.version }}
 
   # ─────────────────────────────────────────────────────────────────────
-  # TIER 3 — MAVEN CENTRAL (Sonatype OSSRH)
-  # Gated on Sonatype + signing secrets being present.
-  # See RELEASING.md → "One-time admin setup".
+  # TIER 3 — MAVEN CENTRAL (Sonatype Central Portal)
+  # Publishes via the new central.sonatype.com Portal — OSSRH was
+  # sunset on 30 June 2025. Gated on the Portal user-token + signing
+  # secrets being present. See RELEASING.md → "One-time admin setup".
   # ─────────────────────────────────────────────────────────────────────
   maven-central:
     needs: github-release
@@ -139,7 +140,7 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Check Sonatype gating
+      - name: Check Central Portal gating
         id: gate
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
@@ -147,21 +148,28 @@ jobs:
         run: |
           if [ -z "$SONATYPE_USERNAME" ] || [ -z "$SIGNING_KEY" ]; then
             echo "ready=false" >> "$GITHUB_OUTPUT"
-            echo "::notice title=Maven Central publish skipped::Sonatype + signing secrets not configured. See RELEASING.md."
+            echo "::notice title=Maven Central publish skipped::Central Portal + signing secrets not configured. See RELEASING.md."
           else
             echo "ready=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Publish to Sonatype OSSRH
+      - name: Publish to Maven Central via Central Portal
         if: steps.gate.outputs.ready == 'true'
         env:
-          ORG_GRADLE_PROJECT_sonatypeUsername: ${{ secrets.SONATYPE_USERNAME }}
-          ORG_GRADLE_PROJECT_sonatypePassword: ${{ secrets.SONATYPE_PASSWORD }}
-          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
-          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+          # The Vanniktech plugin reads these properties.
+          # SONATYPE_USERNAME / SONATYPE_PASSWORD are the Portal user-token
+          # values (NOT your Portal account password). Generate at
+          # https://central.sonatype.com → View Account → Generate User Token.
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          ./gradlew --no-daemon \
-            publishToSonatype closeAndReleaseSonatypeStagingRepository \
+          # publishAndReleaseToMavenCentral builds the bundle for every
+          # publishable subproject, signs each artefact with the in-memory
+          # GPG key, POSTs to the Portal API, polls for validation, and
+          # auto-releases on success.
+          ./gradlew --no-daemon publishAndReleaseToMavenCentral \
             -PregulusVersion=${{ needs.github-release.outputs.version }}
 
   # ─────────────────────────────────────────────────────────────────────
