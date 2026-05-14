@@ -36,3 +36,11 @@ gradlePlugin {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+// The plugin's runtime classpath transitively includes the CLI fat jar
+// (we depend on :platform:cli:regulus-cli). Gradle's pluginUnderTestMetadata
+// task consumes that classpath but doesn't infer the shadowJar producer;
+// declare it explicitly so the validation gate is satisfied.
+tasks.named("pluginUnderTestMetadata") {
+    dependsOn(":platform:cli:regulus-cli:shadowJar")
+}
