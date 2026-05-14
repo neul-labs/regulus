@@ -45,5 +45,5 @@ public final class RegulusKillSwitchPlugin extends BasePlugin {
     }
 
     public KillSwitchStore store() { return store; }
-    public boolean dualControl() { return dualControl; }
+    public boolean isDualControl() { return dualControl; }
 }
