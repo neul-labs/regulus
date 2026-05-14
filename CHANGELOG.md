@@ -119,21 +119,41 @@ configured adapters per framework binding.
 - Editorial standard: ADR-009 fixes the 12-section regtech-explainer
   template for every compliance / plugin / framework page.
 
+### Tests
+
+~40 smoke test classes added across the new modules — construction
+correctness, binding integrity, residency validation, scaffold output,
+HMAC signing, kill-switch dual-control. JUnit 5 + AssertJ; ADK runtime
+required only for the plugin classes themselves (CI exercises them
+against the real ADK jar).
+
+### CI + release plumbing
+
+- `.github/workflows/ci.yml` builds + tests on every PR and `main` push.
+- `.github/workflows/release.yml` split into Tier 1 (always — GitHub
+  Release + CLI jar) and Tier 3 (gated on secrets — Sonatype + Plugin
+  Portal). Tier 2 (GHCR) is `continue-on-error` until the first-push
+  package permissions are wired.
+- `.github/workflows/nightly-adk.yml` resolves latest ADK 1.x at 03:17
+  UTC daily, builds against it, files an `adk-drift` issue on
+  regression.
+- `regulus.adkVersion` Gradle property (default `1.2.0`) honoured by
+  the BOM and example builds; `-PadkVersion=...` overrides for the
+  nightly job.
+
 ### Known limitations
 
-- Build verification is incomplete. `./gradlew build` is not yet wired into
-  CI; first PR-time CI lands in `0.1.1`. Network access against the
-  declared ADK 1.2.0 coordinates is the gating factor for the first
-  successful build in a fresh environment.
+- ADK 1.2.0 must be resolvable from Maven Central for `./gradlew build`
+  to succeed on a fresh checkout. The nightly workflow surfaces drift.
 - The `RegulusGovernanceEvidencePlugin`'s adapter dispatch path is unit-
-  covered for serialisation but not exercised against live vendor sandboxes.
-  Field-mapping defaults reflect documented surfaces and may need
-  `fieldMappings` overrides per tenant.
+  covered for serialisation + HMAC; not exercised against live vendor
+  sandboxes. Field-mapping defaults reflect documented surfaces; tenant
+  schemas vary.
 - The NIST AI RMF Agent Interoperability Profile (`nist-ai-rmf-agent-interop`)
   uses provisional control IDs from NIST's April 2026 concept note. Final
   IDs land when NIST publishes (target Q4 2026).
 - Maven Central publication requires Sonatype OSSRH namespace verification
-  for `com.neullabs` — a one-time admin task not in this release.
+  for `com.neullabs` — a one-time admin task tracked outside this release.
 - `docs.neullabs.com` and `regulus.neullabs.com` DNS not yet live. Manual
   jar download path documented in `getting-started/install-cli.md` works
   meanwhile.

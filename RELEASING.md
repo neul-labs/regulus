@@ -212,7 +212,15 @@ Before every tag:
 - [ ] `./gradlew build` runs cleanly locally.
 - [ ] `./gradlew :platform:cli:regulus-cli:shadowJar` produces a jar
       that runs (`java -jar build/libs/regulus-cli-*.jar --version`).
+- [ ] **Verify ADK 1.2.0 is available on Maven Central:**
+      `curl -sf https://repo1.maven.org/maven2/com/google/adk/google-adk/1.2.0/`
+      (returns 200; the page may be a directory listing or 404 redirect).
+      The nightly workflow tracks the latest version; if `adk-drift` issues
+      are open, decide whether to release against the pinned version or
+      bump.
 - [ ] The funnel pages still mention the correct version in copy-paste
       blocks where they don't auto-link via `{{regulusVersion}}`.
 - [ ] No `Skelf-Research` / `skelfresearch.com` references reintroduced
       (this is a recurring footgun — `git grep -i skelf` to verify).
+- [ ] No `com.regulus.platform` references reintroduced
+      (`git grep com.regulus.platform` returns zero).
