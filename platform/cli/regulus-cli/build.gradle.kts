@@ -1,10 +1,6 @@
 plugins {
-    application
+    `java-library`
     id("com.gradleup.shadow") version "8.3.5"
-}
-
-application {
-    mainClass.set("com.regulus.platform.cli.RegulusCli")
 }
 
 dependencies {
