@@ -68,4 +68,4 @@ esac
 echo "Verify:"
 echo "    $INSTALL_DIR/regulus --version"
 echo
-echo "Docs: https://regulus.neullabs.com"
+echo "Docs: https://docs.neullabs.com"

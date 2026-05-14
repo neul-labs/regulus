@@ -1,7 +1,7 @@
 site_name: Regulus
 site_description: The EU & UK compliance plane for Google ADK — drop-in plugins, service extensions, and regulation profiles for AI agents on Google's Agent Development Kit.
 site_author: Neul Labs
-site_url: https://regulus.neullabs.com
+site_url: https://docs.neullabs.com
 
 repo_name: regulus
 repo_url: https://github.com/neul-labs/regulus

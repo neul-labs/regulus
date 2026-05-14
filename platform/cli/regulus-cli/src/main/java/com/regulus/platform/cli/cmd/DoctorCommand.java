@@ -53,7 +53,7 @@ public final class DoctorCommand implements Callable<Integer> {
             return 0;
         }
         System.out.println();
-        System.out.println("Some checks failed. See above. For details: https://regulus.neullabs.com/reference/cli/");
+        System.out.println("Some checks failed. See above. For details: https://docs.neullabs.com/reference/cli/");
         return 1;
     }
 

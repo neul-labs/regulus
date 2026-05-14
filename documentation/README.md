@@ -2,7 +2,7 @@
 
 User-facing documentation for the Regulus platform, built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
-**Live site:** [regulus.neullabs.com](https://regulus.neullabs.com)
+**Live site:** [docs.neullabs.com](https://docs.neullabs.com)
 
 ## Quick Start
 
@@ -105,7 +105,7 @@ public class Example {
 
 ## Deployment
 
-The documentation is published at [regulus.neullabs.com](https://regulus.neullabs.com).
+The documentation is published at [docs.neullabs.com](https://docs.neullabs.com).
 
 ### GitHub Pages
 

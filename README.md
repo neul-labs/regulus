@@ -4,7 +4,7 @@
 [![ADK 1.2.0](https://img.shields.io/badge/Google%20ADK-1.2.0-blue)](https://github.com/google/adk-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.regulus.platform/regulus-ai-adk-plugins.svg)](https://central.sonatype.com/namespace/com.regulus.platform)
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.regulus.compliance)](https://plugins.gradle.org/plugin/com.regulus.compliance)
-[![Docs](https://img.shields.io/badge/docs-regulus.neullabs.com-blueviolet)](https://regulus.neullabs.com)
+[![Docs](https://img.shields.io/badge/docs-docs.neullabs.com-blueviolet)](https://docs.neullabs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 # Where Google ADK ends, regulated builds begin.
@@ -74,7 +74,7 @@ Writing those properly is a quarter of engineering time. Writing them
 badly is worse than not doing it at all — a bad audit trail is a
 discoverable artefact in an enforcement action. Regulus is the bridge.
 
-[**→ Why Regulus** — the full version of this story](https://regulus.neullabs.com/why-regulus/)
+[**→ Why Regulus** — the full version of this story](https://docs.neullabs.com/why-regulus/)
 
 ## Before / after
 
@@ -115,7 +115,7 @@ regulus:
     model-risk:  { tenant-tier: STANDARD }
 ```
 
-[**→ Show me — the diff** with audit-event sample](https://regulus.neullabs.com/show-me/)
+[**→ Show me — the diff** with audit-event sample](https://docs.neullabs.com/show-me/)
 
 ## What the auditor sees
 
@@ -151,16 +151,16 @@ from it. None of which works one hour ago.
 - **CLI + Gradle plugin** — scaffold, doctor, compliance scan, coverage matrix.
 
 Full mapping (regulation × framework × control × ADK hook) at the
-[coverage matrix](https://regulus.neullabs.com/compliance/coverage-matrix/).
+[coverage matrix](https://docs.neullabs.com/compliance/coverage-matrix/).
 
 ## Choose your path
 
 | You are… | Start here |
 |---|---|
-| **An engineer** new to Regulus | [Why Regulus](https://regulus.neullabs.com/why-regulus/) → [Show me](https://regulus.neullabs.com/show-me/) → [Install the CLI](https://regulus.neullabs.com/getting-started/install-cli/) |
-| **A governance leader** (CISO / CAIO / CRO / 2L / 3L) | [Governance overview](https://regulus.neullabs.com/governance/) → [Three Lines of Defence](https://regulus.neullabs.com/governance/three-lines/) → [GRC integration](https://regulus.neullabs.com/governance/grc/) |
-| **Preparing for ISO 42001 certification** | [ISO/IEC 42001](https://regulus.neullabs.com/governance/frameworks/iso-42001/) → [Audit walkthrough](https://regulus.neullabs.com/compliance/audit-walkthrough/) → [Program operating model](https://regulus.neullabs.com/governance/program-operating-model/) |
-| **New to regulatory vocabulary** | [Concepts → What is regtech?](https://regulus.neullabs.com/concepts/regtech-intro/) → [Concepts → What is AI governance?](https://regulus.neullabs.com/concepts/ai-governance-intro/) → [Glossary](https://regulus.neullabs.com/concepts/glossary/) |
+| **An engineer** new to Regulus | [Why Regulus](https://docs.neullabs.com/why-regulus/) → [Show me](https://docs.neullabs.com/show-me/) → [Install the CLI](https://docs.neullabs.com/getting-started/install-cli/) |
+| **A governance leader** (CISO / CAIO / CRO / 2L / 3L) | [Governance overview](https://docs.neullabs.com/governance/) → [Three Lines of Defence](https://docs.neullabs.com/governance/three-lines/) → [GRC integration](https://docs.neullabs.com/governance/grc/) |
+| **Preparing for ISO 42001 certification** | [ISO/IEC 42001](https://docs.neullabs.com/governance/frameworks/iso-42001/) → [Audit walkthrough](https://docs.neullabs.com/compliance/audit-walkthrough/) → [Program operating model](https://docs.neullabs.com/governance/program-operating-model/) |
+| **New to regulatory vocabulary** | [Concepts → What is regtech?](https://docs.neullabs.com/concepts/regtech-intro/) → [Concepts → What is AI governance?](https://docs.neullabs.com/concepts/ai-governance-intro/) → [Glossary](https://docs.neullabs.com/concepts/glossary/) |
 
 ## How it plugs into ADK
 

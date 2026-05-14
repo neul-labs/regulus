@@ -151,7 +151,7 @@ public final class Scaffold {
         System.out.println("Next steps:");
         System.out.println("  cd " + target.getFileName() + " && gradle wrapper && ./gradlew bootRun");
         System.out.println();
-        System.out.println("Docs:   https://regulus.neullabs.com");
+        System.out.println("Docs:   https://docs.neullabs.com");
         System.out.println("Issues: https://github.com/neul-labs/regulus/issues");
     }
 }
