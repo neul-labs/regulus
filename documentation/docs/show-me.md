@@ -176,7 +176,7 @@ Both paths produce the same audit shape.
 
 ```bash
 # 60s — install the CLI:
-curl -fsSL https://regulus.neullabs.com/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/neul-labs/regulus/main/install.sh | sh
 
 # 60s — scaffold a project:
 regulus init my-agent \

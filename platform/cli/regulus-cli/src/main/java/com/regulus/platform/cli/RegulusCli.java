@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
  *
  * <p>Install:
  * <pre>{@code
- * curl -fsSL https://regulus.neullabs.com/install.sh | sh
+ * curl -fsSL https://raw.githubusercontent.com/neul-labs/regulus/main/install.sh | sh
  * }</pre>
  *
  * <p>Use:

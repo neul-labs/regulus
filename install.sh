@@ -3,7 +3,7 @@
 # Regulus CLI installer.
 #
 # Usage:
-#   curl -fsSL https://regulus.neullabs.com/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/neul-labs/regulus/main/install.sh | sh
 #
 # What it does:
 #   - downloads the latest regulus-cli.jar to ~/.regulus/bin/

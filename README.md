@@ -35,7 +35,7 @@ That's the funnel. Three checkpoints, no slides.
 
 ```bash
 # Install the CLI:
-curl -fsSL https://regulus.neullabs.com/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/neul-labs/regulus/main/install.sh | sh
 
 # Scaffold a compliant ADK agent:
 regulus init my-agent \

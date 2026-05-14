@@ -6,7 +6,7 @@ install paths; pick whichever your environment likes.
 ## One-line installer (recommended)
 
 ```bash
-curl -fsSL https://regulus.neullabs.com/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/neul-labs/regulus/main/install.sh | sh
 ```
 
 What it does:
