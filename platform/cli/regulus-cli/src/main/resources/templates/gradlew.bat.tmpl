@@ -1,0 +1,9 @@
+@echo off
+REM Minimal gradlew.bat shim. Run `gradle wrapper` once after scaffolding.
+
+if not exist gradle\wrapper\gradle-wrapper.properties (
+    echo gradlew: wrapper not materialised yet. Run: gradle wrapper
+    exit /b 1
+)
+
+gradle %*

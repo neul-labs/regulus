@@ -1,0 +1,20 @@
+package {{package}};
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+/**
+ * {{name}} — an ADK agent with Regulus' EU/UK compliance plane.
+ *
+ * <p>The Regulus Spring starter wires the configured plugins (policy,
+ * privacy, audit, kill switch, model risk, residency) on the ADK App
+ * during context initialisation. See application.yaml for the active
+ * profiles and frameworks.
+ */
+@SpringBootApplication
+public class AgentApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AgentApplication.class, args);
+    }
+}

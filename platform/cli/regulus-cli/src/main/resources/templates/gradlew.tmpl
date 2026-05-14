@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+#
+# Minimal gradlew shim. Run `gradle wrapper` once after scaffolding to
+# materialise the real wrapper jar + properties.
+#
+
+set -e
+
+if [ ! -f gradle/wrapper/gradle-wrapper.properties ]; then
+    echo "gradlew: wrapper not materialised yet. Run: gradle wrapper"
+    exit 1
+fi
+
+exec gradle "$@"

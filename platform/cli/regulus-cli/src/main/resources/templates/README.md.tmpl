@@ -1,0 +1,46 @@
+# {{name}}
+
+A Google ADK agent with Regulus' EU/UK compliance plane wired in. Generated
+by `regulus init` on {{regulusVersion}}.
+
+## What's wired
+
+- **Compliance profiles:** `{{profilesCsv}}`
+- **Governance frameworks:** `{{frameworksCsv}}`
+- **Region:** `{{region}}`
+- **GRC adapter:** `{{grcAdapter}}`
+
+See `src/main/resources/application.yaml` for the full configuration.
+
+## Run
+
+```bash
+# One-time wrapper materialisation:
+gradle wrapper
+
+# Run the agent:
+./gradlew bootRun
+```
+
+Hit it:
+
+```bash
+curl -X POST http://localhost:8080/chat \
+  -H 'Content-Type: application/json' \
+  -H 'X-Purpose-Code: example-purpose' \
+  -d '{"prompt": "hello"}'
+```
+
+The audit event for the call will print to stdout. Every prompt routes
+through the configured Regulus plugins: policy guards → privacy
+redaction → kill switch → model risk → audit emission.
+
+## Next
+
+- [Regulus docs](https://regulus.neullabs.com)
+- [Plugin reference](https://regulus.neullabs.com/plugins/)
+- [Governance section](https://regulus.neullabs.com/governance/)
+
+## License
+
+MIT — see `LICENSE`.

@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: {{name}}
+
+regulus:
+  compliance:
+    profiles: {{profilesYaml}}
+  governance:
+    frameworks: {{frameworksYaml}}
+  grc:
+{{grcYamlBlock}}
+  adk:
+    name: {{name}}
+    session-service:
+      kind: in-memory          # switch to vertex-ai / firestore for prod
+    audit:
+      sink: stdout              # switch to kafka for prod
+    kill-switch:
+      enabled: true
+      dual-control: true
+    residency:
+      allowed-regions: [{{region}}]
+    model-risk:
+      tenant-tier: STANDARD     # EXPERIMENTAL | STANDARD | REGULATED | HIGH_RISK
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

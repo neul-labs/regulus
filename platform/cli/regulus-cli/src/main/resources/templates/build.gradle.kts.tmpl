@@ -1,0 +1,44 @@
+plugins {
+    java
+    id("org.springframework.boot") version "3.3.0"
+    id("io.spring.dependency-management") version "1.1.5"
+}
+
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+    // Remove this once Regulus 0.1.0 is released to Maven Central.
+    mavenLocal()
+}
+
+dependencies {
+    implementation(platform("com.regulus.platform:regulus-ai-bom:{{regulusVersion}}"))
+
+    // Google ADK — the runtime
+    implementation("com.google.adk:google-adk:{{adkVersion}}")
+
+    // Regulus extension surface
+    implementation("com.regulus.platform:regulus-ai-adk-spring-boot-starter")
+    implementation("com.regulus.platform:regulus-ai-adk-plugins")
+    implementation("com.regulus.platform:regulus-ai-adk-services")
+    implementation("com.regulus.platform:regulus-ai-compliance")
+    implementation("com.regulus.platform:regulus-ai-governance")
+    implementation("com.regulus.platform:regulus-ai-grc-adapters")
+
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}

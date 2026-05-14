@@ -48,5 +48,10 @@ public final class RegulusCompliancePlugin implements Plugin<Project> {
             task.setGroup("regulus");
             task.setDescription("Sanity-checks ADK + Regulus wiring before deployment.");
         });
+
+        project.getTasks().register("initRegulusAgent", InitRegulusAgentTask.class, task -> {
+            task.setGroup("regulus");
+            task.setDescription("Scaffold a new ADK + Regulus agent project (equivalent to `regulus init`).");
+        });
     }
 }

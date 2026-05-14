@@ -31,6 +31,7 @@ dependencies {
         api("com.regulus.platform:regulus-ai-governance:0.1.0-SNAPSHOT")
         api("com.regulus.platform:regulus-ai-grc-adapters:0.1.0-SNAPSHOT")
         api("com.regulus.platform:regulus-ai-adk-spring-boot-starter:0.1.0-SNAPSHOT")
+        api("com.regulus.platform:regulus-cli:0.1.0-SNAPSHOT")
 
         // Regulus Platform Modules — existing
         api("com.regulus.platform:regulus-ai-agents-spring-boot-starter:0.1.0-SNAPSHOT")

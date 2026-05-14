@@ -35,6 +35,9 @@ include(
     // Gradle Plugin
     "platform:gradle-plugin:regulus-compliance-gradle-plugin",
 
+    // CLI
+    "platform:cli:regulus-cli",
+
     // Examples — ADK-first
     "examples:adk-quickstart",
     "examples:adk-multi-agent-a2a",

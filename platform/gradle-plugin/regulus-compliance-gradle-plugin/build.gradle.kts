@@ -9,14 +9,18 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
     implementation("org.yaml:snakeyaml:2.2")
 
+    // Re-use the CLI's Scaffold logic so `gradle initRegulusAgent` produces
+    // identical output to `regulus init`.
+    implementation(project(":platform:cli:regulus-cli"))
+
     testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     testImplementation("org.assertj:assertj-core:3.25.3")
     testImplementation(gradleTestKit())
 }
 
 gradlePlugin {
-    website = "https://github.com/Skelf-Research/regulus"
-    vcsUrl = "https://github.com/Skelf-Research/regulus.git"
+    website = "https://github.com/neul-labs/regulus"
+    vcsUrl = "https://github.com/neul-labs/regulus.git"
 
     plugins {
         create("regulusCompliance") {
