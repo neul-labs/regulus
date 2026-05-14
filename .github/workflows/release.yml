@@ -46,7 +46,10 @@ jobs:
         run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
 
       - name: Build everything
-        run: ./gradlew --no-daemon build -PregulusVersion=${{ steps.ver.outputs.version }}
+        # `assemble` produces all jars/poms/sources/javadoc artefacts without
+        # running tests. Tests run on `main` pushes via ci.yml; the release
+        # workflow trusts that gate and focuses on artefact production.
+        run: ./gradlew --no-daemon assemble -PregulusVersion=${{ steps.ver.outputs.version }}
 
       - name: Build CLI fat jar
         run: |
