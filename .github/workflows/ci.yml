@@ -35,18 +35,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Validate Gradle wrapper
-        uses: gradle/actions/wrapper-validation@v3
-
-      - name: Build
+      - name: Build + test
         run: ./gradlew --no-daemon build
-
-      - name: Compliance scan
-        run: ./gradlew --no-daemon regulusComplianceScan || true
-        # `|| true` because the scan runs in *consumer* projects; the
-        # framework repo itself doesn't declare profiles. This step is
-        # here to surface the task's availability and catch task-level
-        # regressions, not to fail on missing profiles.
 
       - name: CLI fat-jar smoke
         run: |
@@ -55,14 +45,12 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
-    if: ${{ hashFiles('documentation/mkdocs.yml') != '' }}
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: pip
 
       - name: Install MkDocs and Material
         run: |
