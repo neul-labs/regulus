@@ -9,10 +9,14 @@ javaPlatform {
 dependencies {
     api(platform("org.springframework.boot:spring-boot-dependencies:3.3.0"))
 
+    // ADK version is pinned in the BOM but overridable via -PadkVersion=X.
+    // The nightly workflow uses this to track ADK 1.+ for drift detection.
+    val adkVersion: String = providers.gradleProperty("adkVersion").getOrElse("1.2.0")
+
     constraints {
         // Google Agent Development Kit — primary runtime
-        api("com.google.adk:google-adk:1.2.0")
-        api("com.google.adk:google-adk-dev:1.2.0")
+        api("com.google.adk:google-adk:$adkVersion")
+        api("com.google.adk:google-adk-dev:$adkVersion")
 
         // LangChain4j — alternative runtime, retained for legacy paths
         api("dev.langchain4j:langchain4j:0.35.0")

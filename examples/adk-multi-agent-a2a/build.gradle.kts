@@ -15,7 +15,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.adk:google-adk:1.2.0")
+    val adkVersion: String = providers.gradleProperty("adkVersion").getOrElse("1.2.0")
+    implementation("com.google.adk:google-adk:$adkVersion")
 
     implementation(project(":platform:starters:regulus-ai-adk-spring-boot-starter"))
     implementation(project(":platform:core:regulus-ai-adk-a2a"))
