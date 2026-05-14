@@ -188,7 +188,7 @@ User Query → Privacy Filter (redact input PII)
 examples/agent-demo/
 ├── build.gradle.kts          # Dependencies on platform modules
 ├── README.md                 # This file
-└── src/main/java/com/regulus/demo/
+└── src/main/java/com/neullabs/regulus/demo/
     ├── AgentDemo.java        # Main demo entry point
     ├── FakeLlmClient.java    # Test LLM implementation
     ├── Agent.java            # Simple agent loop

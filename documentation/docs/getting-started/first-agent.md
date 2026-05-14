@@ -138,13 +138,13 @@ public record AgentResponse(
 package com.example.service;
 
 import com.example.model.*;
-import com.regulus.ai.llm.LlmClient;
-import com.regulus.ai.llm.ChatMessage;
-import com.regulus.ai.policy.PolicyGuard;
-import com.regulus.ai.policy.PolicyContext;
-import com.regulus.ai.privacy.PrivacyFilter;
-import com.regulus.ai.killswitch.KillSwitch;
-import com.regulus.ai.observability.AuditLogger;
+import com.neullabs.regulus.ai.llm.LlmClient;
+import com.neullabs.regulus.ai.llm.ChatMessage;
+import com.neullabs.regulus.ai.policy.PolicyGuard;
+import com.neullabs.regulus.ai.policy.PolicyContext;
+import com.neullabs.regulus.ai.privacy.PrivacyFilter;
+import com.neullabs.regulus.ai.killswitch.KillSwitch;
+import com.neullabs.regulus.ai.observability.AuditLogger;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -298,8 +298,8 @@ record HealthResponse(String status, String service) {}
 ```java title="src/main/java/com/example/exception/GlobalExceptionHandler.java"
 package com.example.exception;
 
-import com.regulus.ai.policy.PolicyViolationException;
-import com.regulus.ai.killswitch.KillSwitchActiveException;
+import com.neullabs.regulus.ai.policy.PolicyViolationException;
+import com.neullabs.regulus.ai.killswitch.KillSwitchActiveException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

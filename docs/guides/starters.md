@@ -12,7 +12,7 @@ Regulus ships opinionated starters that make AI agent adoption as simple as addi
 | `regulus-ai-safety-starter` | Safety & resilience | Kill switch, dual-control, data residency, PII redaction |
 | `regulus-ai-evals-client-starter` | Quality gates | Eval service integration, red-team testing |
 
-**Artifact Coordinates**: Group ID `com.regulus.platform`
+**Artifact Coordinates**: Group ID `com.neullabs`
 
 ---
 
@@ -381,10 +381,10 @@ regulus:
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation(platform("com.regulus.platform:regulus-ai-bom:1.0.0"))
-    implementation("com.regulus.platform:regulus-ai-agents-spring-boot-starter")
-    implementation("com.regulus.platform:regulus-ai-safety-starter")
-    implementation("com.regulus.platform:regulus-ai-governance-starter")
+    implementation(platform("com.neullabs:regulus-ai-bom:1.0.0"))
+    implementation("com.neullabs:regulus-ai-agents-spring-boot-starter")
+    implementation("com.neullabs:regulus-ai-safety-starter")
+    implementation("com.neullabs:regulus-ai-governance-starter")
 }
 ```
 
@@ -400,8 +400,8 @@ Teams can create custom starters that depend on the core ones:
 ```kotlin
 // my-domain-starter/build.gradle.kts
 dependencies {
-    api("com.regulus.platform:regulus-ai-agents-spring-boot-starter")
-    api("com.regulus.platform:regulus-ai-safety-starter")
+    api("com.neullabs:regulus-ai-agents-spring-boot-starter")
+    api("com.neullabs:regulus-ai-safety-starter")
     // Add domain-specific dependencies
 }
 ```

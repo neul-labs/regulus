@@ -157,8 +157,8 @@ docs/
 - **Gradle Modules**: `regulus-ai-{feature}[-{variant}]`
   - Examples: `regulus-ai-agents-spring-boot-starter`, `regulus-ai-policy`, `regulus-ai-dsl-kotlin`
 
-- **Packages**: `com.regulus.platform.{module}.{component}`
-  - Examples: `com.regulus.platform.policy.guards`, `com.regulus.platform.agents.planners`
+- **Packages**: `com.neullabs.regulus.{module}.{component}`
+  - Examples: `com.neullabs.regulus.policy.guards`, `com.neullabs.regulus.agents.planners`
 
 ---
 
@@ -278,7 +278,7 @@ Every documentation file should include:
 src/
 ├── main/
 │   ├── java/
-│   │   └── com/regulus/platform/{module}/
+│   │   └── com/neullabs/regulus/{module}/
 │   │       ├── config/          # Spring configuration classes
 │   │       ├── model/           # Domain models and DTOs
 │   │       ├── service/         # Business logic

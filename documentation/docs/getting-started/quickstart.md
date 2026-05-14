@@ -111,9 +111,9 @@ public class Application {
 ```java title="src/main/java/com/example/AgentController.java"
 package com.example;
 
-import com.regulus.ai.llm.LlmClient;
-import com.regulus.ai.policy.PolicyGuard;
-import com.regulus.ai.privacy.PrivacyFilter;
+import com.neullabs.regulus.ai.llm.LlmClient;
+import com.neullabs.regulus.ai.policy.PolicyGuard;
+import com.neullabs.regulus.ai.privacy.PrivacyFilter;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 

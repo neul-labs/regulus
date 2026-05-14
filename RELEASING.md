@@ -19,8 +19,8 @@ which produces six artefacts in three tiers:
 |---|---|---|---|
 | 1 | GitHub Release (Markdown body from CHANGELOG.md + `regulus-cli-X.Y.Z.jar` attached) | `github.com/neul-labs/regulus/releases` | None — uses `GITHUB_TOKEN` |
 | 2 | Reference container image | `ghcr.io/neul-labs/regulus-adk-demo:X.Y.Z` | None — uses `GITHUB_TOKEN` |
-| 3 | Maven Central artefacts (all `com.regulus.platform:*`) | `central.sonatype.com` | `SONATYPE_USERNAME`, `SONATYPE_PASSWORD`, `SIGNING_KEY`, `SIGNING_PASSWORD` |
-| 3 | Gradle Plugin Portal (`com.regulus.compliance`) | `plugins.gradle.org` | `GRADLE_PUBLISH_KEY`, `GRADLE_PUBLISH_SECRET` |
+| 3 | Maven Central artefacts (all `com.neullabs:*`) | `central.sonatype.com` | `SONATYPE_USERNAME`, `SONATYPE_PASSWORD`, `SIGNING_KEY`, `SIGNING_PASSWORD` |
+| 3 | Gradle Plugin Portal (`com.neullabs.compliance`) | `plugins.gradle.org` | `GRADLE_PUBLISH_KEY`, `GRADLE_PUBLISH_SECRET` |
 
 **Tier 1 + Tier 2 work out of the box.** Tier 3 requires one-time admin
 setup (see below) and is gated in the workflow on the relevant secrets
@@ -35,14 +35,15 @@ itself — it's outside-the-code work.**
 
 ### 1. Sonatype OSSRH namespace verification
 
-Maven Central requires you to prove ownership of the `com.regulus.platform`
+Maven Central requires you to prove ownership of the `com.neullabs`
 coordinate. Two options:
 
-- **DNS TXT** — fastest if you own a domain matching the namespace
-  (you'd need `regulus.platform`; we don't, so skip).
+- **DNS TXT** — fastest if you own a domain matching the namespace.
+  You'd need a `neullabs.com` DNS record; if you control that domain,
+  this is the simplest path.
 - **GitHub repo verification (Recommended)** — Sonatype Central supports
   publishing from the `io.github.<username>` namespace by verifying the
-  GitHub username. To get `com.regulus.platform` instead, you'll need a
+  GitHub username. To get `com.neullabs` instead, you'll need a
   custom-namespace request to Central Sonatype. Reach out via their
   intake at <https://central.sonatype.org/register/central-portal/>.
 
@@ -151,10 +152,10 @@ Tag-push triggers `release.yml`.
 - Check `ghcr.io/neul-labs/regulus-adk-demo:X.Y.Z` is reachable
   (`docker pull` test).
 - If Tier 3 was enabled:
-  - Maven Central: check <https://central.sonatype.com/namespace/com.regulus.platform>
+  - Maven Central: check <https://central.sonatype.com/namespace/com.neullabs>
     — propagation can take 30 min to 4 hours.
   - Gradle Plugin Portal:
-    <https://plugins.gradle.org/plugin/com.regulus.compliance> —
+    <https://plugins.gradle.org/plugin/com.neullabs.compliance> —
     usually live within minutes.
 
 ### 5. Smoke-test the installer

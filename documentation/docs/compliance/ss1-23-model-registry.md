@@ -348,7 +348,7 @@ All registry operations are logged:
 @Component
 public class ModelRegistryAuditAspect {
 
-    @AfterReturning("execution(* com.regulus.registry.ModelRegistry.*(..))")
+    @AfterReturning("execution(* com.neullabs.regulus.registry.ModelRegistry.*(..))")
     public void auditRegistryOperation(JoinPoint jp) {
         String operation = jp.getSignature().getName();
         Object[] args = jp.getArgs();

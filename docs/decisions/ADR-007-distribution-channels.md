@@ -14,10 +14,10 @@ and what UX to mirror.
 Three primary channels, in priority order:
 
 1. **Maven Central** — the only thing that matters for Java/Kotlin/Spring
-   Boot consumers. Coordinates `com.regulus.platform:*`. Sonatype OSSRH
+   Boot consumers. Coordinates `com.neullabs:*`. Sonatype OSSRH
    staging with auto-release on `v*` tag.
 
-2. **Gradle Plugin Portal** — plugin ID `com.regulus.compliance`. UX
+2. **Gradle Plugin Portal** — plugin ID `com.neullabs.compliance`. UX
    mirrors ADK's own `maven_plugin/` module so the cross-toolchain story
    is symmetric.
 
@@ -46,7 +46,7 @@ Plus a mirror to GitHub Packages for users who prefer that.
 
 ## Pre-release admin
 
-- Sonatype OSSRH namespace verification for `com.regulus.platform`
+- Sonatype OSSRH namespace verification for `com.neullabs`
   (DNS TXT or GitHub-repo verification).
 - GPG signing key generated and exposed to CI.
 - Gradle Plugin Portal API key.

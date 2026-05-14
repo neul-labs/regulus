@@ -24,8 +24,8 @@ gradlePlugin {
 
     plugins {
         create("regulusCompliance") {
-            id = "com.regulus.compliance"
-            implementationClass = "com.regulus.platform.gradle.RegulusCompliancePlugin"
+            id = "com.neullabs.compliance"
+            implementationClass = "com.neullabs.regulus.gradle.RegulusCompliancePlugin"
             displayName = "Regulus Compliance Gradle Plugin"
             description = "Build-time checks and codegen for ADK agents using the Regulus EU+UK compliance plane."
             tags = listOf("adk", "ai", "compliance", "gdpr", "eu-ai-act", "fca", "regtech")

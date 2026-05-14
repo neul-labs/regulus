@@ -20,18 +20,18 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("com.regulus.platform:regulus-ai-bom:{{regulusVersion}}"))
+    implementation(platform("com.neullabs:regulus-ai-bom:{{regulusVersion}}"))
 
     // Google ADK — the runtime
     implementation("com.google.adk:google-adk:{{adkVersion}}")
 
     // Regulus extension surface
-    implementation("com.regulus.platform:regulus-ai-adk-spring-boot-starter")
-    implementation("com.regulus.platform:regulus-ai-adk-plugins")
-    implementation("com.regulus.platform:regulus-ai-adk-services")
-    implementation("com.regulus.platform:regulus-ai-compliance")
-    implementation("com.regulus.platform:regulus-ai-governance")
-    implementation("com.regulus.platform:regulus-ai-grc-adapters")
+    implementation("com.neullabs:regulus-ai-adk-spring-boot-starter")
+    implementation("com.neullabs:regulus-ai-adk-plugins")
+    implementation("com.neullabs:regulus-ai-adk-services")
+    implementation("com.neullabs:regulus-ai-compliance")
+    implementation("com.neullabs:regulus-ai-governance")
+    implementation("com.neullabs:regulus-ai-grc-adapters")
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")

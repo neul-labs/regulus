@@ -16,12 +16,12 @@ Triggered by a `v*` tag on `main`. CI runs:
 
 - Maven Central artifacts (everything under `platform/`) — staged at
   Sonatype OSSRH, auto-released.
-- Gradle Plugin Portal — `com.regulus.compliance`.
+- Gradle Plugin Portal — `com.neullabs.compliance`.
 - GHCR — reference container image for the Vertex deploy example.
 
 ## First-release prerequisites (one-time)
 
-- Sonatype OSSRH namespace verification for `com.regulus.platform` (DNS
+- Sonatype OSSRH namespace verification for `com.neullabs` (DNS
   TXT or GitHub repository verification).
 - GPG signing key generated and exposed to CI as `SIGNING_KEY`,
   `SIGNING_PASSPHRASE`.

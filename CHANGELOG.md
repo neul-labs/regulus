@@ -74,7 +74,7 @@ configured adapters per framework binding.
 - **`regulus-cli`** (`platform/cli/regulus-cli`): Picocli-based fat jar.
   `regulus init <name>` scaffolds a working ADK + Regulus project in 12
   files. `regulus doctor` sanity-checks an existing project.
-- **Gradle plugin `com.regulus.compliance`** with:
+- **Gradle plugin `com.neullabs.compliance`** with:
   `regulusComplianceScan` (fails build if no profile declared),
   `regulusPolicyCompile`, `regulusComplianceMatrix` (renders the matrix),
   `regulusAdkDoctor`, `initRegulusAgent` (wraps the CLI's `Scaffold`).
@@ -133,7 +133,7 @@ configured adapters per framework binding.
   uses provisional control IDs from NIST's April 2026 concept note. Final
   IDs land when NIST publishes (target Q4 2026).
 - Maven Central publication requires Sonatype OSSRH namespace verification
-  for `com.regulus.platform` — a one-time admin task not in this release.
+  for `com.neullabs` — a one-time admin task not in this release.
 - `docs.neullabs.com` and `regulus.neullabs.com` DNS not yet live. Manual
   jar download path documented in `getting-started/install-cli.md` works
   meanwhile.

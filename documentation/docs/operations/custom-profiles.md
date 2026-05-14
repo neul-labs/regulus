@@ -12,7 +12,7 @@ cover yet — or a tenant-bespoke variation of one we do.
 
 ## The shape
 
-Implement `com.regulus.platform.compliance.ComplianceProfile`:
+Implement `com.neullabs.regulus.compliance.ComplianceProfile`:
 
 ```java
 public final class MyCustomProfile implements ComplianceProfile {

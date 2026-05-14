@@ -3,11 +3,11 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
-group = "com.regulus.platform"
+group = "com.neullabs"
 version = providers.gradleProperty("regulusVersion").getOrElse("0.1.0-SNAPSHOT")
 
 allprojects {
-    group = "com.regulus.platform"
+    group = "com.neullabs"
     version = rootProject.version
 
     repositories {

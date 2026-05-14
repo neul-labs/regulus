@@ -205,7 +205,7 @@ We follow Kotlin coding conventions:
 - **Classes**: `PascalCase` (e.g., `PolicyGuard`, `ModelInventoryClient`)
 - **Methods/Functions**: `camelCase` (e.g., `validateLEI()`, `applyPrivacyFilters()`)
 - **Constants**: `UPPER_SNAKE_CASE` (e.g., `MAX_RETRY_ATTEMPTS`)
-- **Packages**: lowercase, dot-separated (e.g., `com.regulus.platform.policy`)
+- **Packages**: lowercase, dot-separated (e.g., `com.neullabs.regulus.policy`)
 - **Test Classes**: `ClassNameTest` or `ClassNameIT`
 
 ### Code Organization

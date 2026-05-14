@@ -15,9 +15,9 @@ Regulus supports two DSL formats for agent configuration:
 
 ```kotlin
 // src/main/kotlin/com/example/AgentConfig.kt
-import com.regulus.dsl.agent
-import com.regulus.dsl.tool
-import com.regulus.dsl.policy
+import com.neullabs.regulus.dsl.agent
+import com.neullabs.regulus.dsl.tool
+import com.neullabs.regulus.dsl.policy
 
 val customerSupportAgent = agent("customer-support") {
     description = "Customer support agent for banking inquiries"

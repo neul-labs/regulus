@@ -72,9 +72,9 @@ Regulus feeds them.
 
 ## How this maps to the Regulus codebase
 
-- `com.regulus.platform.compliance.ComplianceProfile` — what regulations
+- `com.neullabs.regulus.compliance.ComplianceProfile` — what regulations
   require (mandatory).
-- `com.regulus.platform.governance.GovernanceFramework` — what frameworks
+- `com.neullabs.regulus.governance.GovernanceFramework` — what frameworks
   recommend (voluntary).
 - The same Regulus mechanism (e.g. `pii-redaction`) appears in both —
   bound to GDPR Art. 25 *and* to NIST AI RMF GAI-4 *and* to ISO 42001

@@ -329,7 +329,7 @@ curl -X POST http://localhost:8080/mcp \
 # Enable debug logging
 logging:
   level:
-    com.regulus.platform.agents.mcp: DEBUG
+    com.neullabs.regulus.agents.mcp: DEBUG
 ```
 
 **Common Causes:**
@@ -489,7 +489,7 @@ NoSuchBeanDefinitionException: No qualifying bean of type 'DataResidencyEnforcer
 2. **Ensure starter is included:**
    ```kotlin
    dependencies {
-       implementation("com.regulus.platform:regulus-ai-safety-starter")
+       implementation("com.neullabs:regulus-ai-safety-starter")
    }
    ```
 
@@ -564,8 +564,8 @@ OutOfMemoryError: Java heap space
 logging:
   level:
     com.regulus: DEBUG
-    com.regulus.platform.agents.mcp: DEBUG
-    com.regulus.platform.safety: DEBUG
+    com.neullabs.regulus.agents.mcp: DEBUG
+    com.neullabs.regulus.safety: DEBUG
     dev.langchain4j: DEBUG
 ```
 

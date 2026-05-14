@@ -16,9 +16,9 @@ Easiest setup: two services in one repo, deployed separately.
 // examples/adk-multi-agent-a2a/build.gradle.kts
 dependencies {
     implementation("com.google.adk:google-adk:1.2.0")
-    implementation(platform("com.regulus.platform:regulus-ai-bom:0.1.0"))
-    implementation("com.regulus.platform:regulus-ai-adk-spring-boot-starter")
-    implementation("com.regulus.platform:regulus-ai-adk-a2a")
+    implementation(platform("com.neullabs:regulus-ai-bom:0.1.0"))
+    implementation("com.neullabs:regulus-ai-adk-spring-boot-starter")
+    implementation("com.neullabs:regulus-ai-adk-a2a")
 }
 ```
 

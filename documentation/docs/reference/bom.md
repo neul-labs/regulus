@@ -7,20 +7,20 @@ versions Regulus is tested against.
 
 ```kotlin
 dependencies {
-    implementation(platform("com.regulus.platform:regulus-ai-bom:0.1.0"))
+    implementation(platform("com.neullabs:regulus-ai-bom:0.1.0"))
 
     // ADK
     implementation("com.google.adk:google-adk")
     implementation("com.google.adk:google-adk-dev")  // optional dev UI
 
     // Regulus ADK extension surface
-    implementation("com.regulus.platform:regulus-ai-adk-plugins")
-    implementation("com.regulus.platform:regulus-ai-adk-services")
-    implementation("com.regulus.platform:regulus-ai-adk-a2a")
-    implementation("com.regulus.platform:regulus-ai-compliance")
+    implementation("com.neullabs:regulus-ai-adk-plugins")
+    implementation("com.neullabs:regulus-ai-adk-services")
+    implementation("com.neullabs:regulus-ai-adk-a2a")
+    implementation("com.neullabs:regulus-ai-compliance")
 
     // Spring Boot starter — optional
-    implementation("com.regulus.platform:regulus-ai-adk-spring-boot-starter")
+    implementation("com.neullabs:regulus-ai-adk-spring-boot-starter")
 }
 ```
 
@@ -28,7 +28,7 @@ dependencies {
 
 - `com.google.adk:google-adk:1.2.0`
 - `com.google.adk:google-adk-dev:1.2.0`
-- All `com.regulus.platform:*` modules at the current Regulus version
+- All `com.neullabs:*` modules at the current Regulus version
 - Spring Boot 3.3
 - Resilience4j 2.2
 - Spring Kafka 3.2

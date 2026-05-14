@@ -11,8 +11,8 @@ quickstart](adk-quickstart.md) — or an existing app of your own.
 ## 1. Add the dependencies
 
 ```kotlin
-implementation(platform("com.regulus.platform:regulus-ai-bom:0.1.0"))
-implementation("com.regulus.platform:regulus-ai-adk-spring-boot-starter")
+implementation(platform("com.neullabs:regulus-ai-bom:0.1.0"))
+implementation("com.neullabs:regulus-ai-adk-spring-boot-starter")
 ```
 
 ## 2. Add the configuration

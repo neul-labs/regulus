@@ -1,10 +1,10 @@
-# Gradle plugin (`com.regulus.compliance`)
+# Gradle plugin (`com.neullabs.compliance`)
 
 Apply:
 
 ```kotlin
 plugins {
-    id("com.regulus.compliance") version "0.1.0"
+    id("com.neullabs.compliance") version "0.1.0"
 }
 
 regulusCompliance {

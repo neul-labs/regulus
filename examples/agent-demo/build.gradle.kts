@@ -40,7 +40,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.regulus.demo.AgentDemo")
+    mainClass.set("com.neullabs.regulus.demo.AgentDemo")
 }
 
 tasks.withType<Test> {

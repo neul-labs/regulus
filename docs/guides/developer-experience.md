@@ -6,7 +6,7 @@ Regulus aims to make agent development as frictionless as modern Python framewor
 
 - **Spring Initializr Blueprint**: Generates a runnable payment agent with configured starters, sample policies, and pipeline DSL snippets.
 - **Templates**: Include domain-specific variants (payments, KYC, support) to accelerate onboarding.
-- **BOM Alignment**: Projects import `com.regulus.platform:regulus-ai-bom` to avoid version drift across starters and plugins.
+- **BOM Alignment**: Projects import `com.neullabs:regulus-ai-bom` to avoid version drift across starters and plugins.
 
 ## Local Environments
 

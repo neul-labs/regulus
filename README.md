@@ -2,8 +2,8 @@
 
 [![Java 21](https://img.shields.io/badge/Java-21-orange)](https://openjdk.org/projects/jdk/21/)
 [![ADK 1.2.0](https://img.shields.io/badge/Google%20ADK-1.2.0-blue)](https://github.com/google/adk-java)
-[![Maven Central](https://img.shields.io/maven-central/v/com.regulus.platform/regulus-ai-adk-plugins.svg)](https://central.sonatype.com/namespace/com.regulus.platform)
-[![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.regulus.compliance)](https://plugins.gradle.org/plugin/com.regulus.compliance)
+[![Maven Central](https://img.shields.io/maven-central/v/com.neullabs/regulus-ai-adk-plugins.svg)](https://central.sonatype.com/namespace/com.neullabs)
+[![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.neullabs.compliance)](https://plugins.gradle.org/plugin/com.neullabs.compliance)
 [![Docs](https://img.shields.io/badge/docs-docs.neullabs.com-blueviolet)](https://docs.neullabs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -186,8 +186,8 @@ learn.
 
 ## Distribution
 
-- **Maven Central** — `com.regulus.platform:*`.
-- **Gradle Plugin Portal** — `com.regulus.compliance`.
+- **Maven Central** — `com.neullabs:*`.
+- **Gradle Plugin Portal** — `com.neullabs.compliance`.
 - **GitHub Releases** — `regulus-cli.jar`.
 - **GitHub Container Registry** — `ghcr.io/neul-labs/regulus-adk-demo`.
 

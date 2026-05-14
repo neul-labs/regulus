@@ -29,8 +29,8 @@ repositories {
 
 dependencies {
     implementation("com.google.adk:google-adk:1.2.0")
-    implementation(platform("com.regulus.platform:regulus-ai-bom:0.1.0"))
-    implementation("com.regulus.platform:regulus-ai-adk-spring-boot-starter")
+    implementation(platform("com.neullabs:regulus-ai-bom:0.1.0"))
+    implementation("com.neullabs:regulus-ai-adk-spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
 }
 ```

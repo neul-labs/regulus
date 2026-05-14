@@ -30,7 +30,7 @@ tasks.shadowJar {
     mergeServiceFiles()
     manifest {
         attributes(mapOf(
-            "Main-Class" to "com.regulus.platform.cli.RegulusCli",
+            "Main-Class" to "com.neullabs.regulus.cli.RegulusCli",
             "Implementation-Version" to project.version
         ))
     }

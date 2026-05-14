@@ -57,12 +57,12 @@ repositories {
 
 dependencies {
     // Regulus Platform BOM
-    implementation(platform("com.regulus.platform:regulus-ai-bom:1.0.0"))
+    implementation(platform("com.neullabs:regulus-ai-bom:1.0.0"))
 
     // Core starters
-    implementation("com.regulus.platform:regulus-ai-agents-spring-boot-starter")
-    implementation("com.regulus.platform:regulus-ai-safety-starter")
-    implementation("com.regulus.platform:regulus-ai-governance-starter")
+    implementation("com.neullabs:regulus-ai-agents-spring-boot-starter")
+    implementation("com.neullabs:regulus-ai-safety-starter")
+    implementation("com.neullabs:regulus-ai-governance-starter")
 
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -217,7 +217,7 @@ logging:
 ```java
 package com.acmebank.mortgage;
 
-import com.regulus.platform.agents.annotation.EnableAiAgents;
+import com.neullabs.regulus.agents.annotation.EnableAiAgents;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -242,12 +242,12 @@ public class MortgageAdviserApplication {
 ```java
 package com.acmebank.mortgage.agent;
 
-import com.regulus.platform.agents.annotation.Agent;
-import com.regulus.platform.agents.annotation.Tool;
-import com.regulus.platform.governance.annotation.ModelArtefact;
-import com.regulus.platform.governance.annotation.RequireLEI;
-import com.regulus.platform.governance.annotation.RequirePurposeCode;
-import com.regulus.platform.llm.LlmClient;
+import com.neullabs.regulus.agents.annotation.Agent;
+import com.neullabs.regulus.agents.annotation.Tool;
+import com.neullabs.regulus.governance.annotation.ModelArtefact;
+import com.neullabs.regulus.governance.annotation.RequireLEI;
+import com.neullabs.regulus.governance.annotation.RequirePurposeCode;
+import com.neullabs.regulus.llm.LlmClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -477,9 +477,9 @@ public class MortgageAdviserAgent {
 package com.acmebank.mortgage.mcp;
 
 import com.acmebank.mortgage.agent.MortgageAdviserAgent;
-import com.regulus.platform.agents.mcp.server.McpTool;
-import com.regulus.platform.agents.mcp.server.McpToolHandler;
-import com.regulus.platform.agents.mcp.server.McpToolResult;
+import com.neullabs.regulus.agents.mcp.server.McpTool;
+import com.neullabs.regulus.agents.mcp.server.McpToolHandler;
+import com.neullabs.regulus.agents.mcp.server.McpToolResult;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

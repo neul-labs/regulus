@@ -24,7 +24,7 @@ mechanism identifiers (`pii-redaction`, `dual-control-kill-switch`,
 `audit-trail`, etc.).
 
 ```java
-package com.regulus.platform.governance;
+package com.neullabs.regulus.governance;
 
 public interface GovernanceFramework {
     String id();                            // "nist-ai-rmf", "iso-42001"

@@ -60,7 +60,7 @@ equivalent task:
 ```kotlin
 // build.gradle.kts
 plugins {
-    id("com.regulus.compliance") version "0.1.0"
+    id("com.neullabs.compliance") version "0.1.0"
 }
 ```
 

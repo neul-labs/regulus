@@ -51,7 +51,7 @@ ADK agents typically use Gemini. To be a first-class ADK citizen, Regulus should
 **Files to create**:
 ```
 platform/core/regulus-ai-llm/
-└── src/main/java/com/regulus/platform/llm/provider/
+└── src/main/java/com/neullabs/regulus/llm/provider/
     └── GeminiLlmClient.java
 ```
 
