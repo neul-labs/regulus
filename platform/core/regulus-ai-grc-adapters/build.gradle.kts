@@ -15,19 +15,13 @@ dependencies {
     api(project(":platform:core:regulus-ai-governance"))
     api(project(":platform:core:regulus-ai-compliance"))
 
-    // Reactive HTTP client for vendor adapters; ships as part of Spring WebFlux
-    implementation("org.springframework:spring-webflux")
-    implementation("org.springframework.boot:spring-boot-starter-reactor-netty")
-
-    // Resilience for retry / circuit breaker on flaky vendor APIs
-    implementation("io.github.resilience4j:resilience4j-reactor")
-    implementation("io.github.resilience4j:resilience4j-circuitbreaker")
-    implementation("io.github.resilience4j:resilience4j-retry")
+    // Vendor adapters use the JDK's built-in java.net.http.HttpClient so the
+    // module stays light and Spring-agnostic. Callers that want Resilience4j
+    // retry / circuit-breaker wrap the adapter on their side.
 
     implementation("com.fasterxml.jackson.core:jackson-databind")
 
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.25.3")
     testImplementation("org.mockito:mockito-core:5.11.0")
-    testImplementation("io.projectreactor:reactor-test")
 }
