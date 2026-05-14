@@ -43,55 +43,62 @@ subprojects {
         }
     }
 
-    // Publishing config — apply to platform modules (incl. BOM, excl. gradle-plugin which uses plugin-publish)
+    // Publishing config — apply to platform modules (incl. BOM, excl. gradle-plugin which uses plugin-publish).
+    // Wrapped in afterEvaluate because the BOM applies `java-platform` and the other modules apply
+    // `java-library` in their own build.gradle.kts — neither component is registered in the root config
+    // phase, only after the subproject script runs.
     if (isPlatform && !isGradlePlugin) {
         apply(plugin = "maven-publish")
         apply(plugin = "signing")
 
-        configure<PublishingExtension> {
-            publications {
-                create<MavenPublication>("maven") {
-                    if (isBom) {
-                        from(components["javaPlatform"])
-                    } else {
-                        from(components["java"])
-                    }
-                    pom {
-                        name.set("Regulus — ${project.name}")
-                        description.set("EU & UK compliance plane for Google ADK — module: ${project.name}")
-                        url.set("https://github.com/neul-labs/regulus")
-                        licenses {
-                            license {
-                                name.set("MIT License")
-                                url.set("https://opensource.org/licenses/MIT")
-                            }
+        afterEvaluate {
+            configure<PublishingExtension> {
+                publications {
+                    create<MavenPublication>("maven") {
+                        if (isBom) {
+                            from(components["javaPlatform"])
+                        } else {
+                            from(components["java"])
                         }
-                        developers {
-                            developer {
-                                id.set("neul-labs")
-                                name.set("Neul Labs")
-                                email.set("opensource@neullabs.com")
-                            }
-                        }
-                        scm {
-                            connection.set("scm:git:git@github.com:neul-labs/regulus.git")
-                            developerConnection.set("scm:git:git@github.com:neul-labs/regulus.git")
+                        pom {
+                            name.set("Regulus — ${project.name}")
+                            description.set("EU & UK compliance plane for Google ADK — module: ${project.name}")
                             url.set("https://github.com/neul-labs/regulus")
+                            licenses {
+                                license {
+                                    name.set("MIT License")
+                                    url.set("https://opensource.org/licenses/MIT")
+                                }
+                            }
+                            developers {
+                                developer {
+                                    id.set("neul-labs")
+                                    name.set("Neul Labs")
+                                    email.set("opensource@neullabs.com")
+                                }
+                            }
+                            scm {
+                                connection.set("scm:git:git@github.com:neul-labs/regulus.git")
+                                developerConnection.set("scm:git:git@github.com:neul-labs/regulus.git")
+                                url.set("https://github.com/neul-labs/regulus")
+                            }
                         }
                     }
                 }
             }
-        }
 
-        configure<SigningExtension> {
-            val signingKey: String? by project
-            val signingPassword: String? by project
-            if (signingKey != null && signingPassword != null) {
-                useInMemoryPgpKeys(signingKey, signingPassword)
-            } else {
-                useGpgCmd()
+            configure<SigningExtension> {
+                val signingKey: String? by project
+                val signingPassword: String? by project
+                isRequired = signingKey != null && signingPassword != null
+                if (isRequired) {
+                    useInMemoryPgpKeys(signingKey, signingPassword)
+                    sign((extensions.getByType(PublishingExtension::class.java)).publications["maven"])
+                }
+                // When no signing key is configured (e.g. PR-time CI), skip signing entirely.
+                // The release.yml Tier 3 step is gated on SIGNING_KEY being present so the
+                // published artefacts always come out signed.
             }
-            sign((extensions.getByType(PublishingExtension::class.java)).publications["maven"])
         }
     }
 }
