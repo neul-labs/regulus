@@ -3,6 +3,7 @@ package com.regulus.platform.adk.spring;
 import com.regulus.platform.adk.plugins.AuditSink;
 import com.regulus.platform.adk.plugins.RegulusAuditPlugin;
 import com.regulus.platform.adk.plugins.RegulusDataResidencyPlugin;
+import com.regulus.platform.adk.plugins.RegulusGovernanceEvidencePlugin;
 import com.regulus.platform.adk.plugins.RegulusKillSwitchPlugin;
 import com.regulus.platform.adk.plugins.RegulusModelRiskPlugin;
 import com.regulus.platform.adk.plugins.RegulusPolicyPlugin;
@@ -10,11 +11,24 @@ import com.regulus.platform.adk.plugins.RegulusPrivacyPlugin;
 import com.regulus.platform.compliance.ComplianceProfile;
 import com.regulus.platform.compliance.ComplianceProfiles;
 import com.regulus.platform.compliance.ResidencyPolicy;
+import com.regulus.platform.governance.GovernanceFramework;
+import com.regulus.platform.governance.GovernanceFrameworks;
+import com.regulus.platform.grc.AdapterHealthCheck;
+import com.regulus.platform.grc.GrcEvidenceAdapter;
+import com.regulus.platform.grc.adapter.MetricStreamAdapter;
+import com.regulus.platform.grc.adapter.OneTrustAiGovernanceAdapter;
+import com.regulus.platform.grc.adapter.ServiceNowIrmAdapter;
+import com.regulus.platform.grc.adapter.StdoutAdapter;
+import com.regulus.platform.grc.adapter.WebhookAdapter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.HexFormat;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -101,5 +115,74 @@ public class RegulusAdkAutoConfiguration {
         RegulusModelRiskPlugin.Tier tier =
                 RegulusModelRiskPlugin.Tier.valueOf(props.getAdk().getModelRisk().getTenantTier());
         return RegulusModelRiskPlugin.tier(tier);
+    }
+
+    // ──────────────────────────────────────────────────────────────────
+    // Governance + GRC wiring (opt-in)
+    // ──────────────────────────────────────────────────────────────────
+
+    @Bean
+    @ConditionalOnMissingBean
+    public GovernanceFramework regulusGovernanceFramework(RegulusAdkProperties props) {
+        if (props.getGovernance().getFrameworks().isEmpty()) {
+            return null; // Governance is voluntary; absence is valid.
+        }
+        return GovernanceFrameworks.compose(props.getGovernance().getFrameworks());
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public List<GrcEvidenceAdapter> regulusGrcAdapters(RegulusAdkProperties props) {
+        List<GrcEvidenceAdapter> adapters = new ArrayList<>();
+        RegulusAdkProperties.Grc grc = props.getGrc();
+
+        if (grc.isStdout()) {
+            adapters.add(new StdoutAdapter());
+        }
+
+        if (grc.getServicenowIrm().isEnabled()) {
+            RegulusAdkProperties.Grc.ServiceNow s = grc.getServicenowIrm();
+            URI base = URI.create(s.getBaseUri());
+            if (s.getBearerToken() != null && !s.getBearerToken().isBlank()) {
+                adapters.add(new ServiceNowIrmAdapter(base, s.getBearerToken(), null));
+            } else {
+                adapters.add(new ServiceNowIrmAdapter(base, s.getUsername(), s.getPassword(), null));
+            }
+        }
+
+        if (grc.getOnetrustAiGov().isEnabled()) {
+            RegulusAdkProperties.Grc.OneTrust o = grc.getOnetrustAiGov();
+            adapters.add(new OneTrustAiGovernanceAdapter(
+                    URI.create(o.getBaseUri()), o.getApiKey(), null));
+        }
+
+        if (grc.getMetricstream().isEnabled()) {
+            RegulusAdkProperties.Grc.MetricStream m = grc.getMetricstream();
+            adapters.add(new MetricStreamAdapter(
+                    URI.create(m.getBaseUri()), m.getAuthToken(), m.getIntakeAppName(), null));
+        }
+
+        if (grc.getWebhook().isEnabled()) {
+            RegulusAdkProperties.Grc.Webhook w = grc.getWebhook();
+            byte[] hmacKey = HexFormat.of().parseHex(w.getHmacKeyHex());
+            adapters.add(new WebhookAdapter(URI.create(w.getEndpoint()), hmacKey));
+        }
+
+        if (!adapters.isEmpty()) {
+            AdapterHealthCheck.verify(adapters);
+        }
+        return adapters;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RegulusGovernanceEvidencePlugin regulusGovernanceEvidencePlugin(
+            GovernanceFramework framework,
+            List<GrcEvidenceAdapter> adapters,
+            AuditSink auditSink) {
+        if (framework == null || adapters.isEmpty()) {
+            return null; // No governance configured + no adapters => no plugin.
+        }
+        return RegulusGovernanceEvidencePlugin.forFramework(framework, adapters, auditSink);
     }
 }

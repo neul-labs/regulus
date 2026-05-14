@@ -28,6 +28,8 @@ dependencies {
         api("com.regulus.platform:regulus-ai-adk-services:0.1.0-SNAPSHOT")
         api("com.regulus.platform:regulus-ai-adk-a2a:0.1.0-SNAPSHOT")
         api("com.regulus.platform:regulus-ai-compliance:0.1.0-SNAPSHOT")
+        api("com.regulus.platform:regulus-ai-governance:0.1.0-SNAPSHOT")
+        api("com.regulus.platform:regulus-ai-grc-adapters:0.1.0-SNAPSHOT")
         api("com.regulus.platform:regulus-ai-adk-spring-boot-starter:0.1.0-SNAPSHOT")
 
         // Regulus Platform Modules — existing

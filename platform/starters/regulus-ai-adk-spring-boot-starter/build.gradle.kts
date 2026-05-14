@@ -28,6 +28,8 @@ dependencies {
     api(project(":platform:core:regulus-ai-adk-services"))
     api(project(":platform:core:regulus-ai-adk-a2a"))
     api(project(":platform:core:regulus-ai-compliance"))
+    api(project(":platform:core:regulus-ai-governance"))
+    api(project(":platform:core:regulus-ai-grc-adapters"))
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

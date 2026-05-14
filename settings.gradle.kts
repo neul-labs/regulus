@@ -12,11 +12,15 @@ include(
     "platform:core:regulus-ai-llm",
     "platform:core:regulus-ai-persistence",
 
-    // Core Libraries — ADK extension surface (new)
+    // Core Libraries — ADK extension surface
     "platform:core:regulus-ai-adk-plugins",
     "platform:core:regulus-ai-adk-services",
     "platform:core:regulus-ai-adk-a2a",
     "platform:core:regulus-ai-compliance",
+
+    // Core Libraries — Governance + GRC
+    "platform:core:regulus-ai-governance",
+    "platform:core:regulus-ai-grc-adapters",
 
     // Spring Boot Starters
     "platform:starters:regulus-ai-agents-spring-boot-starter",

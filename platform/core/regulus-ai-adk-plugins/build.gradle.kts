@@ -21,6 +21,8 @@ dependencies {
     api(project(":platform:core:regulus-ai-kill-switch"))
     api(project(":platform:core:regulus-ai-observability"))
     api(project(":platform:core:regulus-ai-compliance"))
+    api(project(":platform:core:regulus-ai-governance"))
+    api(project(":platform:core:regulus-ai-grc-adapters"))
 
     // Lightweight utilities — no Spring dependency in this module
     implementation("com.fasterxml.jackson.core:jackson-databind")
