@@ -53,10 +53,13 @@ subprojects {
         }
     }
 
-    // Publish every platform/* module (incl. BOM, excl. gradle-plugin which uses plugin-publish)
-    // via the Central Portal using Vanniktech's plugin. The plugin handles bundle assembly,
-    // GPG signing, POST to the Portal API, validation polling, and auto-release.
-    if (isPlatform && !isGradlePlugin) {
+    // Publish every platform/* module (incl. BOM) to Maven Central, EXCEPT:
+    //   - the Gradle plugin module (uses plugin-publish for the Gradle Plugin Portal)
+    //   - the CLI module (distributed as a fat jar via GitHub Releases; not a library)
+    // The Vanniktech plugin handles bundle assembly, GPG signing, POST to the
+    // Portal API, validation polling, and auto-release.
+    val isCli = path == ":platform:cli:regulus-cli"
+    if (isPlatform && !isGradlePlugin && !isCli) {
         apply(plugin = "com.vanniktech.maven.publish")
 
         configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {

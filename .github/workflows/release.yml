@@ -206,8 +206,10 @@ jobs:
       - name: Publish Gradle plugin
         if: steps.gate.outputs.ready == 'true'
         env:
-          ORG_GRADLE_PROJECT_gradle.publish.key: ${{ secrets.GRADLE_PUBLISH_KEY }}
-          ORG_GRADLE_PROJECT_gradle.publish.secret: ${{ secrets.GRADLE_PUBLISH_SECRET }}
+          # plugin-publish reads these as plain env vars when the dotted
+          # `gradle.publish.key/secret` system properties aren't set.
+          GRADLE_PUBLISH_KEY: ${{ secrets.GRADLE_PUBLISH_KEY }}
+          GRADLE_PUBLISH_SECRET: ${{ secrets.GRADLE_PUBLISH_SECRET }}
         run: |
           ./gradlew --no-daemon :platform:gradle-plugin:regulus-compliance-gradle-plugin:publishPlugins \
             -PregulusVersion=${{ needs.github-release.outputs.version }}
