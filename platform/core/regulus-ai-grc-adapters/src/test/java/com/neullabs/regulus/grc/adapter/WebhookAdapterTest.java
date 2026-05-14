@@ -90,7 +90,8 @@ class WebhookAdapterTest {
         adapter.emit(envelope());
 
         Map<?, ?> parsed = new ObjectMapper().readValue(bodies.get(0), Map.class);
-        assertThat(parsed.keySet()).contains("eventId", "controlFrameworkId");
+        assertThat(parsed.containsKey("eventId")).isTrue();
+        assertThat(parsed.containsKey("controlFrameworkId")).isTrue();
     }
 
     @Test
