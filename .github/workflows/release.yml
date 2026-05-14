@@ -86,11 +86,16 @@ jobs:
 
   # ─────────────────────────────────────────────────────────────────────
   # TIER 2 — GHCR CONTAINER IMAGE
-  # Needs no admin setup; uses GITHUB_TOKEN.
+  # Uses GITHUB_TOKEN. The first run for a new package on an org-level
+  # namespace can fail because the package doesn't yet exist and
+  # GitHub's auto-creation lags behind the first push. `continue-on-error`
+  # so a GHCR hiccup doesn't fail the whole release run. See RELEASING.md
+  # for the one-time package permission setup.
   # ─────────────────────────────────────────────────────────────────────
   ghcr:
     needs: github-release
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
