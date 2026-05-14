@@ -5,6 +5,9 @@ plugins {
     // io.github.gradle-nexus.publish-plugin we used before OSSRH
     // sunset on 30 June 2025.
     id("com.vanniktech.maven.publish") version "0.36.0" apply false
+    // Pinned at the root so the Vanniktech plugin can see the Kotlin
+    // plugin classes when it's applied to the same Kotlin module.
+    kotlin("jvm") version "2.2.0" apply false
 }
 
 group = "com.neullabs"
