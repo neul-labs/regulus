@@ -68,13 +68,37 @@ gpg --keyserver hkp://keyserver.ubuntu.com --send-keys <KEY_ID>
 Store the armored private key as the `SIGNING_KEY` secret. Store the
 passphrase as `SIGNING_PASSWORD`.
 
-### 3. Gradle Plugin Portal API key
+### 3. GHCR package permissions (first push only)
+
+The first push to `ghcr.io/neul-labs/regulus-adk-demo` requires the
+package to exist with write access for the `regulus` repository's
+`GITHUB_TOKEN`. GitHub's auto-creation usually works, but for an
+org-level namespace it can fail with `blob upload unknown to registry`
+on the first attempt.
+
+If that happens:
+
+1. Open <https://github.com/orgs/neul-labs/packages> → create the
+   package manually (push a placeholder image once with an org-admin
+   PAT, or use the Packages UI's "create" flow once available).
+2. In the package's "Manage Actions Access" settings, grant the
+   `neul-labs/regulus` repository **Write** access.
+3. Re-run the failed `ghcr` job from the workflow run page.
+
+After the first successful push the package's permissions persist, so
+subsequent releases just work.
+
+The release workflow marks the `ghcr` job `continue-on-error: true`, so
+a GHCR failure doesn't fail the overall release run. The GitHub Release
++ CLI jar (Tier 1) is the canonical artefact.
+
+### 4. Gradle Plugin Portal API key
 
 <https://plugins.gradle.org/> → create account → API Keys → generate.
 You'll get a key + secret. Store as `GRADLE_PUBLISH_KEY` and
 `GRADLE_PUBLISH_SECRET` GitHub secrets.
 
-### 4. Configure GitHub secrets
+### 5. Configure GitHub secrets
 
 In the repo settings → Secrets and variables → Actions, add:
 
