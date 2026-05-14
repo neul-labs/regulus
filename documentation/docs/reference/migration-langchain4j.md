@@ -45,5 +45,5 @@ is which plugin / interceptor surface you use to expose them.
 
 ## See also
 
-- [ADR-006](../../../docs/decisions/ADR-006-adk-primary-runtime-and-extension-model.md)
+- [ADR-006](https://github.com/neul-labs/regulus/blob/main/docs/decisions/ADR-006-adk-primary-runtime-and-extension-model.md)
   — the decision and rationale.

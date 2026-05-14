@@ -3,7 +3,7 @@
 One page per regulation Regulus ships a profile for. Each page follows the
 same shape so a reader can self-identify in 20 seconds and find the
 engineering answer in two minutes — see
-[ADR-009](../../../docs/decisions/ADR-009-regtech-as-product-docs.md) for the
+[ADR-009](https://github.com/neul-labs/regulus/blob/main/docs/decisions/ADR-009-regtech-as-product-docs.md) for the
 editorial standard.
 
 1. In one sentence — what this regulation is.

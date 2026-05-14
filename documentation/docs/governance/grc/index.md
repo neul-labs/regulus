@@ -48,7 +48,7 @@ Two reasons:
    `fieldMappings` override so a deploying team can bind to their tenant
    without forking Regulus.
 
-See [ADR-011](../../../../docs/decisions/ADR-011-grc-integration-via-pluggable-adapters.md)
+See [ADR-011](https://github.com/neul-labs/regulus/blob/main/docs/decisions/ADR-011-grc-integration-via-pluggable-adapters.md)
 for the rationale.
 
 ## Fail-loud at startup
@@ -56,7 +56,7 @@ for the rationale.
 `AdapterHealthCheck` runs before the ADK `App` activates. If any
 configured adapter can't reach its target — bad URL, bad credentials,
 firewall rule — the application refuses to start. Same shape as
-[residency by construction](../../../../docs/decisions/ADR-008-residency-by-construction.md).
+[residency by construction](https://github.com/neul-labs/regulus/blob/main/docs/decisions/ADR-008-residency-by-construction.md).
 
 ## What an adapter does *not* do
 

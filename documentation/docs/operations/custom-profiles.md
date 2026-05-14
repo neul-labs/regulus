@@ -74,7 +74,7 @@ ComplianceProfile regulusComplianceProfile(List<ComplianceProfile> all) {
 ## Documenting
 
 If you publish the profile, write a page following the 12-section
-template (see [ADR-009](../../../docs/decisions/ADR-009-regtech-as-product-docs.md)).
+template (see [ADR-009](https://github.com/neul-labs/regulus/blob/main/docs/decisions/ADR-009-regtech-as-product-docs.md)).
 The Concepts pages already cover the vocabulary you'll need.
 
 ## Contributing upstream
