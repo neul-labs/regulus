@@ -39,7 +39,7 @@ public final class OneTrustAiGovernanceAdapter implements GrcEvidenceAdapter {
     private final String apiKey;
     private final Map<String, String> fieldMappings;
     private final HttpClient http;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = AdapterJson.mapper();
 
     public OneTrustAiGovernanceAdapter(URI baseUri, String apiKey,
                                        Map<String, String> fieldMappings) {

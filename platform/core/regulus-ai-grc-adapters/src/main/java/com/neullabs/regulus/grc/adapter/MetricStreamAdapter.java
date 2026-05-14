@@ -38,7 +38,7 @@ public final class MetricStreamAdapter implements GrcEvidenceAdapter {
     private final String intakeAppName;
     private final Map<String, String> fieldMappings;
     private final HttpClient http;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = AdapterJson.mapper();
 
     public MetricStreamAdapter(URI baseUri, String authToken, String intakeAppName,
                                Map<String, String> fieldMappings) {

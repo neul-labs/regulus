@@ -29,7 +29,7 @@ public final class WebhookAdapter implements GrcEvidenceAdapter {
     private final URI endpoint;
     private final byte[] hmacKey;
     private final HttpClient http;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = AdapterJson.mapper();
 
     public WebhookAdapter(URI endpoint, byte[] hmacKey) {
         this.endpoint = endpoint;

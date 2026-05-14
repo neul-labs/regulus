@@ -44,7 +44,7 @@ public final class ServiceNowIrmAdapter implements GrcEvidenceAdapter {
     private final String authHeader;
     private final Map<String, String> fieldMappings;
     private final HttpClient http;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = AdapterJson.mapper();
 
     public ServiceNowIrmAdapter(URI baseUri, String username, String password,
                                 Map<String, String> fieldMappings) {

@@ -20,6 +20,8 @@ dependencies {
     // retry / circuit-breaker wrap the adapter on their side.
 
     implementation("com.fasterxml.jackson.core:jackson-databind")
+    // Required to serialise java.time.Instant in the GrcEvidenceEnvelope.
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.assertj:assertj-core:3.25.3")
