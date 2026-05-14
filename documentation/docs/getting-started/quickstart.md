@@ -7,7 +7,7 @@ Build your first compliant AI agent in 5 minutes.
 ### Option 1: Clone the Quickstart Example
 
 ```bash
-git clone https://github.com/Skelf-Research/regulus.git
+git clone https://github.com/neul-labs/regulus.git
 cd regulus/examples/quickstart
 ```
 

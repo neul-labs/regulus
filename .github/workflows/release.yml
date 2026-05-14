@@ -70,5 +70,5 @@ jobs:
       - name: Build & push reference container
         run: |
           ./gradlew --no-daemon :examples:adk-vertex-agent-engine-deploy:jib \
-            -Djib.to.image=ghcr.io/skelf-research/regulus-adk-demo \
+            -Djib.to.image=ghcr.io/neul-labs/regulus-adk-demo \
             -PregulusVersion=${{ steps.ver.outputs.version }}

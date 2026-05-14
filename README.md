@@ -2,223 +2,199 @@
 
 [![Java 21](https://img.shields.io/badge/Java-21-orange)](https://openjdk.org/projects/jdk/21/)
 [![ADK 1.2.0](https://img.shields.io/badge/Google%20ADK-1.2.0-blue)](https://github.com/google/adk-java)
-[![Spring Boot 3.3](https://img.shields.io/badge/Spring%20Boot-3.3-green)](https://spring.io/projects/spring-boot)
 [![Maven Central](https://img.shields.io/maven-central/v/com.regulus.platform/regulus-ai-adk-plugins.svg)](https://central.sonatype.com/namespace/com.regulus.platform)
 [![Gradle Plugin Portal](https://img.shields.io/gradle-plugin-portal/v/com.regulus.compliance)](https://plugins.gradle.org/plugin/com.regulus.compliance)
+[![Docs](https://img.shields.io/badge/docs-regulus.neullabs.com-blueviolet)](https://regulus.neullabs.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**The EU & UK compliance plane for Google ADK — the runtime layer of your
-AI governance program.**
+# Where Google ADK ends, regulated builds begin.
 
-Drop-in plugins and service extensions for policy guards, PII redaction,
-dual-control HITL, regulation-aware retention, residency-pinned sessions /
-memory / artifacts, and immutable audit. Built on ADK 1.x's official
-`BasePlugin` and service interfaces — so the Regulus surface is the same shape
-as the rest of your ADK code.
+Google ADK ships AI agents. **Regulus ships AI agents your regulator
+accepts.**
 
-Maps to **EU & UK regulations** (EU AI Act, GDPR, UK GDPR, DORA, NIS2, FCA
-SYSC, PRA SS1/23 + SS2/21, NHS DSPT, EHDS) **and** the voluntary frameworks
-mature buyers expect (**NIST AI RMF + 600-1 GenAI Profile + Agent Interop
-Profile, ISO/IEC 42001 AIMS, ISO/IEC 23894, ISO/IEC 23053**). Evidence flows
-into your GRC tool (ServiceNow IRM, OneTrust AI Governance, MetricStream,
-generic webhook) via opt-in adapters.
+---
 
-> Shipped 20 March 2026, ten days ahead of ADK Java 1.0 GA, and tracking ADK
-> releases since.
+## 60s · 5min · 15min
 
-## What it is, in one paragraph
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                                                                     │
+│   60s   regulus init my-agent --profiles=eu-ai-act,uk-gdpr,fca-sysc │
+│                                --frameworks=nist-ai-rmf,iso-42001   │
+│                                                                     │
+│   5min  cd my-agent && gradle wrapper && ./gradlew bootRun          │
+│                                                                     │
+│   15min hit /chat → see policy + privacy + audit + GRC envelope     │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
-If your AI agent touches an EU or UK customer, **at least one** of GDPR, UK
-GDPR, the EU AI Act, DORA, NIS2, FCA SYSC, PRA SS1/23, PRA SS2/21, Consumer
-Duty, NHS DSPT, or EHDS applies to you. Each comes with concrete engineering
-demands — purpose binding, PII handling, audit retention, residency, model
-risk tiering, human oversight, kill switches. Regulus turns each into a YAML
-profile and a `BasePlugin` you add to your ADK `App`. You write the agent; we
-keep the regulator's hand off the keyboard.
+That's the funnel. Three checkpoints, no slides.
 
-## Quick start
+## 60s — scaffold
 
-`build.gradle.kts`:
+```bash
+# Install the CLI:
+curl -fsSL https://regulus.neullabs.com/install.sh | sh
 
-```kotlin
-dependencies {
-    implementation(platform("com.regulus.platform:regulus-ai-bom:0.1.0"))
-    implementation("com.google.adk:google-adk:1.2.0")
-    implementation("com.regulus.platform:regulus-ai-adk-spring-boot-starter")
+# Scaffold a compliant ADK agent:
+regulus init my-agent \
+    --profiles=eu-ai-act,uk-gdpr,fca-sysc \
+    --frameworks=nist-ai-rmf,iso-42001 \
+    --grc-adapter=stdout
+```
+
+Output:
+
+```
+✓ created my-agent/ with 12 files
+  build.gradle.kts · settings.gradle.kts · gradle.properties · .gitignore
+  README.md · gradlew · gradlew.bat
+  src/main/java/com/example/agent/{AgentApplication.java, ChatController.java}
+  src/main/resources/{application.yaml, logback.xml}
+
+Next: cd my-agent && gradle wrapper && ./gradlew bootRun
+```
+
+Don't want to install a CLI? Same thing through Gradle:
+
+```bash
+./gradlew initRegulusAgent -PagentName=my-agent \
+    -Pprofiles=eu-ai-act,uk-gdpr,fca-sysc \
+    -Pframeworks=nist-ai-rmf,iso-42001
+```
+
+## The gap, in one paragraph
+
+ADK ships a capable AI agent runtime. **It doesn't ship the audit trail
+your auditor demands, the retention schedule your DPO signs off on, the
+kill switch your runbook exercises, the model-risk tier your second line
+assesses, or the framework-mapped evidence your GRC tool catalogues.**
+Writing those properly is a quarter of engineering time. Writing them
+badly is worse than not doing it at all — a bad audit trail is a
+discoverable artefact in an enforcement action. Regulus is the bridge.
+
+[**→ Why Regulus** — the full version of this story](https://regulus.neullabs.com/why-regulus/)
+
+## Before / after
+
+Plain ADK — works, but produces no audit trail:
+
+```java
+@SpringBootApplication
+public class App {
+    public static void main(String[] args) { SpringApplication.run(App.class, args); }
+    LlmAgent rootAgent() {
+        return LlmAgent.builder().name("greeter").model("gemini-2.5-flash").build();
+    }
 }
 ```
 
-`application.yaml`:
+ADK + Regulus — same agent, with policy + privacy + audit + kill switch +
+model risk + residency + framework-mapped GRC evidence:
+
+```java
+@SpringBootApplication
+public class App {
+    public static void main(String[] args) { SpringApplication.run(App.class, args); }
+    // Regulus plugins auto-register via application.yaml. No additional code.
+}
+```
 
 ```yaml
 regulus:
   compliance:
     profiles: [eu-ai-act, uk-gdpr, fca-sysc]
+  governance:
+    frameworks: [nist-ai-rmf, iso-42001]
+  grc:
+    stdout: true
   adk:
-    name: my-agent
-    session-service:
-      kind: vertex-ai
-      project-id: ${GOOGLE_CLOUD_PROJECT}
-      location: europe-west2
-    audit:
-      sink: kafka
-      kafka-topic: audit.regulus.v1
-    residency:
-      allowed-regions: [europe-west2]
-    model-risk:
-      tenant-tier: STANDARD
+    residency: { allowed-regions: [europe-west2] }
+    kill-switch: { enabled: true, dual-control: true }
+    model-risk:  { tenant-tier: STANDARD }
 ```
 
-That's it. Your ADK agent now redacts PII before it reaches the model,
-enforces purpose binding and consent on every request, requires dual-control
-to deactivate the kill switch, blocks any service that isn't in `europe-west2`
-**at startup**, and emits a structured audit event auditors actually accept.
-No interceptors, no Spring AOP, no surprises.
+[**→ Show me — the diff** with audit-event sample](https://regulus.neullabs.com/show-me/)
 
-Prefer to wire plugins directly without Spring? Same six plugins, same shape:
+## What the auditor sees
 
-```java
-App app = App.builder("my-agent", rootAgent)
-    .plugin(RegulusPolicyPlugin.fromProfile(profile))
-    .plugin(RegulusPrivacyPlugin.withPatterns(NINO, IBAN, BIC, SORT_CODE).build())
-    .plugin(RegulusKillSwitchPlugin.dualControl())
-    .plugin(RegulusAuditPlugin.forProfile(profile).toKafka("audit.regulus.v1").build())
-    .plugin(RegulusDataResidencyPlugin.allow("europe-west2"))
-    .plugin(RegulusModelRiskPlugin.tier(Tier.STANDARD))
-    .build();
+```json
+{
+  "event_id": "01J6X4ABCDEFG",
+  "occurred_at": "2026-05-14T11:23:09.123Z",
+  "actor": "user:42",
+  "smf_holder": "SMF24:Jane Smith",
+  "action": "model-call",
+  "result": "allow",
+  "model_id": "gemini-2.5-flash",
+  "regulation_clause": "UK GDPR Art. 25",
+  "framework_control_id": "A.7.3",
+  "ai_act_risk_tier": "limited",
+  "consumer_duty_outcome": "support",
+  "redactions": ["NINO_1"]
+}
 ```
 
-## What Regulus saves you
+That JSON has the regulation citation, the ISO 42001 control id, the
+SMF attribution, the redactions, and the outcome — all in one event. Your
+2L attests from it. Your 3L reproduces it. Your DPO answers their SAR
+from it. None of which works one hour ago.
 
-Honest estimates, senior backend engineer, no prior regtech, no existing
-tooling. Full table at
-[`time-saved.md`](documentation/docs/compliance/time-saved.md).
+## What you get
 
-| Control | Build it yourself | Regulus |
-|---|---|---|
-| PII redaction (NINO/IBAN/BIC/SORT_CODE + tests + audit hook) | ~3 engineer-weeks | One plugin |
-| Dual-control kill switch (state + 4-eyes UI + audit) | ~4 engineer-weeks | One plugin |
-| Audit pipeline + regulation-aware retention + erasure | ~6 engineer-weeks | One plugin + one compactor |
-| Residency proof (allowlist + startup fail-closed + evidence export) | ~2 engineer-weeks | One plugin |
-| EU AI Act Annex III classification + risk-tier registry | ~5 engineer-weeks | One plugin |
+- **6 ADK `BasePlugin`s** — policy, privacy, audit, kill switch, model risk, residency.
+- **6 ADK service extensions** — Vertex + Firestore sessions/memory, GCS artifact, retention compactor, computer-use, plus A2A envelope.
+- **10 regulation profiles** — EU AI Act, GDPR, UK GDPR, DORA, NIS2, FCA SYSC, PRA SS1/23 + SS2/21, NHS DSPT, EHDS.
+- **6 governance frameworks** — NIST AI RMF + 600-1 GenAI Profile + planned Q4 2026 Agent Interop Profile, ISO/IEC 42001 (with SoA generator), ISO/IEC 23894, ISO/IEC 23053.
+- **4 GRC adapters** — ServiceNow IRM, OneTrust AI Governance, MetricStream, generic HMAC-signed webhook.
+- **CLI + Gradle plugin** — scaffold, doctor, compliance scan, coverage matrix.
 
-The number isn't the point — the *visibility of the unbuilt cost* is. Plus we
-keep these patched as regulations evolve, so a "this stayed compliant for two
-years without my team touching it" is the actual product.
+Full mapping (regulation × framework × control × ADK hook) at the
+[coverage matrix](https://regulus.neullabs.com/compliance/coverage-matrix/).
 
-## Compliance coverage
-
-| Regulation | Jurisdiction | Profile id | Key controls |
-|---|---|---|---|
-| EU AI Act | EU | `eu-ai-act` | Risk tiering, logging, human oversight, transparency |
-| GDPR | EU | `gdpr` | Purpose binding, redaction, audit retention, residency |
-| UK GDPR + DPA 2018 | UK | `uk-gdpr` | Same as GDPR with ICO incident notification |
-| DORA | EU | `dora` | ICT risk, incident classification, third-party register |
-| NIS2 | EU | `nis2` | Cyber risk management, 24h/72h incident reporting |
-| FCA SYSC + Consumer Duty | UK | `fca-sysc` | SMF attribution, outsourcing, 5y records, four outcomes |
-| PRA SS1/23 | UK | `pra-ss1-23` | Model inventory, tiering, validation, kill-switch readiness |
-| PRA SS2/21 | UK | `pra-ss2-21` | Third-party register, residency, exit plan, audit rights |
-| NHS DSPT | UK | `nhs-dspt` | Personal data, staff identity, incident management |
-| EHDS | EU | `ehds` | Primary/secondary use, permits, quality labels |
-
-Full mapping (regulation × control × ADK hook × test fixture) lives at
-[`coverage-matrix.md`](documentation/docs/compliance/coverage-matrix.md), and
-is regenerated from `ComplianceProfile.controls()` by
-`./gradlew regulusComplianceMatrix`.
-
-## AI governance & GRC — for governance leaders
-
-If you're a **CISO / CAIO / CRO / Head of Model Risk / Internal Audit**
-reading this: Regulus is the **runtime control-execution layer** under
-your AI governance program. We don't replace your GRC tool — we feed it.
-
-- **Frameworks supported.** NIST AI RMF (1.0 + AI 600-1 GenAI Profile +
-  the planned Q4 2026 Agent Interop Profile), ISO/IEC 42001 (AIMS, with
-  a built-in Statement of Applicability generator), ISO/IEC 23894 (AI
-  risk management), ISO/IEC 23053 (AI/ML system framework).
-- **Three Lines of Defence.** 1L gets inline runtime guardrails. 2L gets
-  a continuous evidence stream into the GRC tool. 3L gets a tamper-
-  evident, reproducible audit trail with signed immutability under
-  regulated profiles.
-- **GRC integration.** Opt-in adapters for ServiceNow IRM, OneTrust AI
-  Governance, MetricStream, and a generic HMAC-signed webhook for
-  LogicGate / Riskonnect / RSA Archer / IBM OpenPages / bespoke
-  pipelines. Each ships with sensible defaults plus `fieldMappings`
-  override for tenant-customised schemas.
-
-Start at **[Governance overview →](documentation/docs/governance/index.md)**
-or **[Concepts → What is AI governance?](documentation/docs/concepts/ai-governance-intro.md)**.
-
-## How it plugs into ADK
-
-Every Regulus control is a `com.google.adk.plugins.BasePlugin`. We extend
-ADK's official seams — not Spring AOP, not bytecode rewriting, not a parallel
-runtime:
-
-| Concern | ADK hook | Regulus class |
-|---|---|---|
-| Policy guards | `BeforeModelCallback`, `BeforeToolCallback` | `RegulusPolicyPlugin` |
-| PII redaction | `BeforeModelCallback` (mutates), `AfterModelCallback` | `RegulusPrivacyPlugin` |
-| Audit + retention | `After*Callback` + `EventCompactor` | `RegulusAuditPlugin` + `RegulusRetentionEventCompactor` |
-| Kill switch / dual control | `BeforeAgentCallback` + `ToolConfirmation` | `RegulusKillSwitchPlugin` |
-| Model risk tiering | `BeforeModelCallback`, `BeforeToolCallback` | `RegulusModelRiskPlugin` |
-| Data residency | Startup + `BeforeAgentCallback` | `RegulusDataResidencyPlugin` |
-| Compliant session/memory/artifact | Extends `*SessionService`, `*MemoryService`, `*ArtifactService` | `Regulus*` in `regulus-ai-adk-services` |
-| A2A envelope | Wraps `AgentExecutor` + `RemoteA2AAgent` | `regulus-ai-adk-a2a` |
-| Compliant computer use | Implements `BaseComputer` | `RegulusComplianceBaseComputer` |
-
-`ToolConfirmation` (Google's official HITL primitive) is the same mechanism
-our dual-control kill switch uses. Same shape, no special-case API for users
-to learn.
-
-## Where to start
+## Choose your path
 
 | You are… | Start here |
 |---|---|
-| New to ADK | [`adk-quickstart`](examples/adk-quickstart/README.md) — 10 minutes from zero |
-| New to regtech | [Concepts → What is regtech?](documentation/docs/concepts/regtech-intro.md) and the [Glossary](documentation/docs/concepts/glossary.md) |
-| Architect picking controls | [Plugin reference](documentation/docs/plugins/) and the [Coverage matrix](documentation/docs/compliance/coverage-matrix.md) |
-| Deploying to Vertex AI Agent Engine | [`adk-vertex-agent-engine-deploy`](examples/adk-vertex-agent-engine-deploy/README.md) |
-| Bringing your own compliance profile | [Concepts → Risk tiers](documentation/docs/concepts/risk-tiers.md) + [Operations → Custom profiles](documentation/docs/operations/custom-profiles.md) |
+| **An engineer** new to Regulus | [Why Regulus](https://regulus.neullabs.com/why-regulus/) → [Show me](https://regulus.neullabs.com/show-me/) → [Install the CLI](https://regulus.neullabs.com/getting-started/install-cli/) |
+| **A governance leader** (CISO / CAIO / CRO / 2L / 3L) | [Governance overview](https://regulus.neullabs.com/governance/) → [Three Lines of Defence](https://regulus.neullabs.com/governance/three-lines/) → [GRC integration](https://regulus.neullabs.com/governance/grc/) |
+| **Preparing for ISO 42001 certification** | [ISO/IEC 42001](https://regulus.neullabs.com/governance/frameworks/iso-42001/) → [Audit walkthrough](https://regulus.neullabs.com/compliance/audit-walkthrough/) → [Program operating model](https://regulus.neullabs.com/governance/program-operating-model/) |
+| **New to regulatory vocabulary** | [Concepts → What is regtech?](https://regulus.neullabs.com/concepts/regtech-intro/) → [Concepts → What is AI governance?](https://regulus.neullabs.com/concepts/ai-governance-intro/) → [Glossary](https://regulus.neullabs.com/concepts/glossary/) |
 
-## Project layout
+## How it plugs into ADK
 
-```
-platform/
-  regulus-ai-bom/                                BOM with ADK 1.2.0 + Regulus modules
-  core/
-    regulus-ai-compliance/                       Profile interface + 10 regulations
-    regulus-ai-adk-plugins/                      6 BasePlugin implementations
-    regulus-ai-adk-services/                     6 ADK service-interface extensions
-    regulus-ai-adk-a2a/                          A2A envelope
-    regulus-ai-policy/ -privacy/ -kill-switch/   Mechanisms used by the plugins
-    regulus-ai-llm/                              Alternative runtime (LangChain4j) — opt-in
-  starters/
-    regulus-ai-adk-spring-boot-starter/          Optional Spring auto-config
-  gradle-plugin/
-    regulus-compliance-gradle-plugin/            Build-time scan, matrix, doctor
-examples/
-  adk-quickstart/                                ADK + Regulus in 10 minutes
-  adk-multi-agent-a2a/                           A2A envelope across two agents
-  adk-vertex-agent-engine-deploy/                adk deploy to Vertex AI Agent Engine
-documentation/                                   MkDocs site (docs.skelfresearch.com)
-docs/                                            Internal: ADRs, architecture, agent work
-```
+Every Regulus control is a `com.google.adk.plugins.BasePlugin`. Built on
+ADK's official extension contract — not Spring AOP, not bytecode
+rewriting:
+
+| ADK seam | Regulus implementation |
+|---|---|
+| `BeforeAgentCallback` | `RegulusKillSwitchPlugin`, `RegulusDataResidencyPlugin` |
+| `BeforeModelCallback` | `RegulusPolicyPlugin`, `RegulusPrivacyPlugin` (mutating), `RegulusModelRiskPlugin` |
+| `AfterModelCallback` | `RegulusPrivacyPlugin` (re-redact), `RegulusAuditPlugin` |
+| `BeforeToolCallback` | `RegulusPolicyPlugin`, `RegulusModelRiskPlugin` (for code executors) |
+| `ToolConfirmation` | Kill-switch dual control, vulnerable-customer HITL, Art. 22 safeguards |
+| `EventCompactor` | `RegulusRetentionEventCompactor` (regulation-aware retention) |
+| `SessionService` / `MemoryService` / `ArtifactService` | `Regulus*` variants with residency at construction |
+| A2A `RemoteA2AAgent` / `AgentExecutor` | `regulus-ai-adk-a2a` envelope |
+| `BaseComputer` | `RegulusComplianceBaseComputer` (Google flagged as needs-impl) |
+
+`ToolConfirmation` is Google's HITL primitive. Regulus' dual control uses
+exactly that mechanism — same shape, no special-case API for users to
+learn.
 
 ## Distribution
 
-- **Maven Central** — primary; `com.regulus.platform:regulus-ai-adk-plugins`,
-  `regulus-ai-adk-services`, `regulus-ai-adk-a2a`,
-  `regulus-ai-adk-spring-boot-starter`, `regulus-ai-compliance`,
-  `regulus-ai-bom`.
-- **Gradle Plugin Portal** — `com.regulus.compliance` Gradle plugin.
-- **GitHub Container Registry** — reference container image for the Vertex
-  Agent Engine deploy example at `ghcr.io/skelf-research/regulus-adk-demo`.
+- **Maven Central** — `com.regulus.platform:*`.
+- **Gradle Plugin Portal** — `com.regulus.compliance`.
+- **GitHub Releases** — `regulus-cli.jar`.
+- **GitHub Container Registry** — `ghcr.io/neul-labs/regulus-adk-demo`.
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). New controls ship as `BasePlugin`
-implementations; new compliance pages follow the
+implementations; compliance docs follow the
 [regtech-explainer template](docs/decisions/ADR-009-regtech-as-product-docs.md).
 
 ## License
@@ -227,6 +203,8 @@ implementations; new compliance pages follow the
 
 ---
 
-Regulus is built to ADK's official extension contract. It is not endorsed by
-Google, and we make no claim to that effect — only that we picked the seams
-they ship.
+Built to ADK's official extension contract. Not endorsed by Google — we
+picked the seams they ship.
+
+Shipped 20 March 2026, ten days ahead of ADK Java 1.0 GA. Tracking ADK
+releases since.

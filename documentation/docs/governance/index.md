@@ -5,6 +5,9 @@ Officer, Chief Risk Officer, Head of Model Risk, 2nd Line of Defence, and
 Internal Audit. The developer-first sections elsewhere stay the runtime
 truth; this section is the **program** layer.
 
+> New to Regulus? Start at [Why Regulus](../why-regulus.md) for the
+> framing, then come back here.
+
 If you've not read [Concepts → What is AI governance?](../concepts/ai-governance-intro.md)
 and [Concepts → What is GRC?](../concepts/grc-intro.md) yet, do so first.
 Pages here lean on that vocabulary.

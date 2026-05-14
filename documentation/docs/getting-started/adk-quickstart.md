@@ -4,6 +4,10 @@ From zero to a working ADK + Regulus agent in 10 minutes.
 
 If you've never used ADK before, this page also covers the ADK basics.
 
+> **Faster path:** `regulus init` does all of step 1–4 below in one
+> command. See [Install the CLI](install-cli.md) then
+> [Show me — the diff](../show-me.md). This page is for manual setup.
+
 ## 1. Project setup
 
 `build.gradle.kts`:

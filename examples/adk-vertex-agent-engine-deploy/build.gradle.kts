@@ -32,7 +32,7 @@ dependencies {
 
 jib {
     to {
-        image = "ghcr.io/skelf-research/regulus-adk-demo"
+        image = "ghcr.io/neul-labs/regulus-adk-demo"
         tags = setOf("latest", project.version.toString())
     }
     container {

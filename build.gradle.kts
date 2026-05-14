@@ -59,7 +59,7 @@ subprojects {
                     pom {
                         name.set("Regulus — ${project.name}")
                         description.set("EU & UK compliance plane for Google ADK — module: ${project.name}")
-                        url.set("https://github.com/Skelf-Research/regulus")
+                        url.set("https://github.com/neul-labs/regulus")
                         licenses {
                             license {
                                 name.set("MIT License")
@@ -68,15 +68,15 @@ subprojects {
                         }
                         developers {
                             developer {
-                                id.set("skelf-research")
-                                name.set("Skelf Research")
-                                email.set("opensource@skelfresearch.com")
+                                id.set("neul-labs")
+                                name.set("Neul Labs")
+                                email.set("opensource@neullabs.com")
                             }
                         }
                         scm {
-                            connection.set("scm:git:git@github.com:Skelf-Research/regulus.git")
-                            developerConnection.set("scm:git:git@github.com:Skelf-Research/regulus.git")
-                            url.set("https://github.com/Skelf-Research/regulus")
+                            connection.set("scm:git:git@github.com:neul-labs/regulus.git")
+                            developerConnection.set("scm:git:git@github.com:neul-labs/regulus.git")
+                            url.set("https://github.com/neul-labs/regulus")
                         }
                     }
                 }

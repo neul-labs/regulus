@@ -53,7 +53,7 @@ allocation, not raw FTE-time.
 
 These are based on:
 
-- Observation of internal Skelf Research and partner-team builds doing each
+- Observation of internal Neul Labs and partner-team builds doing each
   of the above from scratch.
 - Public engineering write-ups from large financial-services firms
   describing similar primitives.

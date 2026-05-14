@@ -53,4 +53,4 @@ RegulusRemoteA2AAgent remote = new RegulusRemoteA2AAgent(
 
 - [`RegulusAuditPlugin`](../plugins/audit.md)
 - [`RegulusPolicyPlugin`](../plugins/policy.md)
-- [Example: `adk-multi-agent-a2a`](https://github.com/Skelf-Research/regulus/tree/main/examples/adk-multi-agent-a2a)
+- [Example: `adk-multi-agent-a2a`](https://github.com/neul-labs/regulus/tree/main/examples/adk-multi-agent-a2a)

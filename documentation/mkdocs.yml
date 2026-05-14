@@ -1,10 +1,10 @@
 site_name: Regulus
 site_description: The EU & UK compliance plane for Google ADK — drop-in plugins, service extensions, and regulation profiles for AI agents on Google's Agent Development Kit.
-site_author: Skelf Research
-site_url: https://docs.skelfresearch.com/regulus
+site_author: Neul Labs
+site_url: https://regulus.neullabs.com
 
 repo_name: regulus
-repo_url: https://github.com/Skelf-Research/regulus
+repo_url: https://github.com/neul-labs/regulus
 
 theme:
   name: material
@@ -80,7 +80,7 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/Skelf-Research/regulus
+      link: https://github.com/neul-labs/regulus
   generator: false
 
 extra_css:
@@ -88,8 +88,11 @@ extra_css:
 
 nav:
   - Home: index.md
+  - Why Regulus: why-regulus.md
+  - Show me — the diff: show-me.md
   - Getting started:
       - Overview: getting-started/index.md
+      - Install the CLI: getting-started/install-cli.md
       - Prerequisites: getting-started/prerequisites.md
       - ADK quickstart: getting-started/adk-quickstart.md
       - Your first compliant agent: getting-started/first-compliant-agent.md
@@ -172,6 +175,7 @@ nav:
       - Custom profiles: operations/custom-profiles.md
   - Reference:
       - BOM coordinates: reference/bom.md
+      - CLI: reference/cli.md
       - YAML configuration: reference/configuration.md
       - Gradle plugin tasks: reference/gradle-plugin.md
       - Migration from LangChain4j: reference/migration-langchain4j.md

@@ -9,6 +9,10 @@ You don't need to read every page — but you should know **where each lives**,
 because the Compliance section will hyperlink back here every time it uses a
 term that isn't pure CS vocabulary.
 
+> Already convinced? Skip to [Why Regulus](../why-regulus.md) for the
+> narrative, or [Show me — the diff](../show-me.md) for the audit-event
+> proof.
+
 ## Pages
 
 **Foundations** (read these first):

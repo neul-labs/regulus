@@ -87,4 +87,4 @@ particularly interested in:
   financial services).
 - Updated profiles when underlying regulations amend.
 
-See [CONTRIBUTING](https://github.com/Skelf-Research/regulus/blob/main/CONTRIBUTING.md).
+See [CONTRIBUTING](https://github.com/neul-labs/regulus/blob/main/CONTRIBUTING.md).

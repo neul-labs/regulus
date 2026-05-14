@@ -43,7 +43,7 @@ regulus:
 ./gradlew :examples:adk-vertex-agent-engine-deploy:jib
 ```
 
-Jib pushes `ghcr.io/skelf-research/regulus-adk-demo:<version>` (or
+Jib pushes `ghcr.io/neul-labs/regulus-adk-demo:<version>` (or
 wherever you configure).
 
 ## 3. Run the build-time doctor
@@ -60,7 +60,7 @@ service.
 ## 4. Deploy
 
 ```bash
-adk deploy --image ghcr.io/skelf-research/regulus-adk-demo:0.1.0 \
+adk deploy --image ghcr.io/neul-labs/regulus-adk-demo:0.1.0 \
            --location europe-west2 \
            --project $GOOGLE_CLOUD_PROJECT
 ```

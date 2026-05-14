@@ -22,7 +22,7 @@ Three primary channels, in priority order:
    is symmetric.
 
 3. **GitHub Container Registry** — reference container image for the
-   Vertex deploy example at `ghcr.io/skelf-research/regulus-adk-demo`.
+   Vertex deploy example at `ghcr.io/neul-labs/regulus-adk-demo`.
 
 Plus a mirror to GitHub Packages for users who prefer that.
 
@@ -41,7 +41,7 @@ Plus a mirror to GitHub Packages for users who prefer that.
 - The Gradle Plugin Portal is the only way to ship a Gradle plugin people
   will discover by ID. We could mirror to Maven Central but the portal is
   the source of truth.
-- GHCR matches where Skelf Research already ships container images;
+- GHCR matches where Neul Labs already ships container images;
   picking a public registry that ADK users already trust matters.
 
 ## Pre-release admin
