@@ -13,6 +13,9 @@ dependencyManagement {
 dependencies {
     api(platform(project(":platform:regulus-ai-bom")))
 
+    // Canonical Identity & roles
+    api(project(":platform:core:regulus-ai-identity"))
+
     // Spring Boot
     api("org.springframework.boot:spring-boot-starter")
     api("org.springframework.boot:spring-boot-starter-aop")

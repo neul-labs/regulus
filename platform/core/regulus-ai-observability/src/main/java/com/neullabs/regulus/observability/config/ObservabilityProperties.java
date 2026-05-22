@@ -126,6 +126,7 @@ public class ObservabilityProperties {
         private String kafkaTopic = "regulus-audit-events";
         private boolean includeRequestPayload = false;
         private boolean includeResponsePayload = false;
+        private IntegrityConfig integrity = new IntegrityConfig();
 
         public boolean isEnabled() {
             return enabled;
@@ -165,6 +166,40 @@ public class ObservabilityProperties {
 
         public void setIncludeResponsePayload(boolean includeResponsePayload) {
             this.includeResponsePayload = includeResponsePayload;
+        }
+
+        public IntegrityConfig getIntegrity() {
+            return integrity;
+        }
+
+        public void setIntegrity(IntegrityConfig integrity) {
+            this.integrity = integrity;
+        }
+    }
+
+    /**
+     * Opt-in audit integrity (hash chain + optional signature). Off by
+     * default; regulated tenants enable it and supply a {@code keyId} for
+     * per-event signing.
+     */
+    public static class IntegrityConfig {
+        private boolean enabled = false;
+        private String keyId;
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public String getKeyId() {
+            return keyId;
+        }
+
+        public void setKeyId(String keyId) {
+            this.keyId = keyId;
         }
     }
 }

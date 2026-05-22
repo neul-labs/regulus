@@ -4,8 +4,8 @@ import com.neullabs.regulus.compliance.AuditSchema;
 import com.neullabs.regulus.compliance.ComplianceProfile;
 import com.neullabs.regulus.compliance.ControlBinding;
 import com.neullabs.regulus.compliance.EventCompactionPolicy;
-import com.neullabs.regulus.compliance.Jurisdiction;
 import com.neullabs.regulus.compliance.ResidencyPolicy;
+import com.neullabs.regulus.identity.Jurisdiction;
 
 import java.time.Duration;
 import java.util.Set;

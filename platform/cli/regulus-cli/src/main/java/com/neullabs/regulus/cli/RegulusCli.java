@@ -2,6 +2,7 @@ package com.neullabs.regulus.cli;
 
 import com.neullabs.regulus.cli.cmd.DoctorCommand;
 import com.neullabs.regulus.cli.cmd.InitCommand;
+import com.neullabs.regulus.cli.cmd.audit.AuditCommand;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -30,7 +31,8 @@ import java.util.concurrent.Callable;
         description = "Scaffold compliant ADK agents and check project health.",
         subcommands = {
                 InitCommand.class,
-                DoctorCommand.class
+                DoctorCommand.class,
+                AuditCommand.class
         })
 public final class RegulusCli implements Callable<Integer> {
 

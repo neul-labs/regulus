@@ -82,5 +82,6 @@ a starter template.
 
 ## Next
 
+- [Security architecture → Kill-switch authorization](../advanced/security-architecture.md#kill-switch-authorization) — the `KillSwitchAuthorizer` SPI and why approver-distinctness is on `Principal.id`, not strings.
 - [Glossary](glossary.md)
 - [Plugin reference → RegulusKillSwitchPlugin](../plugins/kill-switch.md)

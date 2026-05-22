@@ -35,7 +35,12 @@ dependencies {
         api("com.neullabs:regulus-ai-governance:${project.version}")
         api("com.neullabs:regulus-ai-grc-adapters:${project.version}")
         api("com.neullabs:regulus-ai-adk-spring-boot-starter:${project.version}")
+        api("com.neullabs:regulus-ai-identity-oidc-spring-boot-starter:${project.version}")
         api("com.neullabs:regulus-cli:${project.version}")
+
+        // Regulus Platform Modules — canonical identity (leaf)
+        api("com.neullabs:regulus-ai-identity:${project.version}")
+        api("com.neullabs:regulus-ai-identity-bridge:${project.version}")
 
         // Regulus Platform Modules — existing
         api("com.neullabs:regulus-ai-agents-spring-boot-starter:${project.version}")

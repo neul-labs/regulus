@@ -2,6 +2,13 @@
 
 Agent-to-Agent (A2A) protocol for cross-agent communication and task coordination.
 
+!!! note "Cross-org calls are signed"
+    For cross-organisation deployments where audit linking matters, Regulus
+    signs outbound A2A envelopes with RFC 9421 HTTP Message Signatures and
+    verifies inbound ones via the same SPI. See
+    [Security architecture → A2A request signing](../../advanced/security-architecture.md#a2a-request-signing)
+    for the signature base, replay protection, and key-rotation surface.
+
 ## Overview
 
 The A2A protocol enables AI agents to:

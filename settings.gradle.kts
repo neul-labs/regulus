@@ -4,6 +4,10 @@ include(
     // Bill of Materials
     "platform:regulus-ai-bom",
 
+    // Core Libraries — canonical identity & adapter SPI (leaf module)
+    "platform:core:regulus-ai-identity",
+    "platform:core:regulus-ai-identity-bridge",
+
     // Core Libraries — existing
     "platform:core:regulus-ai-policy",
     "platform:core:regulus-ai-privacy",
@@ -27,6 +31,7 @@ include(
     "platform:starters:regulus-ai-governance-starter",
     "platform:starters:regulus-ai-safety-starter",
     "platform:starters:regulus-ai-adk-spring-boot-starter",
+    "platform:starters:regulus-ai-identity-oidc-spring-boot-starter",
 
     // DSL Parsers
     "platform:dsl:regulus-ai-dsl-kotlin",

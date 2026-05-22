@@ -106,6 +106,7 @@ nav:
       - Frameworks vs regulations: concepts/frameworks-vs-regulations.md
       - EU vs UK landscape: concepts/eu-uk-landscape.md
       - Controller, processor, deployer: concepts/controller-processor-deployer.md
+      - Security model: concepts/security-model.md
       - Risk tiers: concepts/risk-tiers.md
       - Audit trails: concepts/audit-trails.md
       - Data residency: concepts/data-residency.md
@@ -173,6 +174,12 @@ nav:
       - DORA incident response: operations/dora-incident-response.md
       - Vertex AI Agent Engine hardening: operations/vertex-agent-engine-hardening.md
       - Custom profiles: operations/custom-profiles.md
+  - Advanced:
+      - Security architecture: advanced/security-architecture.md
+      - Custom policy guards: advanced/custom-policy-guards.md
+      - Custom privacy filters: advanced/custom-privacy-filters.md
+      - DSL configuration: advanced/dsl-configuration.md
+      - Production hardening: advanced/production-hardening.md
   - Reference:
       - BOM coordinates: reference/bom.md
       - CLI: reference/cli.md

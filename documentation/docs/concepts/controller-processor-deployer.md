@@ -68,6 +68,7 @@ Regulus' audit trail records the right things for both roles:
 
 ## Next
 
+- [Security model](security-model.md) — these roles are encoded as `Claims` on every `Identity`.
 - [Risk tiers](risk-tiers.md) — provider vs. deployer obligations split by
   risk tier.
 - [Audit trails](audit-trails.md) — fields that map to each role.

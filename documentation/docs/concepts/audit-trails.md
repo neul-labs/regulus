@@ -111,6 +111,8 @@ regulator's record-keeping mandate overrides the subject's erasure right.
 
 ## Next
 
+- [Security model](security-model.md) — every audit event carries the canonical `Principal` that the call ran under.
+- [Security architecture → Audit integrity](../advanced/security-architecture.md#audit-integrity) — the opt-in hash chain that makes the trail tamper-evident.
 - [Data residency](data-residency.md)
 - [Plugin reference → RegulusAuditPlugin](../plugins/audit.md)
 - [Operations → Audit retention runbook](../operations/audit-retention-runbook.md)
