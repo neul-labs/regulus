@@ -34,12 +34,15 @@ term that isn't pure CS vocabulary.
    and laws. Pin this open while you read anything else.
 6. **[Controller, processor, deployer](controller-processor-deployer.md)** —
    the three roles a developer keeps tripping over.
-7. **[Risk tiers](risk-tiers.md)** — EU AI Act's pyramid, PRA SS1/23's model
+7. **[Security model](security-model.md)** — the canonical `Principal` +
+   `Claims` shape every IdP adapter mints; the trust boundaries; what
+   Regulus refuses to do.
+8. **[Risk tiers](risk-tiers.md)** — EU AI Act's pyramid, PRA SS1/23's model
    risk tiers, and how Regulus maps both.
-8. **[Audit trails](audit-trails.md)** — what auditors actually look at, in
+9. **[Audit trails](audit-trails.md)** — what auditors actually look at, in
    engineering terms.
-9. **[Data residency](data-residency.md)** — why the LLM endpoint's location
-   is a legal question.
-10. **[Dual control / 4-eyes](dual-control.md)** — the banking primitive that
+10. **[Data residency](data-residency.md)** — why the LLM endpoint's location
+    is a legal question.
+11. **[Dual control / 4-eyes](dual-control.md)** — the banking primitive that
     the EU AI Act and PRA both demand for AI.
-11. **[Glossary](glossary.md)** — every acronym, one line each.
+12. **[Glossary](glossary.md)** — every acronym, one line each.

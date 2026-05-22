@@ -1,11 +1,15 @@
 package com.neullabs.regulus.observability.config;
 
+import com.neullabs.regulus.identity.crypto.KeyProvider;
 import com.neullabs.regulus.observability.audit.AuditLogger;
+import com.neullabs.regulus.observability.audit.integrity.AuditChain;
+import com.neullabs.regulus.observability.audit.integrity.HashChainAuditChain;
 import com.neullabs.regulus.observability.metrics.AiMetrics;
 import com.neullabs.regulus.observability.tracing.AiTracing;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -44,10 +48,21 @@ public class ObservabilityAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(name = "regulus.ai.observability.audit.integrity.enabled", havingValue = "true")
+    public AuditChain auditChain(ObjectProvider<KeyProvider> keyProviders) {
+        KeyProvider provider = keyProviders.getIfAvailable();
+        log.info("Audit integrity enabled — using HashChainAuditChain (signing {})",
+                provider == null ? "disabled" : "enabled");
+        return new HashChainAuditChain(provider);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnProperty(name = "regulus.ai.observability.audit.enabled", havingValue = "true", matchIfMissing = true)
-    public AuditLogger auditLogger(ObservabilityProperties properties) {
+    public AuditLogger auditLogger(ObservabilityProperties properties, ObjectProvider<AuditChain> chains) {
         log.info("Creating AuditLogger with sink: {}", properties.getAudit().getSink());
-        AuditLogger logger = new AuditLogger();
+        AuditChain chain = chains.getIfAvailable();
+        AuditLogger logger = new AuditLogger(chain);
 
         // Add Kafka sink if configured
         if ("kafka".equals(properties.getAudit().getSink()) ||

@@ -14,6 +14,7 @@ dependencies {
 
     api("com.google.adk:google-adk")
 
+    api(project(":platform:core:regulus-ai-identity"))
     api(project(":platform:core:regulus-ai-adk-plugins"))
     api(project(":platform:core:regulus-ai-observability"))
 

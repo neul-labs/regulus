@@ -85,8 +85,15 @@ and audit emission — and the evidence flows to your GRC tool.**
 
 ## What you see when a request comes in
 
-Inbound: `POST /chat` with `X-Purpose-Code: greeting-test` and prompt
+Inbound: `POST /chat` with a JWT from your enterprise IdP (Okta /
+Auth0 / Keycloak — the included OIDC adapter handles all three; SAML
+and mTLS plug in through the same `IdentityAdapter` SPI) and prompt
 `"Hello, my NINO is AB123456C, can you confirm?"`.
+
+The Regulus filter validates the JWT through Spring Security, mints a
+canonical `Identity` (subject + tenant + jurisdiction + purpose +
+roles + lawful basis), and binds it to the request thread before any
+plugin runs.
 
 The prompt that reaches the model:
 
@@ -101,6 +108,9 @@ The audit event (one of several emitted — model-call shown here):
   "event_id": "01J6X4ABCDEFG",
   "occurred_at": "2026-05-14T11:23:09.123Z",
   "actor": "user:42",
+  "tenant_id": "acme-bank",
+  "jurisdiction": "EU_UK",
+  "identity_adapter": "oidc",
   "smf_holder": "SMF24:Jane Smith",
   "action": "model-call",
   "result": "allow",
@@ -113,9 +123,19 @@ The audit event (one of several emitted — model-call shown here):
   "ai_act_risk_tier": "limited",
   "consumer_duty_outcome": "support",
   "redactions": ["NINO_1"],
-  "mechanism": "pii-redaction"
+  "mechanism": "pii-redaction",
+  "chain_index": 1284,
+  "prev_event_hash": "9f3e…",
+  "event_hash": "1c87…"
 }
 ```
+
+The `tenant_id` / `jurisdiction` / `identity_adapter` fields come from
+the canonical `Identity` the IdP adapter minted on the inbound side.
+The `chain_index` and `prev_event_hash` / `event_hash` fields appear
+when `regulus.ai.observability.audit.integrity.enabled=true` — they
+let an auditor run `regulus audit verify ./chain.jsonl` offline and
+prove tamper-evidence without a running Regulus stack.
 
 The same event becomes a `GrcEvidenceEnvelope` and lands in your GRC
 tool (here, stdout for the demo — in production: ServiceNow IRM, OneTrust

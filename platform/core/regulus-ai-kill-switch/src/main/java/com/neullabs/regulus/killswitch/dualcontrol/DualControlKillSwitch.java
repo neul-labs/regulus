@@ -1,5 +1,7 @@
 package com.neullabs.regulus.killswitch.dualcontrol;
 
+import com.neullabs.regulus.identity.Identity;
+import com.neullabs.regulus.killswitch.authz.KillSwitchAuthorizer;
 import com.neullabs.regulus.killswitch.interceptor.KillSwitchManager;
 import com.neullabs.regulus.killswitch.model.KillSwitchState;
 import org.slf4j.Logger;
@@ -30,13 +32,76 @@ public class DualControlKillSwitch {
 
     private final KillSwitchManager killSwitchManager;
     private final DualControlConfig config;
+    private final Optional<KillSwitchAuthorizer> authorizer;
     private final Map<String, PendingRequest> pendingRequests = new ConcurrentHashMap<>();
     private final List<DualControlAuditEntry> auditLog = Collections.synchronizedList(new ArrayList<>());
 
     public DualControlKillSwitch(KillSwitchManager killSwitchManager, DualControlConfig config) {
+        this(killSwitchManager, config, null);
+    }
+
+    public DualControlKillSwitch(KillSwitchManager killSwitchManager, DualControlConfig config,
+                                 KillSwitchAuthorizer authorizer) {
         this.killSwitchManager = killSwitchManager;
         this.config = config;
-        log.info("Dual-control kill switch initialized with {} required approvers", config.getRequiredApprovers());
+        this.authorizer = Optional.ofNullable(authorizer);
+        log.info("Dual-control kill switch initialized with {} required approvers (authorizer: {})",
+                config.getRequiredApprovers(),
+                this.authorizer.isPresent() ? "Identity-backed" : "legacy string-based");
+    }
+
+    /**
+     * Identity-backed overload of {@link #requestGlobalActivation(String, String, boolean)}.
+     * The caller's {@link Identity} is checked against the configured
+     * {@link KillSwitchAuthorizer} before any audit or state mutation. The
+     * approver-distinctness check downstream uses
+     * {@link com.neullabs.regulus.identity.Principal#id()} so two distinct
+     * subjects are required, not just two distinct strings.
+     *
+     * @return the request ID, or {@code null} if executed immediately
+     *         (emergency bypass or single-control mode), or {@code null} if
+     *         the Identity is not authorized
+     */
+    public String requestGlobalActivation(Identity identity, String reason, boolean emergency) {
+        if (identity == null) {
+            log.warn("Kill-switch activation rejected: no Identity supplied");
+            return null;
+        }
+        if (emergency) {
+            if (!authorizer.map(a -> a.canEmergencyBypass(identity)).orElse(true)) {
+                log.warn("Emergency bypass refused for Identity {} (lacks role)", identity.principal().id());
+                recordAudit(null, ActionType.UNAUTHORIZED_APPROVAL, KillSwitchState.Scope.GLOBAL, null,
+                        reason, identity.principal().id(), null, false);
+                return null;
+            }
+        } else if (!authorizer.map(a -> a.canRequest(identity, KillSwitchState.Scope.GLOBAL)).orElse(true)) {
+            log.warn("Activation request refused for Identity {} (lacks role)", identity.principal().id());
+            recordAudit(null, ActionType.UNAUTHORIZED_APPROVAL, KillSwitchState.Scope.GLOBAL, null,
+                    reason, identity.principal().id(), null, false);
+            return null;
+        }
+        return requestGlobalActivation(reason, identity.principal().id(), emergency);
+    }
+
+    /**
+     * Identity-backed overload of {@link #approve(String, String)}.
+     * Approver-distinctness is enforced on {@code Principal.id()}, not on
+     * arbitrary opaque strings.
+     */
+    public boolean approve(String requestId, Identity approver) {
+        if (approver == null) {
+            log.warn("Approval rejected: no Identity supplied for request {}", requestId);
+            return false;
+        }
+        PendingRequest request = pendingRequests.get(requestId);
+        if (request != null && !authorizer.map(a -> a.canApprove(approver, request.scope)).orElse(true)) {
+            log.warn("Approval refused for Identity {} on request {} (lacks role)",
+                    approver.principal().id(), requestId);
+            recordAudit(requestId, ActionType.UNAUTHORIZED_APPROVAL, request.scope, request.targetId,
+                    request.reason, request.requestedBy, approver.principal().id(), false);
+            return false;
+        }
+        return approve(requestId, approver.principal().id());
     }
 
     /**
@@ -47,7 +112,13 @@ public class DualControlKillSwitch {
      * @param requestedBy the user requesting activation
      * @param emergency if true, bypasses dual control for immediate activation
      * @return the request ID or null if immediately activated (emergency)
+     * @deprecated prefer {@link #requestGlobalActivation(Identity, String, boolean)} —
+     *     the Identity overload checks the caller's role against the
+     *     configured {@link KillSwitchAuthorizer} before mutating state.
+     *     This String overload remains for backwards compatibility but
+     *     skips authorization when an authorizer is configured.
      */
+    @Deprecated
     public String requestGlobalActivation(String reason, String requestedBy, boolean emergency) {
         if (emergency && config.isAllowEmergencyBypass()) {
             log.warn("EMERGENCY KILL SWITCH ACTIVATION by {}: {}", requestedBy, reason);
@@ -171,7 +242,11 @@ public class DualControlKillSwitch {
      * @param requestId the request ID
      * @param approver the approving user
      * @return true if the request was approved and executed
+     * @deprecated prefer {@link #approve(String, Identity)} — the Identity
+     *     overload checks the approver's role and enforces
+     *     approver-distinctness on {@code Principal.id()}.
      */
+    @Deprecated
     public boolean approve(String requestId, String approver) {
         PendingRequest request = pendingRequests.get(requestId);
 

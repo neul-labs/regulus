@@ -4,15 +4,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.neullabs.regulus.observability.audit.integrity.AuditChain;
+import com.neullabs.regulus.observability.audit.integrity.SealedAuditEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Central audit logging service for compliance events.
- * Supports multiple audit sinks (log, Kafka, database).
+ * Supports multiple audit sinks (log, Kafka, database). When an
+ * {@link AuditChain} is configured, every event is sealed into a
+ * {@link SealedAuditEvent} before fan-out so sinks persist the tamper-evident
+ * form. When no chain is configured, behaviour is identical to the
+ * pre-integrity implementation.
  */
 public class AuditLogger {
 
@@ -21,12 +28,18 @@ public class AuditLogger {
 
     private final ObjectMapper objectMapper;
     private final List<AuditSink> sinks;
+    private final Optional<AuditChain> chain;
 
     public AuditLogger() {
+        this(null);
+    }
+
+    public AuditLogger(AuditChain chain) {
         this.objectMapper = new ObjectMapper()
             .registerModule(new JavaTimeModule())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         this.sinks = new CopyOnWriteArrayList<>();
+        this.chain = Optional.ofNullable(chain);
 
         // Always log to structured logger
         sinks.add(new LoggingAuditSink());
@@ -37,13 +50,24 @@ public class AuditLogger {
         log.info("Added audit sink: {}", sink.getClass().getSimpleName());
     }
 
+    public Optional<AuditChain> chain() {
+        return chain;
+    }
+
     /**
-     * Log an audit event to all configured sinks.
+     * Log an audit event to all configured sinks. When an {@link AuditChain}
+     * is configured, the event is sealed first so each sink sees the same
+     * tamper-evident wrapper via {@link AuditSink#writeSealed(SealedAuditEvent)}.
      */
     public void log(AuditEvent event) {
+        SealedAuditEvent sealed = chain.map(c -> c.append(event)).orElse(null);
         for (AuditSink sink : sinks) {
             try {
-                sink.write(event);
+                if (sealed != null) {
+                    sink.writeSealed(sealed);
+                } else {
+                    sink.write(event);
+                }
             } catch (Exception e) {
                 log.error("Failed to write audit event to sink {}: {}",
                     sink.getClass().getSimpleName(), e.getMessage());
@@ -110,14 +134,23 @@ public class AuditLogger {
     }
 
     /**
-     * Audit sink interface for pluggable audit destinations.
+     * Audit sink interface for pluggable audit destinations. Sinks that want
+     * to surface chain metadata should override {@link #writeSealed} —
+     * the default delegates to {@link #write(AuditEvent)} so existing sinks
+     * keep working when integrity is enabled.
      */
     public interface AuditSink {
         void write(AuditEvent event);
+
+        default void writeSealed(SealedAuditEvent sealed) {
+            write(sealed.event());
+        }
     }
 
     /**
-     * Default logging sink that writes to structured logger.
+     * Default logging sink that writes to structured logger. When integrity
+     * is enabled, the sealed wrapper (hash + chain index) is serialised so
+     * the log line itself is the offline-verifiable record.
      */
     private class LoggingAuditSink implements AuditSink {
         @Override
@@ -129,6 +162,17 @@ public class AuditLogger {
                 log.error("Failed to serialize audit event", e);
                 auditLog.info("type={} correlationId={} outcome={}",
                     event.type(), event.correlationId(), event.outcome());
+            }
+        }
+
+        @Override
+        public void writeSealed(SealedAuditEvent sealed) {
+            try {
+                String json = objectMapper.writeValueAsString(sealed);
+                auditLog.info(json);
+            } catch (JsonProcessingException e) {
+                log.error("Failed to serialize sealed audit event", e);
+                write(sealed.event());
             }
         }
     }

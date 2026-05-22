@@ -57,14 +57,18 @@ applies.
 
 - **Logging (Art. 12).** Automatic, machine-readable logs sufficient to trace
   the system's functioning. Keep them at least 6 months; longer for high-risk
-  systems in regulated sectors. *Regulus' audit trail is built for this.*
+  systems in regulated sectors. *Regulus' audit trail is built for this; the
+  opt-in [hash-chain integrity](../../advanced/security-architecture.md#audit-integrity)
+  adds tamper-evidence.*
 - **Human oversight (Art. 14).** A natural person must be able to interrupt,
   override, or refuse to follow the AI's output. For high-risk: documented
   oversight procedure and training. *Regulus' kill switch + ADK
   ToolConfirmation map directly.*
 - **Accuracy, robustness, cybersecurity (Art. 15).** Quantitative measures
-  and reporting. *Regulus is part of the cybersecurity story; accuracy is
-  outside our scope.*
+  and reporting. *Regulus is part of the cybersecurity story; see
+  [Security architecture](../../advanced/security-architecture.md) for the
+  threat model, identity contract, and A2A signing. Accuracy is outside
+  our scope.*
 - **Risk-management system (Art. 9).** Lifecycle process, documented, kept
   current. *Regulus contributes the technical evidence; the system itself
   is your governance function.*

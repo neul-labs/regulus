@@ -2,6 +2,13 @@
 
 Security and performance hardening for production deployments.
 
+!!! note "Architecture vs. operations"
+    This page is the **operational** checklist — TLS, secrets, RBAC, network
+    boundaries. For the **architecture** (identity contract, IdentityAdapter
+    SPI, threat model, A2A signing, audit integrity, kill-switch
+    authorisation), see
+    [Security architecture](security-architecture.md).
+
 ## Security Hardening
 
 ### Authentication & Authorization

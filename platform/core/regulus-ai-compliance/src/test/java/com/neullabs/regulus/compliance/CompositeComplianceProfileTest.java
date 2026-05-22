@@ -1,5 +1,7 @@
 package com.neullabs.regulus.compliance;
 
+import com.neullabs.regulus.identity.Jurisdiction;
+
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;

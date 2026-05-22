@@ -15,6 +15,8 @@ dependencies {
     // Pure-Java compliance descriptors — no ADK or Spring required here.
     // Plugins and services depend on this module, not the other way around.
 
+    api(project(":platform:core:regulus-ai-identity"))
+
     implementation("com.fasterxml.jackson.core:jackson-databind")
 
     testImplementation("org.junit.jupiter:junit-jupiter")

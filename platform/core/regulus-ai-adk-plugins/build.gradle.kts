@@ -16,6 +16,7 @@ dependencies {
     api("com.google.adk:google-adk")
 
     // Sibling Regulus modules whose mechanisms these plugins expose
+    api(project(":platform:core:regulus-ai-identity"))
     api(project(":platform:core:regulus-ai-policy"))
     api(project(":platform:core:regulus-ai-privacy"))
     api(project(":platform:core:regulus-ai-kill-switch"))

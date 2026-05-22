@@ -31,6 +31,7 @@ accepts.
 | You are… | Start here |
 |---|---|
 | **An engineer** new to Regulus | [Why Regulus](why-regulus.md) → [Show me](show-me.md) → [Install the CLI](getting-started/install-cli.md) |
+| **A security architect / enterprise IT** | [Security model](concepts/security-model.md) → [Security architecture](advanced/security-architecture.md) → [Production hardening](advanced/production-hardening.md) |
 | **A governance leader** (CISO / CAIO / CRO / 2L / 3L) | [Governance overview](governance/index.md) → [Three Lines of Defence](governance/three-lines/index.md) → [GRC integration](governance/grc/index.md) |
 | **Preparing for ISO 42001 certification** | [ISO/IEC 42001](governance/frameworks/iso-42001.md) → [Audit walkthrough](compliance/audit-walkthrough.md) → [Program operating model](governance/program-operating-model.md) |
 | **New to regulatory vocabulary** | [What is regtech?](concepts/regtech-intro.md) → [What is AI governance?](concepts/ai-governance-intro.md) → [Glossary](concepts/glossary.md) |
@@ -54,9 +55,12 @@ of the unbuilt cost**.
 
 | Control | Build it yourself | Regulus |
 |---|---|---|
+| Enterprise SSO → policy/audit identity model | ~5 engineer-weeks | `IdentityAdapter` SPI + OIDC adapter |
 | PII redaction + tests + audit | ~3 engineer-weeks | One plugin |
-| Dual-control kill switch | ~4 engineer-weeks | One plugin |
+| Dual-control kill switch (Identity-gated) | ~4 engineer-weeks | One plugin + `KillSwitchAuthorizer` |
 | Audit pipeline + retention + erasure | ~6 engineer-weeks | One plugin + compactor |
+| Tamper-evident audit chain + offline verifier | ~3 engineer-weeks | Opt-in flag + `regulus audit verify` |
+| Cross-org A2A request signing (RFC 9421) | ~4 engineer-weeks | `A2ARequestSigner` SPI |
 | Residency proof + fail-closed startup | ~2 engineer-weeks | One plugin |
 | EU AI Act Annex III classification | ~5 engineer-weeks | One plugin |
 | NIST AI RMF / 600-1 control mapping | ~6 program-weeks | One framework binding |
@@ -70,6 +74,7 @@ Full breakdown at [Compliance → Time saved](compliance/time-saved.md).
 - New to regtech? [What is regtech?](concepts/regtech-intro.md)
 - New to ADK? [ADK quickstart](getting-started/adk-quickstart.md)
 - Want the regulation map? [EU vs UK landscape](concepts/eu-uk-landscape.md)
+- Asking "how does SSO fit?" [Security model](concepts/security-model.md) → [Security architecture](advanced/security-architecture.md)
 - Want the plugin reference? [Plugins overview](plugins/index.md)
 - Want the regulation reference? [Compliance overview](compliance/index.md)
 - Want the governance reference? [Governance overview](governance/index.md)

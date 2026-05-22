@@ -124,6 +124,9 @@ regulus:
   "event_id": "01J6X4ABCDEFG",
   "occurred_at": "2026-05-14T11:23:09.123Z",
   "actor": "user:42",
+  "tenant_id": "acme-bank",
+  "jurisdiction": "EU_UK",
+  "identity_adapter": "oidc",
   "smf_holder": "SMF24:Jane Smith",
   "action": "model-call",
   "result": "allow",
@@ -132,32 +135,79 @@ regulus:
   "framework_control_id": "A.7.3",
   "ai_act_risk_tier": "limited",
   "consumer_duty_outcome": "support",
-  "redactions": ["NINO_1"]
+  "redactions": ["NINO_1"],
+  "chain_index": 1284,
+  "prev_event_hash": "9f3e…",
+  "event_hash": "1c87…"
 }
 ```
 
 That JSON has the regulation citation, the ISO 42001 control id, the
-SMF attribution, the redactions, and the outcome — all in one event. Your
-2L attests from it. Your 3L reproduces it. Your DPO answers their SAR
-from it. None of which works one hour ago.
+SMF attribution, the redactions, the outcome — **plus the tenant, the
+jurisdiction, the IdP adapter that authenticated the caller, and the
+hash chain that makes the trail tamper-evident** — all in one event.
+Your 2L attests from it. Your 3L reproduces it. Your DPO answers their
+SAR from it. Your security architect verifies the chain offline with
+`regulus audit verify`. None of which works one hour ago.
 
 ## What you get
 
-- **6 ADK `BasePlugin`s** — policy, privacy, audit, kill switch, model risk, residency.
-- **6 ADK service extensions** — Vertex + Firestore sessions/memory, GCS artifact, retention compactor, computer-use, plus A2A envelope.
+- **Canonical identity plane** — one `Principal` + `Claims` shape; OIDC adapter included, SAML / mTLS / service-account JWT via the `IdentityAdapter` SPI.
+- **6 ADK `BasePlugin`s** — policy, privacy, audit, kill switch, model risk, residency. (Plus a leading `RegulusIdentityExpiryGuard` for token-expiry enforcement.)
+- **6 ADK service extensions** — Vertex + Firestore sessions/memory, GCS artifact, retention compactor, computer-use, plus A2A envelope with RFC 9421 HTTP Message Signatures for cross-org calls.
+- **Opt-in audit integrity** — SHA-256 hash chain over every event, optional per-event signature, offline verifier (`regulus audit verify <chain.jsonl>`).
 - **10 regulation profiles** — EU AI Act, GDPR, UK GDPR, DORA, NIS2, FCA SYSC, PRA SS1/23 + SS2/21, NHS DSPT, EHDS.
 - **6 governance frameworks** — NIST AI RMF + 600-1 GenAI Profile + planned Q4 2026 Agent Interop Profile, ISO/IEC 42001 (with SoA generator), ISO/IEC 23894, ISO/IEC 23053.
 - **4 GRC adapters** — ServiceNow IRM, OneTrust AI Governance, MetricStream, generic HMAC-signed webhook.
-- **CLI + Gradle plugin** — scaffold, doctor, compliance scan, coverage matrix.
+- **CLI + Gradle plugin** — scaffold, doctor, compliance scan, coverage matrix, audit verify.
 
 Full mapping (regulation × framework × control × ADK hook) at the
 [coverage matrix](https://docs.neullabs.com/compliance/coverage-matrix/).
+
+## Built for regulated enterprises
+
+Every choice in the platform anticipates the questions a CISO, a head of
+internal audit, or an external assessor will ask on day one.
+
+- **Enterprise SSO from day one.** Your IdP — Okta, Auth0, Keycloak,
+  ADFS, an in-house mTLS scheme — plugs in as an `IdentityAdapter` that
+  mints a canonical `Identity`. OIDC ships out of the box; SAML and
+  mTLS adapters are tens of lines. Regulus refuses to be your IdP — it
+  consumes the result.
+- **Multi-tenant + multi-jurisdiction by design.** `tenantId` and
+  `jurisdiction` are first-class claims on every audit event and every
+  policy decision. The same deployment handles EU-only traffic,
+  UK-only traffic, and EU+UK composite tenants without code changes.
+- **Tamper-evident audit trail.** Opt-in `regulus.ai.observability.audit.integrity.enabled=true`
+  switches on a SHA-256 hash chain. Auditors verify the chain offline
+  against a copy of the log; mutation, reorder, or gaps fail
+  verification.
+- **Signed cross-org A2A calls.** When agents from different
+  organisations collaborate, outbound JSON-RPC envelopes are signed
+  with RFC 9421 HTTP Message Signatures over method, target URI, body
+  digest, tenant id, and correlation id. Replay protection via nonce
+  + timestamp window. The inbound side reconstructs the caller's
+  Identity from the verified envelope before any policy guard runs.
+- **Identity-backed dual control.** Kill-switch activation and
+  approval gate on `Identity` roles (`regulus.killswitch.requester /
+  .approver / .emergency`), with approver-distinctness enforced on
+  `Principal.id` so two distinct subjects are required — not two
+  distinct typed names.
+- **Clear security model + threat model.** What Regulus defends
+  against, what it doesn't, where the trust boundaries are, what
+  happens when each one breaks — all documented at
+  [Security architecture](https://docs.neullabs.com/advanced/security-architecture/).
+
+The architecture is one canonical primitive with replaceable adapters,
+not a grab-bag of per-protocol code paths. That is what keeps the
+compliance story coherent as the protocol mix shifts under you.
 
 ## Choose your path
 
 | You are… | Start here |
 |---|---|
 | **An engineer** new to Regulus | [Why Regulus](https://docs.neullabs.com/why-regulus/) → [Show me](https://docs.neullabs.com/show-me/) → [Install the CLI](https://docs.neullabs.com/getting-started/install-cli/) |
+| **A security architect / enterprise IT** | [Security model](https://docs.neullabs.com/concepts/security-model/) → [Security architecture](https://docs.neullabs.com/advanced/security-architecture/) → [Production hardening](https://docs.neullabs.com/advanced/production-hardening/) |
 | **A governance leader** (CISO / CAIO / CRO / 2L / 3L) | [Governance overview](https://docs.neullabs.com/governance/) → [Three Lines of Defence](https://docs.neullabs.com/governance/three-lines/) → [GRC integration](https://docs.neullabs.com/governance/grc/) |
 | **Preparing for ISO 42001 certification** | [ISO/IEC 42001](https://docs.neullabs.com/governance/frameworks/iso-42001/) → [Audit walkthrough](https://docs.neullabs.com/compliance/audit-walkthrough/) → [Program operating model](https://docs.neullabs.com/governance/program-operating-model/) |
 | **New to regulatory vocabulary** | [Concepts → What is regtech?](https://docs.neullabs.com/concepts/regtech-intro/) → [Concepts → What is AI governance?](https://docs.neullabs.com/concepts/ai-governance-intro/) → [Glossary](https://docs.neullabs.com/concepts/glossary/) |
@@ -170,14 +220,15 @@ rewriting:
 
 | ADK seam | Regulus implementation |
 |---|---|
+| Inbound HTTP / Spring SecurityContext | `OidcSecurityContextFilter` → `IdentityAdapter` → `IdentityHolder` (canonical Identity bound before any callback fires) |
 | `BeforeAgentCallback` | `RegulusKillSwitchPlugin`, `RegulusDataResidencyPlugin` |
-| `BeforeModelCallback` | `RegulusPolicyPlugin`, `RegulusPrivacyPlugin` (mutating), `RegulusModelRiskPlugin` |
-| `AfterModelCallback` | `RegulusPrivacyPlugin` (re-redact), `RegulusAuditPlugin` |
+| `BeforeModelCallback` | `RegulusIdentityExpiryGuard` (first), `RegulusPolicyPlugin`, `RegulusPrivacyPlugin` (mutating), `RegulusModelRiskPlugin` |
+| `AfterModelCallback` | `RegulusPrivacyPlugin` (re-redact), `RegulusAuditPlugin` (chain-sealed when integrity enabled) |
 | `BeforeToolCallback` | `RegulusPolicyPlugin`, `RegulusModelRiskPlugin` (for code executors) |
-| `ToolConfirmation` | Kill-switch dual control, vulnerable-customer HITL, Art. 22 safeguards |
+| `ToolConfirmation` | Kill-switch dual control (Identity-gated), vulnerable-customer HITL, Art. 22 safeguards |
 | `EventCompactor` | `RegulusRetentionEventCompactor` (regulation-aware retention) |
 | `SessionService` / `MemoryService` / `ArtifactService` | `Regulus*` variants with residency at construction |
-| A2A `RemoteA2AAgent` / `AgentExecutor` | `regulus-ai-adk-a2a` envelope |
+| A2A `RemoteA2AAgent` / `AgentExecutor` | `regulus-ai-adk-a2a` envelope with `A2ARequestSigner` (RFC 9421) for cross-org calls |
 | `BaseComputer` | `RegulusComplianceBaseComputer` (Google flagged as needs-impl) |
 
 `ToolConfirmation` is Google's HITL primitive. Regulus' dual control uses

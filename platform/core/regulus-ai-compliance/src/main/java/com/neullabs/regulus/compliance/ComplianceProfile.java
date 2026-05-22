@@ -1,5 +1,7 @@
 package com.neullabs.regulus.compliance;
 
+import com.neullabs.regulus.identity.Jurisdiction;
+
 import java.util.Set;
 
 /**

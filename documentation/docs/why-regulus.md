@@ -49,9 +49,16 @@ framework*.
 The regulator-facing surface. A typical bank, three months into "we'll
 just build it ourselves," ends up with a backlog like this:
 
+- **Enterprise identity plane** — one canonical `Principal` + `Claims`
+  shape, adapters for OIDC / SAML / mTLS / service-account JWTs, tenant
+  + jurisdiction + purpose + lawful-basis on every audit event, token
+  expiry enforcement, trust-boundary documentation an auditor will
+  accept. Without this, every call's `actor` field is an opaque string
+  whose provenance you can't defend.
 - **Audit pipeline** — structured event schema, immutability guarantees,
   retention windows per active regulation, summarisation past horizon,
-  GDPR Art. 17 erasure path where allowed, signed events for SS1/23.
+  GDPR Art. 17 erasure path where allowed, signed events for SS1/23,
+  tamper-evident hash chain that auditors verify offline.
 - **PII redaction** — pattern library for NINO / IBAN / BIC / sort code /
   email / NHS Number, applied before the prompt leaves the JVM,
   re-applied on streamed output, with stable token IDs so the model can
@@ -68,7 +75,8 @@ just build it ourselves," ends up with a backlog like this:
 - **Compliant `SessionService` / `ArtifactService`** — residency at
   construction, CMEK enforcement, erasure path.
 - **A2A envelope** — propagate the same policy / privacy / audit / kill
-  switch checks across agent hops.
+  switch checks across agent hops, with RFC 9421 HTTP Message Signatures
+  for cross-org audit linking.
 - **Framework mappings** — NIST AI RMF subcategory citations on every
   control, ISO 42001 Annex A binding, Statement of Applicability for
   certification.
@@ -147,5 +155,7 @@ You can be live with all of this in 15 minutes:
 
 - [Show me — the diff](show-me.md) — side-by-side code + audit event sample.
 - [Install the CLI](getting-started/install-cli.md) — get the scaffold tool.
+- [Security model](concepts/security-model.md) — if you're a security architect or enterprise IT lead asking "how does SSO plug into this?"
+- [Security architecture](advanced/security-architecture.md) — threat model, identity contract, A2A signing, audit integrity.
 - [Governance overview](governance/index.md) — if you're a governance leader.
 - [Concepts → What is regtech?](concepts/regtech-intro.md) — if all this is new vocabulary.
