@@ -11,6 +11,7 @@ dependencies {
     // Keeping the fat jar small.
     implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.17.0")
 
     // Audit-chain verification: depend on the leaf identity module + the
     // chain SPI from observability. Spring transitives are excluded so the

@@ -36,6 +36,7 @@ dependencies {
     // JSON for audit event serialization
     implementation("com.fasterxml.jackson.core:jackson-databind")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
 
     // Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")

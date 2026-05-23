@@ -3,6 +3,7 @@ package com.neullabs.regulus.cli.cmd.audit;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.neullabs.regulus.observability.audit.AuditEvent;
 import com.neullabs.regulus.observability.audit.integrity.HashChainAuditChain;
@@ -24,6 +25,7 @@ class AuditVerifyCommandTest {
 
     private final ObjectMapper mapper = JsonMapper.builder()
             .addModule(new JavaTimeModule())
+            .addModule(new Jdk8Module())
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
             .build();
