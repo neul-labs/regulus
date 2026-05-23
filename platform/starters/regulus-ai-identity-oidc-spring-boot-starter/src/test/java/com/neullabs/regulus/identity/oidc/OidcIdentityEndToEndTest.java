@@ -92,7 +92,7 @@ class OidcIdentityEndToEndTest {
                 .containsEntry("regulus.roles",
                         // Set ordering is not guaranteed — both members must be present in the joined string
                         policyCtx.getAttributes().get("regulus.roles"));
-        assertThat(policyCtx.getAttributes().get("regulus.roles"))
+        assertThat((String) policyCtx.getAttributes().get("regulus.roles"))
                 .contains("agent-operator")
                 .contains("regulus.killswitch.requester");
     }
