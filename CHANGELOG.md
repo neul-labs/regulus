@@ -6,6 +6,21 @@ API may change between minor versions.
 
 ## [Unreleased]
 
+## [0.2.1] — 2026-05-26
+
+Patch release fixing two CI-breakers discovered after the `v0.2.0` merge.
+
+### Fixed
+
+- **CLI audit verify** — `SealedAuditEvent` contains `Optional<String>` for the
+  per-event signature slot; Jackson needs `jackson-datatype-jdk8` to
+  (de)serialize it. Added the dependency to `regulus-cli` and
+  `regulus-ai-observability`, and registered `Jdk8Module` in
+  `AuditVerifyCommand` and its test.
+- **OIDC starter test compilation** — `OidcIdentityEndToEndTest` called
+  `assertThat(Object).contains(...)` on a map value; AssertJ has no such
+  overload. Cast the value to `String` before the chain.
+
 ## [0.2.0] — 2026-05-23
 
 The **enterprise security plane** release. Regulus now ships a canonical
@@ -350,6 +365,7 @@ Greenfield release. Users coming from the LangChain4j-only path (the
 demoted `regulus-ai-llm` module): see
 [Reference → Migration from LangChain4j](https://docs.neullabs.com/reference/migration-langchain4j/).
 
-[Unreleased]: https://github.com/neul-labs/regulus/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/neul-labs/regulus/releases/tag/v0.2.0
+[Unreleased]: https://github.com/neul-labs/regulus/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/neul-labs/regulus/releases/tag/v0.2.1
+[0.2.0]: https://github.com/neul-labs/regulus/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/neul-labs/regulus/releases/tag/v0.1.0
