@@ -1,0 +1,28 @@
+# SDKMAN version descriptor for regulus-cli 0.2.1.
+#
+# The CLI ships as a single fat jar at GitHub Releases. SDKMAN's install
+# step extracts the binary to ~/.sdkman/candidates/regulus-cli/current/ and
+# verifies the SHA against `archive.sha256` on the next sync.
+
+name=regulus-cli
+version=0.2.1
+
+# Source artefact — pulled from the GitHub release. SDKMAN will fetch
+# `archive` and verify it against `archive.sha256`.
+archive=https://github.com/neul-labs/regulus/releases/download/v0.2.1/regulus-cli-0.2.1.jar
+archive.sha256=912bb0ff9a0e4f4a3242c5c893dda60139e506e65f885a02c6d33c040bc944a1
+
+# Distinguish binary archive (no extraction needed) from a tarball/zip.
+archive.type=binary
+
+# After extraction, symlink the wrapper script to bin/. The CLI fat jar
+# is invoked via a `java -jar` wrapper that we drop alongside the jar.
+platforms:
+  linux-x64:
+    cmd: java -jar $SDKMAN_DIR/candidates/regulus-cli/current/bin/regulus-cli-0.2.1.jar "$@"
+  linux-arm64:
+    cmd: java -jar $SDKMAN_DIR/candidates/regulus-cli/current/bin/regulus-cli-0.2.1.jar "$@"
+  macosx-x64:
+    cmd: java -jar $SDKMAN_DIR/candidates/regulus-cli/current/bin/regulus-cli-0.2.1.jar "$@"
+  macosx-arm64:
+    cmd: java -jar $SDKMAN_DIR/candidates/regulus-cli/current/bin/regulus-cli-0.2.1.jar "$@"

@@ -1,0 +1,6 @@
+name=regulus-cli
+description=The Regulus compliance plane — scaffold a regulated Google ADK agent in 60 seconds.
+website=https://regulus.neullabs.com
+keywords=java google-adk compliance eu-ai-act gdpr regtech agent scaffold cli
+candidates=regulus
+notes=Regulus ships a CLI for scaffolding compliant Google ADK agents. After `sdk install regulus-cli`, run `regulus init my-agent --profiles=eu-ai-act,uk-gdpr` to generate a working ADK project wired to Regulus plugins. Requires Java 21+ on the PATH.
