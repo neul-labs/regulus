@@ -1,0 +1,24 @@
+jdk:
+  - openjdk21
+
+before_install:
+  # JitPack boots a clean container with the JDK above. Pre-cache the
+  # Gradle wrapper distribution to make the build deterministic.
+  - echo "=== JitPack build for Regulus ==="
+
+env:
+  # The Central Portal auth + signing are not configured on JitPack
+  # runners. Skip the publish tasks by emptying the version suffix
+  # (we want SNAPSHOT-style metadata on these builds anyway).
+  - ORG_GRADLE_PROJECT_signingInMemoryKey=
+  - ORG_GRADLE_PROJECT_signingInMemoryKeyPassword=
+  - ORG_GRADLE_PROJECT_mavenCentralUsername=
+  - ORG_GRADLE_PROJECT_mavenCentralPassword=
+
+install:
+  # JitPack's `install` step runs the actual build. The assemble task
+  # produces every jar/pom that JitPack needs to publish. We avoid
+  # running tests here so the JitPack-published artefact matches the
+  # locally-assembled one (CI on `main` is the test gate; JitPack is
+  # for snapshot consumption only).
+  - ./gradlew --no-daemon clean assemble -x test -x signMavenCentralPublication -x publishAndReleaseToMavenCentral -x publishMavenCentralPublicationToMavenCentral -x publishToMavenLocal
