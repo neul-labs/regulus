@@ -16,8 +16,8 @@ the evidence pipeline writes into every audit event.
 | Framework id | Name | Kind | Notes |
 |---|---|---|---|
 | [`nist-ai-rmf`](nist-ai-rmf.md) | NIST AI Risk Management Framework 1.0 | Voluntary | US reference; GOVERN/MAP/MEASURE/MANAGE |
-| [`nist-ai-rmf-600-1`](nist-ai-rmf.md#gen-ai-profile) | NIST AI 600-1 Generative AI Profile | Voluntary | 12 GAI-specific risks (Jul 2024) |
-| [`nist-ai-rmf-agent-interop`](nist-ai-rmf.md#agent-interop-profile) | NIST AI RMF Agent Interoperability Profile | Voluntary | Planned Q4 2026; placeholder IDs |
+| [`nist-ai-rmf-600-1`](nist-ai-rmf.md#genai-profile) | NIST AI 600-1 Generative AI Profile | Voluntary | 12 GAI-specific risks (Jul 2024) |
+| [`nist-ai-rmf-agent-interop`](nist-ai-rmf.md#agent-interop-profile-planned-q4-2026) | NIST AI RMF Agent Interoperability Profile | Voluntary | Planned Q4 2026; placeholder IDs |
 | [`iso-42001`](iso-42001.md) | ISO/IEC 42001 — AI Management System | Certifiable | Same shape as ISO 27001; SoA mandatory for cert |
 | [`iso-23894`](iso-23894.md) | ISO/IEC 23894 — AI risk management | Standard | Companion to 42001 |
 | [`iso-23053`](iso-23053.md) | ISO/IEC 23053 — AI/ML framework | Standard | Reference architecture for AI/ML |
