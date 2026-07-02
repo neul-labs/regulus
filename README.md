@@ -12,6 +12,8 @@
 Google ADK ships AI agents. **Regulus ships AI agents your regulator
 accepts.**
 
+**[Website](https://regulus.neullabs.com)** · **[Docs](https://docs.neullabs.com/regulus)** · **[GitHub](https://github.com/neul-labs/regulus)**
+
 ---
 
 ## 60s · 5min · 15min
@@ -259,3 +261,15 @@ picked the seams they ship.
 
 Shipped 20 March 2026, ten days ahead of ADK Java 1.0 GA. Tracking ADK
 releases since.
+
+## Part of the Neul Labs toolchain
+
+Part of the [Neul Labs](https://www.neullabs.com) agent-infrastructure toolchain:
+
+| Project | Description |
+| --- | --- |
+| [agentvfs](https://agentvfs.neullabs.com) | Workspace runtime and execution boundary for AI agents. |
+| [memorg](https://memorg.neullabs.com) | Give your LLM a memory that actually works. |
+| [ormai](https://ormai.neullabs.com) | Give your AI agents database access without the risk — safe text-to-SQL. |
+| [mcp-pay](https://mcp-pay.neullabs.com) | Payment awareness layer for MCP (Model Context Protocol). |
+| [closegate](https://closegate.neullabs.com) | The policy chokepoint for finance AI agents. |
